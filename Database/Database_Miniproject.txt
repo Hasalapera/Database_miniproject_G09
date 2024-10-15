@@ -1,9 +1,9 @@
-CREATE DATABASE FacultyTechnology;
-USE FacultyTechnology;
+CREATE DATABASE FacultyofTechnology;
+USE FacultyofTechnology;
 
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
+    username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
     role ENUM('Admin', 'Dean', 'Lecturer', 'Technical Officer', 'Student') NOT NULL,
     first_name VARCHAR(50),
@@ -13,7 +13,7 @@ CREATE TABLE Users (
 
 CREATE TABLE CourseUnits (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
-    course_code VARCHAR(10) UNIQUE NOT NULL,
+    course_code VARCHAR(10) NOT NULL,
     course_name VARCHAR(100) NOT NULL,
     credits INT NOT NULL,
     type ENUM('Theory', 'Practical') NOT NULL,
@@ -44,15 +44,18 @@ CREATE TABLE Attendance (
 );
 
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_pass';
-CREATE USER 'dean'@'localhost' IDENTIFIED BY 'dean_pass';
-CREATE USER 'lecturer'@'localhost' IDENTIFIED BY 'lecturer_pass';
-CREATE USER 'to'@'localhost' IDENTIFIED BY 'to_pass';
-CREATE USER 'student'@'localhost' IDENTIFIED BY 'student_pass';
-
 GRANT ALL PRIVILEGES ON FacultyTechnology.* TO 'admin'@'localhost' WITH GRANT OPTION;
+
+CREATE USER 'dean'@'localhost' IDENTIFIED BY 'dean_pass';
 GRANT ALL PRIVILEGES ON FacultyTechnology.* TO 'dean'@'localhost';
+
+CREATE USER 'lecturer'@'localhost' IDENTIFIED BY 'lecturer_pass';
 GRANT ALL PRIVILEGES ON FacultyTechnology.* TO 'lecturer'@'localhost';
+
+CREATE USER 'to'@'localhost' IDENTIFIED BY 'to_pass';
 GRANT SELECT, INSERT, UPDATE ON FacultyTechnology.Attendance TO 'to'@'localhost';
+
+CREATE USER 'student'@'localhost' IDENTIFIED BY 'student_pass';
 GRANT SELECT ON FacultyTechnology.ExamMarks TO 'student'@'localhost';
 
 FLUSH PRIVILEGES;
