@@ -1,0 +1,42 @@
+CREATE TABLE Students (
+    StudentID VARCHAR(06) PRIMARY KEY,
+    Stu_FirstName VARCHAR(50),
+    Stu_LastName VARCHAR(50),
+    Stu_DateOfBirth DATE,
+    Stu_Address VARCHAR(100),
+    Stu_Email VARCHAR(100),
+    Stu_PhoneNumber VARCHAR(10),
+    Stu_EnrollmentDate DATE,
+    Status VARCHAR(10) -- Proper, Repeat, Suspended
+);
+
+
+
+INSERT INTO Students
+(StudentID,Stu_FirstName,Stu_LastName,Stu_DateOfBirth,Stu_Address,Stu_Email,Stu_PhoneNumber,Stu_EnrollmentDate,Status)
+VALUES
+('TG2161','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper'),
+('TG2160','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper'),
+('TG2057','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2021-09-15','Proper'),
+('TG2023','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2021-09-15','Proper'),
+('TG2258','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2021-09-15','Proper'),
+('TG2221','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2021-09-15','Proper'),
+('TG2307','Harsha','Kumara','2003-06-28','Colombo','harshakumara@gmail.com','0782348765','2023-09-04','Proper');
+
+
+
+CREATE TABLE Courses(
+    CourseCode VARCHAR(07) PRIMARY KEY NOT NULL,
+    CourseName VARCHAR(100),
+    Credits INT,
+    CourseType VARCHAR(10), -- Theory/Practical/Both
+    LecturerID CHAR(04));
+
+
+    INSERT INTO Courses
+(CourseCode,CourseName,Credits,CourseType,LecturerID)
+VALUES
+('ICT1103','Multimedia Technology',2,'T/P','L001');
+
+
+
