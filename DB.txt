@@ -114,7 +114,8 @@ CREATE TABLE Quiz_Assignment(
     Ass01 INT,
     Ass02 INT,
     Quiz01 INT,
-    Quiz02 INT
+    Quiz02 INT,
+    Quiz03 INT
 );
 
 INSERT INTO Quiz_Assignment
