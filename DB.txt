@@ -3,7 +3,7 @@ Student Table
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Students (
-    StudentID VARCHAR(6) PRIMARY KEY,
+    Stu_ID VARCHAR(6) PRIMARY KEY,
     Stu_FirstName VARCHAR(50),
     Stu_LastName VARCHAR(50),
     Stu_DateOfBirth DATE,
