@@ -1,0 +1,47 @@
+CREATE TABLE department(
+    dep_ID CHAR(3),
+    dep_Name VARCHAR(100),
+    PRIMARY KEY(dep_ID)
+);
+
+INSERT INTO department(dep_ID,dep_Name)
+VALUES
+("D01","ICT DEPARTMENT"),
+("D02","ET DEPARTMENT"),
+("D03","BST DEPARTMENT"),
+("D04","MULTIDISCIPLINARY DEPARTMENT");
+
+CREATE TABLE lecturer(
+    lec_ID CHAR(4),
+    lec_FName VARCHAR(100),
+    lec_LName VARCHAR(100),
+    lec_Dob DATE,
+    lec_Email VARCHAR(100),
+    lec_Address VARCHAR(100),
+    enrollment_Date DATE,
+    lec_dep_ID CHAR(3),
+    PRIMARY KEY(lec_ID)
+);
+
+INSERT INTO lecturer(lec_ID,lec_FName,lec_LName,lec_Dob,lec_Email,lec_Address,enrollment_Date,lec_dep_ID)
+VALUES
+("L001","Nuwan","Laksiri","1990-12-21","nuwansiri_01@fot.ruh.ac.lk","Matara","2007-04-21","D01"),
+("L002","Shashitha","Lakal","1995-01-11","shashithalak_02@fot.ruh.ac.lk","Galle","2011-01-18","D01");
+
+CREATE TABLE attendance(
+    att_ID CHAR(10),
+    course_code VARCHAR(100),
+    stu_ID CHAR(),
+    Date DATE,
+    Status VARCHAR(20),
+    Session_type(P/T) CHAR(2),
+    Medical VARCHAR(5),
+    PRIMARY KEY(att_ID)
+);
+
+INSERT INTO attendance(att_ID,course_code,stu_ID,Date,Status,Session_type(P/T),Medical)
+VALUES
+("A0000000001","ICT DEPARTMENT"),
+("D02","ET DEPARTMENT"),
+("D03","BST DEPARTMENT"),
+("D04","MULTIDISCIPLINARY DEPARTMENT");
