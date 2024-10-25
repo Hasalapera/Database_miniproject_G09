@@ -10,9 +10,9 @@ CREATE TABLE Students (
     Stu_Address VARCHAR(100),
     Stu_Email VARCHAR(100),
     Stu_Phone_No VARCHAR(10),
-    Stu_Enrollmen_tDate DATE,
-    Status VARCHAR(10) -- Proper, Repeat, Suspended
-    Stu_Dep_ID CHAR(3),
+    Stu_Enrollment_Date DATE,
+    Status VARCHAR(10), -- Proper, Repeat, Suspended
+    Stu_Dep_ID CHAR(3)
 );
 
 
