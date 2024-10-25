@@ -28,7 +28,7 @@ VALUES
 ('TG0006','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2021-09-15','Proper','D02'),
 ('TG0007','Harsha','Kumara','2003-06-28','Colombo','harshakumara@gmail.com','0782348765','2023-09-04','Proper','D02'),
 ('TG0008','Ashen','Bandara','2002-02-14','Colombo','ashenbandara@gmail.com','0745083452','2022-09-02','Repeat','D03'),
-('TG0009','Kasun','Rajapaksha','2003-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2023-09-04','Repeat','D02')
+('TG0009','Kasun','Rajapaksha','2003-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2023-09-04','Repeat','D02');
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
