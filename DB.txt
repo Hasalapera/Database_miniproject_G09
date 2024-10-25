@@ -4,21 +4,21 @@ Student Table
 
 CREATE TABLE Students (
     Student_ID VARCHAR(6) PRIMARY KEY,
-    Stu_FirstName VARCHAR(50),
-    Stu_LastName VARCHAR(50),
-    Stu_DateOfBirth DATE,
+    Stu_FName VARCHAR(50),
+    Stu_LName VARCHAR(50),
+    Stu_Dob DATE,
     Stu_Address VARCHAR(100),
     Stu_Email VARCHAR(100),
-    Stu_PhoneNumber VARCHAR(10),
-    Stu_EnrollmentDate DATE,
+    Stu_Phone_No VARCHAR(10),
+    Stu_Enrollmen_tDate DATE,
     Status VARCHAR(10) -- Proper, Repeat, Suspended
-    Stu_DepID CHAR(3),
+    Stu_Dep_ID CHAR(3),
 );
 
 
 
 INSERT INTO Students
-(StudentID,Stu_FirstName,Stu_LastName,Stu_DateOfBirth,Stu_Address,Stu_Email,Stu_PhoneNumber,Stu_EnrollmentDate,Status,Stu_Dep)
+(Student_ID,Stu_FName,Stu_LName,Stu_Dob,Stu_Address,Stu_Email,Stu_Phone_No,Stu_Enrollment_Date,Status,Stu_Dep_ID)
 VALUES
 ('TG0001','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper','D01'),
 ('TG0002','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper','D01'),
@@ -36,17 +36,17 @@ Courses Table
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Courses(
-    CourseCode VARCHAR(07) PRIMARY KEY NOT NULL,
-    CourseName VARCHAR(100),
+    Course_Code VARCHAR(07) PRIMARY KEY NOT NULL,
+    Course_Name VARCHAR(100),
     Credits INT,
-    CourseType VARCHAR(10), -- Theory/Practical/Both
-    LecturerID CHAR(04),
-    CourseDepID CHAR(03)
+    Course_Type VARCHAR(10), -- Theory/Practical/Both
+    Lecturer_ID CHAR(04),
+    Course_Dep_ID CHAR(03)
     );
 
 
     INSERT INTO Courses
-(CourseCode,CourseName,Credits,CourseType,LecturerID)
+(Course_Code,Course_Name,Credits,Course_Type,Lecturer_ID,Course_Dep_ID)
 VALUES
 ('ICT001','DataBase Management System',6,'T/P','L001','D01'),
 ('ICT002','Computer Network',2,'T/P','L002','D01'),
@@ -70,7 +70,7 @@ CREATE TABLE Student_Course(
 
 
 INSERT INTO Student_Course
-(StudentID,CourseCode)
+(Student_ID,Course_Code)
 VALUES
 ('TG0001','ICT001')
 ('TG0001','ICT002')
@@ -87,16 +87,16 @@ Attendence Table
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Attendence(
-    AttendenceID VARCHAR(5) PRIMARY KEY,
-    CountOfAttendence INT,
-    StudentID VARCHAR(6),
-    CourseCode VARCHAR(7)
+    Attendence_ID VARCHAR(5) PRIMARY KEY,
+    Count_Of_Attendence INT,
+    Student_ID VARCHAR(6),
+    Course_Code VARCHAR(7)
 );
 
 
 
 INSERT INTO Attendence
-(AttendenceID,CountOfAttendence,StudentID,CourseCode)
+(Attendence_ID,Count_Of_Attendence,Student_ID,Course_Code)
 VALUES
 ('AT001',09,'TG0001','ICT001')
 ('AT002',08,'TG0001','ICT002');
@@ -109,19 +109,20 @@ Quiz Assignment Mark Table
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Quiz_Assignment(
-    QA_StudentID VARCHAR(6),
-    QA_CourseCode VARCHAR(7),
-    Ass01 INT,
-    Ass02 INT,
-    Quiz01 INT,
-    Quiz02 INT
+    QA_Student_ID VARCHAR(6),
+    QA_Course_Code VARCHAR(7),
+    Ass_01 INT,
+    Ass_02 INT,
+    Quiz_01 INT,
+    Quiz_02 INT,
+    Quiz_03 INT
 );
 
 INSERT INTO Quiz_Assignment
-(QA_StudentID, QA_CourseCode,Ass01,Ass02,Quiz01,Quiz02)
+(QA_Student_ID, QA_Course_Code,Ass_01,Ass_02,Quiz_01,Quiz_02,Quiz_03)
 VALUES
-('TG0001','ICT001',5,4,5,4),
-('TG0001','ICT002',4,4,5,4),
+('TG0001','ICT001',5,4,5,4,5),
+('TG0001','ICT002',4,4,5,4,5),
 
 
 
