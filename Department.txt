@@ -1,47 +1,78 @@
-CREATE TABLE department(
-    dep_ID CHAR(3),
-    dep_Name VARCHAR(100),
-    PRIMARY KEY(dep_ID)
+CREATE TABLE Department(
+    Department_ID CHAR(3),
+    Dep_Name VARCHAR(100),
+    PRIMARY KEY(department_ID)
 );
 
-INSERT INTO department(dep_ID,dep_Name)
+INSERT INTO Department(Department_ID,Dep_Name)
 VALUES
 ("D01","ICT DEPARTMENT"),
 ("D02","ET DEPARTMENT"),
 ("D03","BST DEPARTMENT"),
 ("D04","MULTIDISCIPLINARY DEPARTMENT");
 
-CREATE TABLE lecturer(
-    lec_ID CHAR(4),
-    lec_FName VARCHAR(100),
-    lec_LName VARCHAR(100),
-    lec_Dob DATE,
-    lec_Email VARCHAR(100),
-    lec_Address VARCHAR(100),
-    enrollment_Date DATE,
-    lec_dep_ID CHAR(3),
-    PRIMARY KEY(lec_ID)
+CREATE TABLE Lecturer(
+    Lecturer_ID CHAR(4),
+    Lec_FName VARCHAR(100),
+    Lec_LName VARCHAR(100),
+    Lec_Dob DATE,
+    Lec_Email VARCHAR(100),
+    Lec_Address VARCHAR(100),
+    Enrollment_Date DATE,
+    Lec_Dep_ID CHAR(3),
+    PRIMARY KEY(lecturer_ID)
 );
 
-INSERT INTO lecturer(lec_ID,lec_FName,lec_LName,lec_Dob,lec_Email,lec_Address,enrollment_Date,lec_dep_ID)
+INSERT INTO Lecturer(Lecturer_ID,Lec_FName,Lec_LName,Lec_Dob,Lec_Email,Lec_Address,Enrollment_Date,Lec_Dep_ID)
 VALUES
 ("L001","Nuwan","Laksiri","1990-12-21","nuwansiri_01@fot.ruh.ac.lk","Matara","2007-04-21","D01"),
 ("L002","Shashitha","Lakal","1995-01-11","shashithalak_02@fot.ruh.ac.lk","Galle","2011-01-18","D01");
 
-CREATE TABLE attendance(
-    att_ID CHAR(10),
-    course_code VARCHAR(100),
-    stu_ID CHAR(),
+CREATE TABLE Attendance(
+    Attendance_ID CHAR(10),
+    Course_Code VARCHAR(100),
+    Student_ID VARCHAR(6),
     Date DATE,
     Status VARCHAR(20),
-    Session_type(P/T) CHAR(2),
+    Session_Type ENUM('P','T'),
     Medical VARCHAR(5),
-    PRIMARY KEY(att_ID)
+    PRIMARY KEY(Attendance_ID)
 );
 
-INSERT INTO attendance(att_ID,course_code,stu_ID,Date,Status,Session_type(P/T),Medical)
+CREATE TABLE Week(
+    Week_ID CHAR(3),
+    Week_Name VARCHAR(20),
+    PRIMARY KEY(Week_ID)
+);
+
+INSERT INTO Week(Week_ID,Week_Name)
 VALUES
-("A0000000001","ICT DEPARTMENT"),
-("D02","ET DEPARTMENT"),
-("D03","BST DEPARTMENT"),
-("D04","MULTIDISCIPLINARY DEPARTMENT");
+('W01','Week_No_01'),
+('W02','Week_No_02'),
+('W03','Week_No_03'),
+('W04','Week_No_04'),
+('W05','Week_No_05'),
+('W06','Week_No_06'),
+('W07','Week_No_07'),
+('W08','Week_No_08'),
+('W09','Week_No_09'),
+('W10','Week_No_10'),
+('W11','Week_No_11'),
+('W12','Week_No_12'),
+('W13','Week_No_13'),
+('W14','Week_No_14'),
+('W15','Week_No_15');
+
+CREATE TABLE Day(
+    Day_ID CHAR(3),
+    Day_Name VARCHAR(10),
+    PRIMARY KEY(Day_ID)
+);
+
+INSERT INTO Day(Day_ID,Day_Name)
+VALUES
+('D01','Monday'),
+('D02','Tuesday'),
+('D03','Wednesday'),
+('D04','Thursday'),
+('D05','Friday');
