@@ -1,0 +1,254 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Student Table
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Students (
+    StudentID VARCHAR(6) PRIMARY KEY,
+    Stu_FirstName VARCHAR(50),
+    Stu_LastName VARCHAR(50),
+    Stu_DateOfBirth DATE,
+    Stu_Address VARCHAR(100),
+    Stu_Email VARCHAR(100),
+    Stu_PhoneNumber VARCHAR(10),
+    Stu_EnrollmentDate DATE,
+    Status VARCHAR(10) -- Proper, Repeat, Suspended
+);
+
+
+
+INSERT INTO Students
+(StudentID,Stu_FirstName,Stu_LastName,Stu_DateOfBirth,Stu_Address,Stu_Email,Stu_PhoneNumber,Stu_EnrollmentDate,Status)
+VALUES
+('TG2201','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper'), 
+('TG2202','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper'),
+('TG2203','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2022-09-02','Proper'),
+('TG2204','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2022-09-02','Proper'),
+('TG2205','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2022-09-02','Proper'),
+('TG2206','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2022-09-02','Proper'),
+('TG2207','Harsha','Kumara','2003-01-12','Colombo','harshakumara@gmail.com','0782348765','2022-09-02','Proper'),
+('TG2120','Ashen','Bandara','2000-02-14','Colombo','ashenbandara@gmail.com','0745083452','2021-09-05','Repeat'),
+('TG2115','Kasun','Rajapaksha','2000-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2021-09-05','Repeat'),
+('TG2125','Sahan','Dilhara','2000-07-02','Hambantota','sahandilhara@gmail.com','0712563821','2021-09-05','Repeat'),
+('TG2208','Nimesh','Maduranga','2002-01-31','Badulla','nimeshmaduranga@gmail.com','0763527912','2022-09-02','Proper'),
+('TG2130','Sajith','Roopasinghe','2003-11-23','Gampaha','sajithroopasinghe@gmail','0783446363','2021-09-05','Repeat'),
+('TG2209','Roshan','Nirmal','2002-06-25','Kaluthara','roshannirmal@gmail.com','0754362927','2022-09-02','Proper'),
+('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat'),
+('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper');
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Courses Table
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Courses(
+    Course_Code VARCHAR(07) PRIMARY KEY NOT NULL,
+    Course_Name VARCHAR(100),
+    Credits INT,
+    Course_Type VARCHAR(10), -- Theory/Practical/Both
+    Lecturer_ID CHAR(04),
+    Course_Dep_ID CHAR(03)
+    );
+
+
+INSERT INTO Courses
+(Course_Code,Course_Name,Credits,Course_Type,Lecturer_ID,Course_Dep_ID)
+VALUES
+('ICT1242','Computer Architecture',2,'P','L002','D01'),
+('ICT1253','Computer Networks',3,'T/P','L003','D01'),
+('ICT1212','Database Management System',3,'T','L001','D01'),
+('ICT1222','Database Management System Practicum',3,'P','L001','D01'),
+('TMS1223','Discreate Mathematics',2,'T','L004','D02'),
+('ICT1233','Serverside Web Development',3,'T/P','L005','D01'),
+('TCS1212','Fundamental of Management',2,'T','L006','D02'),
+('ENG1214','English',4,'T','L007','D01');
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Student_Course Table
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Student_Course(
+    StudentID VARCHAR(6),
+    Course_Code VARCHAR(7));
+
+
+INSERT INTO Student_Course
+(StudentID,Course_Code)
+VALUES
+('TG2201','ICT1242'),
+('TG2201','ICT1253'),
+('TG2201','ICT1212'),
+('TG2201','ICT1222'),
+('TG2201','ICT1223'),
+('TG2201','ICT1233'),
+('TG2201','ICT1212'),
+('TG2201','ENG1214'),
+('TG2202','ICT1242'),
+('TG2202','ICT1253'),
+('TG2202','ICT1212'),
+('TG2202','ICT1222'),
+('TG2202','ICT1223'),
+('TG2202','ICT1233'),
+('TG2202','ICT1212'),
+('TG2202','ENG1214'),
+('TG2203','ICT1242'),
+('TG2203','ICT1253'),
+('TG2203','ICT1212'),
+('TG2203','ICT1222'),
+('TG2203','ICT1223'),
+('TG2203','ICT1233'),
+('TG2203','ICT1212'),
+('TG2203','ENG1214'),
+('TG2204','ICT1242'),
+('TG2204','ICT1253'),
+('TG2204','ICT1212'),
+('TG2204','ICT1222'),
+('TG2204','ICT1223'),
+('TG2204','ICT1233'),
+('TG2204','ICT1212'),
+('TG2204','ENG1214'),
+('TG2205','ICT1242'),
+('TG2205','ICT1253'),
+('TG2205','ICT1212'),
+('TG2205','ICT1222'),
+('TG2205','ICT1223'),
+('TG2205','ICT1233'),
+('TG2205','ICT1212'),
+('TG2205','ENG1214'),
+('TG2206','ICT1242'),
+('TG2206','ICT1253'),
+('TG2206','ICT1212'),
+('TG2206','ICT1222'),
+('TG2206','ICT1223'),
+('TG2206','ICT1233'),
+('TG2206','ICT1212'),
+('TG2206','ENG1214'),
+('TG2207','ICT1242'),
+('TG2207','ICT1253'),
+('TG2207','ICT1212'),
+('TG2207','ICT1222'),
+('TG2207','ICT1223'),
+('TG2207','ICT1233'),
+('TG2207','ICT1212'),
+('TG2207','ENG1214'),
+('TG2120','ICT1242'),
+('TG2120','ICT1253'),
+('TG2120','ICT1212'),
+('TG2120','ICT1222'),
+('TG2120','ICT1223'),
+('TG2120','ICT1233'),
+('TG2120','ICT1212'),
+('TG2120','ENG1214'),
+('TG2115','ICT1242'),
+('TG2115','ICT1253'),
+('TG2115','ICT1212'),
+('TG2115','ICT1222'),
+('TG2115','ICT1223'),
+('TG2115','ICT1233'),
+('TG2115','ICT1212'),
+('TG2115','ENG1214'),
+('TG2125','ICT1242'),
+('TG2125','ICT1253'),
+('TG2125','ICT1212'),
+('TG2125','ICT1222'),
+('TG2125','ICT1223'),
+('TG2125','ICT1233'),
+('TG2125','ICT1212'),
+('TG2125','ENG1214'),
+('TG2208','ICT1242'),
+('TG2208','ICT1253'),
+('TG2208','ICT1212'),
+('TG2208','ICT1222'),
+('TG2208','ICT1223'),
+('TG2208','ICT1233'),
+('TG2208','ICT1212'),
+('TG2208','ENG1214'),
+('TG2130','ICT1242'),
+('TG2130','ICT1253'),
+('TG2130','ICT1212'),
+('TG2130','ICT1222'),
+('TG2130','ICT1223'),
+('TG2130','ICT1233'),
+('TG2130','ICT1212'),
+('TG2130','ENG1214'),
+('TG2209','ICT1242'),
+('TG2209','ICT1253'),
+('TG2209','ICT1212'),
+('TG2209','ICT1222'),
+('TG2209','ICT1223'),
+('TG2209','ICT1233'),
+('TG2209','ICT1212'),
+('TG2209','ENG1214'),
+('TG2135','ICT1242'),
+('TG2135','ICT1253'),
+('TG2135','ICT1212'),
+('TG2135','ICT1222'),
+('TG2135','ICT1223'),
+('TG2135','ICT1233'),
+('TG2135','ICT1212'),
+('TG2135','ENG1214'),
+('TG2210','ICT1242'),
+('TG2210','ICT1253'),
+('TG2210','ICT1212'),
+('TG2210','ICT1222'),
+('TG2210','ICT1223'),
+('TG2210','ICT1233'),
+('TG2210','ICT1212'),
+('TG2210','ENG1214');
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Attendence Table
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Attendence(
+    Attendence_ID VARCHAR(5) PRIMARY KEY,
+    Count_Of_Attendence INT,
+    Student_ID VARCHAR(6),
+    Course_Code VARCHAR(7)
+);
+
+
+
+INSERT INTO Attendence
+(Attendence_ID,Count_Of_Attendence,Student_ID,Course_Code)
+VALUES
+('AT001',09,'TG0001','ICT001')
+('AT002',08,'TG0001','ICT002');
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Quiz Assignment Mark Table
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Quiz_Assignment(
+    QA_Student_ID VARCHAR(6),
+    QA_Course_Code VARCHAR(7),
+    Ass_01 INT,
+    Ass_02 INT,
+    Quiz_01 INT,
+    Quiz_02 INT,
+    Quiz_03 INT
+);
+
+INSERT INTO Quiz_Assignment
+(QA_Student_ID, QA_Course_Code,Ass_01,Ass_02,Quiz_01,Quiz_02,Quiz_03)
+VALUES
+('TG0001','ICT001',5,4,5,4,5),
+('TG0001','ICT002',4,4,5,4,5),
+
+
+
+
+
+
+
+
+
