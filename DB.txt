@@ -61,17 +61,17 @@ CREATE TABLE Courses(
     );
 
 
-    INSERT INTO Courses
-(Course_Code,Course_Name,Credits,Course_Type,Lecturer_ID,Course_Dep_ID)
+INSERT INTO Courses
+(Course_Code,Course_Name,Credits,Course_Type,Lecturer_ID)
 VALUES
-('ICT001','DataBase Management System',6,'T/P','L001','D01'),
-('ICT002','Computer Network',2,'T/P','L002','D01'),
-('ENT001','Electronic Technology',3,'T/P','L003','D02'),
-('ENT002','AutoMobile',2,'P','L004','D02'),
-('ENG001','English',2,'T','L005','D04'),
-('MTH001','Mathematics',3,'T','L006','D04'),
-('MNG001','Management',2,'T','L007','D04'),
-('BST001',)
+('ICT1242','Computer Architecture',2,'P','L001'),
+('ICT1253','Computer Networks',3,'T/P','L002'),
+('ICT1212','Database Management System',3,'T','L003'),
+('ICT1222','Database Management System Practicum',3,'P','L003'),
+('TMS1223','Discreate Mathematics',2,'T','L005'),
+('ICT1233','Serverside Web Development',3,'T/P','L006'),
+('TCS1212','Fundamental of Management',2,'T','L007'),
+('ENG1214','English',4,'T','L008');
 
 
 
@@ -81,21 +81,20 @@ Student_Course Table
 
 CREATE TABLE Student_Course(
     StudentID VARCHAR(6),
-    CourseCode VARCHAR(7)
-);
+    Course_Code VARCHAR(7));
 
 
 INSERT INTO Student_Course
-(Student_ID,Course_Code)
+(StudentID,Course_Code)
 VALUES
-('TG0001','ICT001')
-('TG0001','ICT002')
-('TG0001','ENG001')
-('TG0001','MTH001')
-('TG0002','ICT001')
-('TG0002','ICT002')
-('TG0002','ENG001')
-('TG0002','MTH001');
+('TG0001','ICT1242'),
+('TG0001','ICT1253'),
+('TG0001','ICT1212'),
+('TG0001','ICT1222'),
+('TG0001','ICT1223'),
+('TG0001','ICT1233'),
+('TG0001','ICT1212'),
+('TG0001','ENG1214');
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
