@@ -11,29 +11,30 @@ CREATE TABLE Students (
     Stu_Email VARCHAR(100),
     Stu_PhoneNumber VARCHAR(10),
     Stu_EnrollmentDate DATE,
-    Status VARCHAR(10) -- Proper, Repeat, Suspended
+    Status VARCHAR(10),
+    Stu_Department_ID CHAR(3) -- Proper, Repeat
 );
 
 
 
 INSERT INTO Students
-(StudentID,Stu_FirstName,Stu_LastName,Stu_DateOfBirth,Stu_Address,Stu_Email,Stu_PhoneNumber,Stu_EnrollmentDate,Status)
+(StudentID,Stu_FirstName,Stu_LastName,Stu_DateOfBirth,Stu_Address,Stu_Email,Stu_PhoneNumber,Stu_EnrollmentDate,Status,Stu_Department_ID)
 VALUES
-('TG2201','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper'), 
-('TG2202','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper'),
-('TG2203','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2022-09-02','Proper'),
-('TG2204','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2022-09-02','Proper'),
-('TG2205','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2022-09-02','Proper'),
-('TG2206','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2022-09-02','Proper'),
-('TG2207','Harsha','Kumara','2003-01-12','Colombo','harshakumara@gmail.com','0782348765','2022-09-02','Proper'),
-('TG2120','Ashen','Bandara','2000-02-14','Colombo','ashenbandara@gmail.com','0745083452','2021-09-05','Repeat'),
-('TG2115','Kasun','Rajapaksha','2000-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2021-09-05','Repeat'),
-('TG2125','Sahan','Dilhara','2000-07-02','Hambantota','sahandilhara@gmail.com','0712563821','2021-09-05','Repeat'),
-('TG2208','Nimesh','Maduranga','2002-01-31','Badulla','nimeshmaduranga@gmail.com','0763527912','2022-09-02','Proper'),
-('TG2130','Sajith','Roopasinghe','2003-11-23','Gampaha','sajithroopasinghe@gmail','0783446363','2021-09-05','Repeat'),
-('TG2209','Roshan','Nirmal','2002-06-25','Kaluthara','roshannirmal@gmail.com','0754362927','2022-09-02','Proper'),
-('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat'),
-('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper');
+('TG2201','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper','D01'), 
+('TG2202','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper','D01'),
+('TG2203','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2022-09-02','Proper','D01'),
+('TG2204','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2022-09-02','Proper','D01'),
+('TG2205','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2022-09-02','Proper','D01'),
+('TG2206','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2022-09-02','Proper','D01'),
+('TG2207','Harsha','Kumara','2003-01-12','Colombo','harshakumara@gmail.com','0782348765','2022-09-02','Proper','D01'),
+('TG2120','Ashen','Bandara','2000-02-14','Colombo','ashenbandara@gmail.com','0745083452','2021-09-05','Repeat','D01'),
+('TG2115','Kasun','Rajapaksha','2000-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2021-09-05','Repeat','D01'),
+('TG2125','Sahan','Dilhara','2000-07-02','Hambantota','sahandilhara@gmail.com','0712563821','2021-09-05','Repeat','D01'),
+('TG2208','Nimesh','Maduranga','2002-01-31','Badulla','nimeshmaduranga@gmail.com','0763527912','2022-09-02','Proper','D01'),
+('TG2130','Sajith','Roopasinghe','2003-11-23','Gampaha','sajithroopasinghe@gmail','0783446363','2021-09-05','Repeat','D01'),
+('TG2209','Roshan','Nirmal','2002-06-25','Kaluthara','roshannirmal@gmail.com','0754362927','2022-09-02','Proper','D01'),
+('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat','D01'),
+('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper','D01');
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -41,26 +42,26 @@ Courses Table
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Courses(
-    Course_Code VARCHAR(07) PRIMARY KEY NOT NULL,
+    Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
     Course_Name VARCHAR(100),
     Credits INT,
     Course_Type VARCHAR(10), -- Theory/Practical/Both
-    Lecturer_ID CHAR(04),
-    Course_Dep_ID CHAR(03)
+    Lecturer_ID CHAR(4),
+    Course_Department_ID CHAR(3)
     );
 
 
 INSERT INTO Courses
 (Course_Code,Course_Name,Credits,Course_Type,Lecturer_ID,Course_Dep_ID)
 VALUES
-('ICT1242','Computer Architecture',2,'P','L002','D01'),
-('ICT1253','Computer Networks',3,'T/P','L003','D01'),
-('ICT1212','Database Management System',3,'T','L001','D01'),
-('ICT1222','Database Management System Practicum',3,'P','L001','D01'),
-('TMS1223','Discreate Mathematics',2,'T','L004','D02'),
-('ICT1233','Serverside Web Development',3,'T/P','L005','D01'),
-('TCS1212','Fundamental of Management',2,'T','L006','D02'),
-('ENG1214','English',4,'T','L007','D01');
+('ICT1242','Computer Architecture',2,'P','L003','D01'),
+('ICT1253','Computer Networks',3,'T/P','L004','D01'),
+('ICT1212','Database Management System',3,'T','L002','D01'),
+('ICT1222','Database Management System Practicum',3,'P','L002','D01'),
+('TMS1223','Discreate Mathematics',2,'T','L005','D02'),
+('ICT1233','Serverside Web Development',3,'T/P','L006','D01'),
+('TCS1212','Fundamental of Management',2,'T','L007','D04'),
+('ENG1214','English',4,'T','L008','D04');
 
 
 
