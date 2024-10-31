@@ -207,20 +207,15 @@ Attendence Table
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Attendence(
-    Attendence_ID VARCHAR(5) PRIMARY KEY,
-    Count_Of_Attendence INT,
-    Student_ID VARCHAR(6),
-    Course_Code VARCHAR(7)
-);
-
-
-
-INSERT INTO Attendence
-(Attendence_ID,Count_Of_Attendence,Student_ID,Course_Code)
-VALUES
-('AT001',09,'TG0001','ICT001')
-('AT002',08,'TG0001','ICT002');
-
+Attendence_ID VARCHAR(5),
+Count_Of_Attendence INT(2),
+Student_ID VARCHAR(7),
+Course_Code VARCHAR(7),
+w_id CHAR(2),
+d_id CHAR(2),
+status CHAR(2),
+session_type CHAR(1),
+medical_status VARCHAR(5));
 
 
 
