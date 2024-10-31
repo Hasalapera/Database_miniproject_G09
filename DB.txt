@@ -57,10 +57,10 @@ VALUES
 ('ICT1253','Computer Networks',3,'T/P','D01'),
 ('ICT1212','Database Management System',2,'T','D01'),
 ('ICT1222','Database Management System Practicum',2,'P','D01'),
-('TMS1223','Discreate Mathematics',2,'T','D02'),
+('TMS1233','Discreate Mathematics',2,'T','D02'),
 ('ICT1233','Serverside Web Development',3,'T/P','D01'),
 ('TCS1212','Fundamental of Management',2,'T','D04'),
-('ENG1214','English',4,'T','D04');
+('ENG1222','English',2,'T','D04');
 
 
 
