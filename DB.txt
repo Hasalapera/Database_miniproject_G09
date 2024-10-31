@@ -46,22 +46,21 @@ CREATE TABLE Courses(
     Course_Name VARCHAR(100),
     Credits INT,
     Course_Type VARCHAR(10), -- Theory/Practical/Both
-    Lecturer_ID CHAR(4),
-    Course_Department_ID CHAR(3)
+    Course_Dep_ID CHAR(3)
     );
 
 
 INSERT INTO Courses
-(Course_Code,Course_Name,Credits,Course_Type,Lecturer_ID,Course_Dep_ID)
+(Course_Code,Course_Name,Credits,Course_Type,Course_Dep_ID)
 VALUES
-('ICT1242','Computer Architecture',2,'P','L003','D01'),
-('ICT1253','Computer Networks',3,'T/P','L004','D01'),
-('ICT1212','Database Management System',3,'T','L002','D01'),
-('ICT1222','Database Management System Practicum',3,'P','L002','D01'),
-('TMS1223','Discreate Mathematics',2,'T','L005','D02'),
-('ICT1233','Serverside Web Development',3,'T/P','L006','D01'),
-('TCS1212','Fundamental of Management',2,'T','L007','D04'),
-('ENG1214','English',4,'T','L008','D04');
+('ICT1242','Computer Architecture',2,'P','D01'),
+('ICT1253','Computer Networks',3,'T/P','D01'),
+('ICT1212','Database Management System',2,'T','D01'),
+('ICT1222','Database Management System Practicum',2,'P','D01'),
+('TMS1223','Discreate Mathematics',2,'T','D02'),
+('ICT1233','Serverside Web Development',3,'T/P','D01'),
+('TCS1212','Fundamental of Management',2,'T','D04'),
+('ENG1214','English',4,'T','D04');
 
 
 
