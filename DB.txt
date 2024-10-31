@@ -207,7 +207,7 @@ Attendence Table
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Attendence(
-Attendence_ID VARCHAR(5),
+Attendence_ID VARCHAR(5) PRIMARY KEY,
 Count_Of_Attendence INT(2),
 Student_ID VARCHAR(7),
 Course_Code VARCHAR(7),
