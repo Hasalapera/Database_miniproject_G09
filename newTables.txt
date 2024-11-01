@@ -1,0 +1,377 @@
+CREATE TABLE Department(
+    Department_ID CHAR(3),
+    Dep_Name VARCHAR(100),
+    Dep_Lec_ID CHAR(4),
+    Dep_Admin_ID CHAR(7),
+    PRIMARY KEY(department_ID)
+);
+
+INSERT INTO Department(Department_ID,Dep_Name,Dep_Lec_ID,Dep_Admin_ID)
+VALUES
+("D01","ICT DEPARTMENT","L001","admin1"),
+("D02","ET DEPARTMENT","L001","admin1"),
+("D03","BST DEPARTMENT","L001","admin1"),
+("D04","MULTIDISCIPLINARY DEPARTMENT","L001","admin1");
+
+CREATE TABLE Lecturer(
+    Lecturer_ID CHAR(4),
+    Lec_FName VARCHAR(100),
+    Lec_LName VARCHAR(100),
+    Lec_Dob DATE,
+    Lec_Email VARCHAR(100),
+    Lec_Address VARCHAR(100),
+    Lec_Phone_Number VARCHAR(10),
+    Enrollment_Date DATE,
+    Lec_Dep_ID CHAR(3),
+    PRIMARY KEY(lecturer_ID)
+);
+
+INSERT INTO Lecturer (Lecturer_ID, Lec_FName, Lec_LName, Lec_Dob, Lec_Email, Lec_Address, Lec_Phone_Number, Enrollment_Date, Lec_Dep_ID)
+VALUES
+("L001", "Subash", "Jayasinghe", "1980-12-21", "subash_jayasinghe@fot.ruh.ac.lk", "Matara","0761023456", "2018-03-21", "D01"),
+("L002", "Nuwan", "Laksiri", "1985-03-21", "nuwan_laksiri@fot.ruh.ac.lk", "Matara","0728398437", "2020-04-21", "D01"),
+("L003", "Shashitha", "Lakal", "1995-01-11", "shashitha_lakal_02@fot.ruh.ac.lk", "Galle","0753323782", "2021-01-18", "D01"),
+("L004", "Chanduni", "Gamage", "1995-05-10", "chanduni_gamage@fot.ruh.ac.lk", "Colombo","0773343134", "2022-08-23", "D01"),
+("L005", "Achini", "Wijesinghe", "1996-02-28", "achini_wijeshinghe@fot.ruh.ac.lk", "Kandy","0749913293", "2023-06-14", "D02"),
+("L006", "Rumeshika", "Wickramaarachchi", "1992-07-15", "rumeshika_wickramaarachchi@fot.ruh.ac.lk", "Matara","0778293928", "2022-11-05", "D01"),
+("L007", "Chathuranga", "Adikari", "1997-04-22", "chathuranga_adikari@fot.ruh.ac.lk", "Anuradhapura","0782362376", "2022-09-10", "D04"),
+("L008", "Naveen", "Welimuni", "1996-11-03", "Naveen_welimuni@fot.ruh.ac.lk", "Galle","0717237218", "2021-03-19", "D04");
+
+
+CREATE TABLE Week(
+    Week_ID CHAR(3),
+    Week_Name VARCHAR(20),
+    PRIMARY KEY(Week_ID)
+);
+
+INSERT INTO Week(Week_ID,Week_Name)
+VALUES
+('W01','Week_No_01'),
+('W02','Week_No_02'),
+('W03','Week_No_03'),
+('W04','Week_No_04'),
+('W05','Week_No_05'),
+('W06','Week_No_06'),
+('W07','Week_No_07'),
+('W08','Week_No_08'),
+('W09','Week_No_09'),
+('W10','Week_No_10'),
+('W11','Week_No_11'),
+('W12','Week_No_12'),
+('W13','Week_No_13'),
+('W14','Week_No_14'),
+('W15','Week_No_15');
+
+CREATE TABLE Day(
+    Day_ID CHAR(3),
+    Day_Name VARCHAR(10),
+    PRIMARY KEY(Day_ID)
+);
+
+INSERT INTO Day(Day_ID,Day_Name)
+VALUES
+('D01','Monday'),
+('D02','Tuesday'),
+('D03','Wednesday'),
+('D04','Thursday'),
+('D05','Friday');
+
+
+CREATE TABLE Students (
+    Student_ID VARCHAR(6) PRIMARY KEY,
+    Stu_FName VARCHAR(50),
+    Stu_LName VARCHAR(50),
+    Stu_Dob DATE,
+    Stu_Address VARCHAR(100),
+    Stu_Email VARCHAR(100),
+    Stu_Phone_No VARCHAR(10),
+    Stu_Enrollment_Date DATE,
+    Status VARCHAR(10), -- Proper, Repeat
+    Stu_Dep_ID CHAR(3)
+);
+
+INSERT INTO Students
+(Student_ID,Stu_FName,Stu_LName,Stu_Dob,Stu_Address,Stu_Email,Stu_Phone_No,Stu_Enrollment_Date,Status,Stu_Dep_ID)
+VALUES
+('TG2201','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper','D01'), 
+('TG2202','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper','D01'),
+('TG2203','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2022-09-02','Proper','D01'),
+('TG2204','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2022-09-02','Proper','D01'),
+('TG2205','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2022-09-02','Proper','D01'),
+('TG2206','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2022-09-02','Proper','D01'),
+('TG2207','Harsha','Kumara','2003-01-12','Colombo','harshakumara@gmail.com','0782348765','2022-09-02','Proper','D01'),
+('TG2120','Ashen','Bandara','2000-02-14','Colombo','ashenbandara@gmail.com','0745083452','2021-09-05','Repeat','D01'),
+('TG2115','Kasun','Rajapaksha','2000-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2021-09-05','Repeat','D01'),
+('TG2125','Sahan','Dilhara','2000-07-02','Hambantota','sahandilhara@gmail.com','0712563821','2021-09-05','Repeat','D01'),
+('TG2208','Nimesh','Maduranga','2002-01-31','Badulla','nimeshmaduranga@gmail.com','0763527912','2022-09-02','Proper','D01'),
+('TG2130','Sajith','Roopasinghe','2003-11-23','Gampaha','sajithroopasinghe@gmail','0783446363','2021-09-05','Repeat','D01'),
+('TG2209','Roshan','Nirmal','2002-06-25','Kaluthara','roshannirmal@gmail.com','0754362927','2022-09-02','Proper','D01'),
+('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat','D01'),
+('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper','D01');
+
+CREATE TABLE Courses(
+    Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
+    Course_Name VARCHAR(100),
+    Credits INT,
+    Course_Type VARCHAR(10), -- Theory/Practical/Both
+    Course_Dep_ID CHAR(3)
+    );
+
+
+INSERT INTO Courses
+(Course_Code,Course_Name,Credits,Course_Type,Course_Dep_ID)
+VALUES
+('ICT1242','Computer Architecture',2,'T','D01'),
+('ICT1253','Computer Networks',3,'T/P','D01'),
+('ICT1212','Database Management System',2,'T','D01'),
+('ICT1222','Database Management System Practicum',2,'P','D01'),
+('TMS1233','Discrete Mathematics',3,'T','D02'),
+('ICT1233','Serverside Web Development',3,'T/P','D01'),
+('TCS1212','Fundamental of Management',2,'T','D04'),
+('ENG1222','English',2,'T','D04');
+
+
+
+
+CREATE TABLE Lecturer_Course(
+    Lecturer_ID CHAR(4),
+    Course_Code VARCHAR(07),
+    PRIMARY KEY (Lecturer_ID,Course_Code)
+);
+
+INSERT INTO Lecturer_Course(Lecturer_ID,Course_Code)
+VALUES
+("L002","ICT1212"),
+("L002","ICT1222"),
+("L003","ICT1242"),
+("L004","ICT1253"),
+("L005","TMS1233"),
+("L006","ICT1233"),
+("L007","TCS1212"),
+("L008","ENG1222");
+
+######################################
+
+CREATE TABLE TO_Department(
+    TO_ID CHAR(4),
+    Department_ID CHAR(3),
+    PRIMARY KEY (TO_ID,Department_ID)
+);
+
+INSERT INTO TO_Department(TO_ID,Department_ID)
+VALUES
+("TO01","D01"),
+("TO02","D01"),
+("TO03","D01"),
+("TO04","D01"),
+("TO05","D01"),
+("TO01","D02"),
+("TO02","D02"),
+("TO03","D02"),
+("TO04","D02"),
+("TO05","D02"),
+("TO01","D03"),
+("TO02","D03"),
+("TO03","D03"),
+("TO04","D03"),
+("TO05","D03"),
+("TO01","D04"),
+("TO02","D04"),
+("TO03","D04"),
+("TO04","D04"),
+("TO05","D04");
+
+######################################
+
+CREATE TABLE admin(
+    Admin_ID CHAR(7) PRIMARY KEY,
+    Admin_Name VARCHAR(100),
+    Admin_Phone_Number VARCHAR(10)
+);
+
+INSERT INTO admin(Admin_ID,Admin_Name,Admin_Phone_Number)
+VALUES
+("admin1","Charith Jayathilaka","0763242331");
+
+######################################
+
+CREATE TABLE Technical_Officer(
+    TO_ID CHAR(5) PRIMARY KEY,
+    TO_Name VARCHAR(100),
+    TO_Phone_Number VARCHAR(10)
+);
+
+INSERT INTO Technical_Officer(TO_ID,TO_Name,TO_Phone_Number)
+VALUES
+("TO01","Kasun Dissanayake","0752221117"),
+("TO02","Susantha Jayanath","0714237659"),
+("TO03","Vikum Wijesiri","0761234328"),
+("TO04","Nilanthi Ranathunga","0763242331"),
+("TO05","Anura Perera","0712267890");
+
+CREATE TABLE Student_Course(
+    Student_ID VARCHAR(6),
+    Course_Code VARCHAR(7),
+    PRIMARY KEY (Student_ID,Course_Code)
+);
+
+INSERT INTO Student_Course (Student_ID, Course_Code) 
+VALUES
+('TG2201', 'ICT1242'), 
+('TG2201', 'ICT1253'), 
+('TG2201', 'ICT1212'), 
+('TG2201', 'ICT1222'), 
+('TG2201', 'TMS1233'), 
+('TG2201', 'ICT1233'), 
+('TG2201', 'TCS1212'), 
+('TG2201', 'ENG1222'),
+('TG2202', 'ICT1242'), 
+('TG2202', 'ICT1253'), 
+('TG2202', 'ICT1212'), 
+('TG2202', 'ICT1222'), 
+('TG2202', 'TMS1233'), 
+('TG2202', 'ICT1233'), 
+('TG2202', 'TCS1212'), 
+('TG2202', 'ENG1222'),
+('TG2203', 'ICT1242'), 
+('TG2203', 'ICT1253'), 
+('TG2203', 'ICT1212'), 
+('TG2203', 'ICT1222'), 
+('TG2203', 'TMS1233'), 
+('TG2203', 'ICT1233'), 
+('TG2203', 'TCS1212'), 
+('TG2203', 'ENG1222'),
+('TG2204', 'ICT1242'), 
+('TG2204', 'ICT1253'), 
+('TG2204', 'ICT1212'), 
+('TG2204', 'ICT1222'), 
+('TG2204', 'TMS1233'), 
+('TG2204', 'ICT1233'), 
+('TG2204', 'TCS1212'), 
+('TG2204', 'ENG1222'),
+('TG2205', 'ICT1242'), 
+('TG2205', 'ICT1253'), 
+('TG2205', 'ICT1212'), 
+('TG2205', 'ICT1222'), 
+('TG2205', 'TMS1233'), 
+('TG2205', 'ICT1233'), 
+('TG2205', 'TCS1212'), 
+('TG2205', 'ENG1222'),
+('TG2206', 'ICT1242'), 
+('TG2206', 'ICT1253'), 
+('TG2206', 'ICT1212'), 
+('TG2206', 'ICT1222'), 
+('TG2206', 'TMS1233'), 
+('TG2206', 'ICT1233'), 
+('TG2206', 'TCS1212'), 
+('TG2206', 'ENG1222'),
+('TG2207', 'ICT1242'), 
+('TG2207', 'ICT1253'), 
+('TG2207', 'ICT1212'), 
+('TG2207', 'ICT1222'), 
+('TG2207', 'TMS1233'), 
+('TG2207', 'ICT1233'), 
+('TG2207', 'TCS1212'), 
+('TG2207', 'ENG1222'),
+('TG2120', 'ICT1242'), 
+('TG2120', 'ICT1253'), 
+('TG2120', 'ICT1212'), 
+('TG2120', 'ICT1222'), 
+('TG2120', 'TMS1233'), 
+('TG2120', 'ICT1233'), 
+('TG2120', 'TCS1212'), 
+('TG2120', 'ENG1222'),
+('TG2115', 'ICT1242'), 
+('TG2115', 'ICT1253'), 
+('TG2115', 'ICT1212'), 
+('TG2115', 'ICT1222'), 
+('TG2115', 'TMS1233'), 
+('TG2115', 'ICT1233'), 
+('TG2115', 'TCS1212'), 
+('TG2115', 'ENG1222'),
+('TG2125', 'ICT1242'), 
+('TG2125', 'ICT1253'), 
+('TG2125', 'ICT1212'), 
+('TG2125', 'ICT1222'), 
+('TG2125', 'TMS1233'), 
+('TG2125', 'ICT1233'), 
+('TG2125', 'TCS1212'), 
+('TG2125', 'ENG1222'),
+('TG2208', 'ICT1242'), 
+('TG2208', 'ICT1253'), 
+('TG2208', 'ICT1212'), 
+('TG2208', 'ICT1222'), 
+('TG2208', 'TMS1233'), 
+('TG2208', 'ICT1233'), 
+('TG2208', 'TCS1212'), 
+('TG2208', 'ENG1222'),
+('TG2130', 'ICT1242'), 
+('TG2130', 'ICT1253'), 
+('TG2130', 'ICT1212'), 
+('TG2130', 'ICT1222'), 
+('TG2130', 'TMS1233'), 
+('TG2130', 'ICT1233'), 
+('TG2130', 'TCS1212'), 
+('TG2130', 'ENG1222'),
+('TG2209', 'ICT1242'), 
+('TG2209', 'ICT1253'), 
+('TG2209', 'ICT1212'), 
+('TG2209', 'ICT1222'), 
+('TG2209', 'TMS1233'), 
+('TG2209', 'ICT1233'), 
+('TG2209', 'TCS1212'), 
+('TG2209', 'ENG1222'),
+('TG2135', 'ICT1242'), 
+('TG2135', 'ICT1253'), 
+('TG2135', 'ICT1212'), 
+('TG2135', 'ICT1222'), 
+('TG2135', 'TMS1233'), 
+('TG2135', 'ICT1233'), 
+('TG2135', 'TCS1212'), 
+('TG2135', 'ENG1222'),
+('TG2210', 'ICT1242'), 
+('TG2210', 'ICT1253'), 
+('TG2210', 'ICT1212'), 
+('TG2210', 'ICT1222'), 
+('TG2210', 'TMS1233'), 
+('TG2210', 'ICT1233'), 
+('TG2210', 'TCS1212'), 
+('TG2210', 'ENG1222');
+
+
+
+CREATE TABLE Marks(
+    Mark_ID VARCHAR(10),
+    Mark_Stu_ID VARCHAR(6),
+    Mark_Course_Code VARCHAR(7),
+    Assignment DECIMAL(5,2),
+    Quiz_01 DECIMAL(5,2),
+    Quiz_02 DECIMAL(5,2),
+    Quiz_03 DECIMAL(5,2),
+    Mid_Exam_Theory decimal(5,2),
+    Mid_Exam_Practical decimal(5,2),
+    End_Exam_Theory decimal(5,2),
+    End_Exam_Practical decimal(5,2),
+    CA_Marks DECIMAL(5,2),
+    Final_Marks DECIMAL(5,2) GENERATED ALWAYS AS (CA_Marks + ((Mid_Exam_Theory* 0.4)/2 +(Mid_Exam_Practical* 0.4)/2) + ((End_Exam_Theory* 0.6)/2 +(End_Exam_Practical* 0.6)/2)) STORED,
+    PRIMARY KEY (Mark_ID, Mark_Stu_ID, Mark_Course_Code)
+);
+
+
+
+UPDATE marks 
+SET CA_Marks = Assignment + 
+               GREATEST(Quiz_01, Quiz_02, Quiz_03) +
+               LEAST(GREATEST(Quiz_01, Quiz_02), GREATEST(Quiz_01, Quiz_03), GREATEST(Quiz_02, Quiz_03));
+
+
+CREATE TABLE Medical (
+    Medical_ID VARCHAR(6) PRIMARY KEY,
+    Student_ID VARCHAR(7),
+    Course_Code VARCHAR(7),
+    Assessment_Type ENUM('CA', 'Mid', 'Final') NOT NULL, -- Type of assessment covered by medical
+    Start_Date DATE,
+    End_Date DATE,
+    Description TEXT
+);
+
