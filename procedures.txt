@@ -120,6 +120,8 @@ END //
 
 ######################### Grading #################################
 
+ALTER TABLE marks ADD COLUMN Grade VARCHAR(3);
+
 DELIMITER //
 
 CREATE PROCEDURE GradeStudents()
