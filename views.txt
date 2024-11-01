@@ -118,3 +118,46 @@ GROUP BY
     students.Student_ID, 
     students.Stu_FName, 
     students.Stu_LName;
+
+
+
+####################### attendance summary ###################
+
+CREATE VIEW AttendanceSummary AS
+SELECT 
+    Att_Student_ID AS Student_ID,
+    Att_Course_Code AS Course_Code,
+    SUM
+        (CASE 
+            WHEN Status = 'pr' THEN Lec_hours 
+            ELSE 0 
+        END) / SUM(Lec_hours) * 100 AS Attendance_Percentage,
+
+    SUM
+        (CASE 
+            WHEN Status = 'pr' OR Medical_status = 'Yes' THEN Lec_hours 
+            ELSE 0 
+        END) / SUM(Lec_hours) * 100 AS Attendance_With_Medical
+FROM Attendence
+GROUP BY Att_Student_ID, Att_Course_Code;
+
+
+################################ create view for ca marks ################################
+
+CREATE VIEW vw_CA_Marks AS
+SELECT 
+    Mark_ID,
+    Mark_Stu_ID,
+    Mark_Course_Code,
+    Assignment,
+    Quiz_01,
+    Quiz_02,
+    Quiz_03,
+    -- Calculate the two highest quiz scores and the CA Marks
+    (Assignment + 
+        GREATEST(Quiz_01, Quiz_02, Quiz_03) + 
+        (Quiz_01 + Quiz_02 + Quiz_03 - GREATEST(Quiz_01, Quiz_02, Quiz_03) - LEAST(Quiz_01, Quiz_02, Quiz_03))
+    ) AS CA_Marks
+FROM 
+    Marks;
+
