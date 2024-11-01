@@ -1,0 +1,91 @@
+// PROCEDURE FOR SELECT MAX TWO QUIZES
+DELIMITER //
+CREATE PROCEDURE CalculateMaxQuizMarks()
+BEGIN
+    -- Update each row with the two highest quiz marks
+    UPDATE Final_Marks
+    SET Max_Q1 = CASE
+                    WHEN Quiz_01 >= Quiz_02 AND Quiz_01 >= Quiz_03 THEN Quiz_01
+                    WHEN Quiz_02 >= Quiz_01 AND Quiz_02 >= Quiz_03 THEN Quiz_02
+                    ELSE Quiz_03
+                 END,
+        Max_Q2 = CASE
+                    WHEN Quiz_01 >= Quiz_02 AND Quiz_01 >= Quiz_03 THEN GREATEST(Quiz_02, Quiz_03)
+                    WHEN Quiz_02 >= Quiz_01 AND Quiz_02 >= Quiz_03 THEN GREATEST(Quiz_01, Quiz_03)
+                    ELSE GREATEST(Quiz_01, Quiz_02)
+                 END;
+END
+DELIMITER;
+
+//hasala *****
+
+DELIMITER //
+
+CREATE PROCEDURE CalculateCAMarks(
+    IN p_Student_ID VARCHAR(6),
+    IN p_Course_Code VARCHAR(7),
+    OUT p_CA_Marks DECIMAL(5,2)
+)
+BEGIN
+    DECLARE max_quiz1 DECIMAL(5,2);
+    DECLARE max_quiz2 DECIMAL(5,2);
+    DECLARE assignment DECIMAL(5,2);
+    DECLARE quiz1 DECIMAL(5,2);
+    DECLARE quiz2 DECIMAL(5,2);
+    DECLARE quiz3 DECIMAL(5,2);
+
+    -- Fetch the marks
+    SELECT Assignment, Quiz_01, Quiz_02, Quiz_03
+    INTO assignment, quiz1, quiz2, quiz3
+    FROM Marks
+    WHERE Mark_Stu_ID = p_Student_ID AND Mark_Course_Code = p_Course_Code;
+
+    -- Calculate the two highest quiz scores
+    SET max_quiz1 = GREATEST(quiz1, quiz2, quiz3);
+    SET max_quiz2 = (Quiz_01 + Quiz_02 + Quiz_03 - GREATEST(Quiz_01, Quiz_02, Quiz_03) - LEAST(Quiz_01, Quiz_02, Quiz_03));
+
+    -- Calculate the CA marks
+    SET p_CA_Marks = assignment + max_quiz1 + max_quiz2;
+END //
+
+DELIMITER ;
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE CalculateCAMarks(
+    IN p_Student_ID VARCHAR(6),
+    IN p_Course_Code VARCHAR(7)
+)
+BEGIN
+    DECLARE max_quiz1 DECIMAL(5,2);
+    DECLARE max_quiz2 DECIMAL(5,2);
+    DECLARE assignment DECIMAL(5,2);
+    DECLARE quiz1 DECIMAL(5,2);
+    DECLARE quiz2 DECIMAL(5,2);
+    DECLARE quiz3 DECIMAL(5,2);
+    DECLARE ca_marks DECIMAL(5,2);
+
+    -- Fetch the marks
+    SELECT Assignment, Quiz_01, Quiz_02, Quiz_03
+    INTO assignment, quiz1, quiz2, quiz3
+    FROM Marks
+    WHERE Mark_Stu_ID = p_Student_ID AND Mark_Course_Code = p_Course_Code;
+
+    -- Calculate the two highest quiz scores
+    SET max_quiz1 = GREATEST(quiz1, quiz2, quiz3);
+    SET max_quiz2 = (quiz1 + quiz2 + quiz3 - GREATEST(quiz1, quiz2, quiz3) - LEAST(quiz1, quiz2, quiz3));
+
+    -- Calculate the CA marks
+    SET ca_marks = assignment + max_quiz1 + max_quiz2;
+
+    -- Update the CA_Marks column in the Marks table
+    UPDATE Marks
+    SET CA_Marks = ca_marks
+    WHERE Mark_Stu_ID = p_Student_ID AND Mark_Course_Code = p_Course_Code;
+END //
+
+DELIMITER ;

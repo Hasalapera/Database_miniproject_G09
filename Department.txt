@@ -1,15 +1,17 @@
 CREATE TABLE Department(
     Department_ID CHAR(3),
     Dep_Name VARCHAR(100),
+    Dep_Lec_ID CHAR(4),
+    Dep_Admin_ID CHAR(7),
     PRIMARY KEY(department_ID)
 );
 
-INSERT INTO Department(Department_ID,Dep_Name)
+INSERT INTO Department(Department_ID,Dep_Name,Dep_Lec_ID,Dep_Admin_ID)
 VALUES
-("D01","ICT DEPARTMENT"),
-("D02","ET DEPARTMENT"),
-("D03","BST DEPARTMENT"),
-("D04","MULTIDISCIPLINARY DEPARTMENT");
+("D01","ICT DEPARTMENT","L001","admin1"),
+("D02","ET DEPARTMENT","L001","admin1"),
+("D03","BST DEPARTMENT","L001","admin1"),
+("D04","MULTIDISCIPLINARY DEPARTMENT","L001","admin1");
 
 CREATE TABLE Lecturer(
     Lecturer_ID CHAR(4),
@@ -18,23 +20,22 @@ CREATE TABLE Lecturer(
     Lec_Dob DATE,
     Lec_Email VARCHAR(100),
     Lec_Address VARCHAR(100),
+    Lec_Phone_Number VARCHAR(10),
     Enrollment_Date DATE,
     Lec_Dep_ID CHAR(3),
     PRIMARY KEY(lecturer_ID)
 );
 
-INSERT INTO Lecturer (Lecturer_ID, Lec_FName, Lec_LName, Lec_Dob, Lec_Email, Lec_Address, Enrollment_Date, Lec_Dep_ID)
+INSERT INTO Lecturer (Lecturer_ID, Lec_FName, Lec_LName, Lec_Dob, Lec_Email, Lec_Address, Lec_Phone_Number, Enrollment_Date, Lec_Dep_ID)
 VALUES
-("L001", "Nuwan", "Laksiri", "1990-12-21", "nuwansiri_01@fot.ruh.ac.lk", "Matara", "2007-04-21", "D01"),
-("L002", "Shashitha", "Lakal", "1995-01-11", "shashithalak_02@fot.ruh.ac.lk", "Galle", "2011-01-18", "D01"),
-("L003", "Anuradha", "Perera", "1988-05-10", "anuradha_perera@fot.ruh.ac.lk", "Colombo", "2009-08-23", "D02"),
-("L004", "Suresh", "Wijesinghe", "1992-02-28", "suresh_wijesinghe@fot.ruh.ac.lk", "Kandy", "2012-06-14", "D02"),
-("L005", "Ruwan", "Fernando", "1985-07-15", "ruwan_fernando@fot.ruh.ac.lk", "Matara", "2005-11-05", "D04"),
-("L006", "Kumari", "Bandara", "1991-04-22", "kumari_bandara@fot.ruh.ac.lk", "Hambantota", "2014-09-10", "D04"),
-("L007", "Kavindi", "De Silva", "1989-11-03", "kavindi_desilva@fot.ruh.ac.lk", "Galle", "2013-03-19", "D04"),
-("L008", "Prasad", "Jayasekara", "1993-08-18", "prasad_jayasekara@fot.ruh.ac.lk", "Kalutara", "2015-05-22", "D01"),
-("L009", "Dilshan", "Perera", "1990-09-25", "dilshan_perera@fot.ruh.ac.lk", "Colombo", "2016-07-29", "D03"),
-("L010", "Harsha", "Senanayake", "1987-03-05", "harsha_senanayake@fot.ruh.ac.lk", "Negombo", "2008-02-15", "D02");
+("L001", "Subash", "Jayasinghe", "1980-12-21", "subash_jayasinghe@fot.ruh.ac.lk", "Matara","0761023456", "2018-03-21", "D01"),
+("L002", "Nuwan", "Laksiri", "1985-03-21", "nuwan_laksiri@fot.ruh.ac.lk", "Matara","0728398437", "2020-04-21", "D01"),
+("L003", "Shashitha", "Lakal", "1995-01-11", "shashitha_lakal_02@fot.ruh.ac.lk", "Galle","0753323782", "2021-01-18", "D01"),
+("L004", "Chanduni", "Gamage", "1995-05-10", "chanduni_gamage@fot.ruh.ac.lk", "Colombo","0773343134", "2022-08-23", "D01"),
+("L005", "Achini", "Wijesinghe", "1996-02-28", "achini_wijeshinghe@fot.ruh.ac.lk", "Kandy","0749913293", "2023-06-14", "D02"),
+("L006", "Rumeshika", "Wickramaarachchi", "1992-07-15", "rumeshika_wickramaarachchi@fot.ruh.ac.lk", "Matara","0778293928", "2022-11-05", "D01"),
+("L007", "Chathuranga", "Adikari", "1997-04-22", "chathuranga_adikari@fot.ruh.ac.lk", "Anuradhapura","0782362376", "2022-09-10", "D04"),
+("L008", "Naveen", "Welimuni", "1996-11-03", "Naveen_welimuni@fot.ruh.ac.lk", "Galle","0717237218", "2021-03-19", "D04");
 
 
 CREATE TABLE Attendance(
@@ -142,47 +143,51 @@ CREATE TABLE Students (
     Stu_Email VARCHAR(100),
     Stu_Phone_No VARCHAR(10),
     Stu_Enrollment_Date DATE,
-    Status VARCHAR(10), -- Proper, Repeat, Suspended
+    Status VARCHAR(10), -- Proper, Repeat
     Stu_Dep_ID CHAR(3)
 );
 
 INSERT INTO Students
 (Student_ID,Stu_FName,Stu_LName,Stu_Dob,Stu_Address,Stu_Email,Stu_Phone_No,Stu_Enrollment_Date,Status,Stu_Dep_ID)
 VALUES
-('TG0001','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper','D01'),
-('TG0002','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper','D01'),
-('TG0003','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2021-09-15','Proper','D01'),
-('TG0004','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2021-09-15','Proper','D01'),
-('TG0005','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2021-09-15','Proper','D02'),
-('TG0006','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2021-09-15','Proper','D02'),
-('TG0007','Harsha','Kumara','2003-06-28','Colombo','harshakumara@gmail.com','0782348765','2023-09-04','Proper','D02'),
-('TG0008','Ashen','Bandara','2002-02-14','Colombo','ashenbandara@gmail.com','0745083452','2022-09-02','Repeat','D03'),
-('TG0009','Kasun','Rajapaksha','2003-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2023-09-04','Repeat','D02');
+('TG2201','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper','D01'), 
+('TG2202','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper','D01'),
+('TG2203','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2022-09-02','Proper','D01'),
+('TG2204','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2022-09-02','Proper','D01'),
+('TG2205','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2022-09-02','Proper','D01'),
+('TG2206','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2022-09-02','Proper','D01'),
+('TG2207','Harsha','Kumara','2003-01-12','Colombo','harshakumara@gmail.com','0782348765','2022-09-02','Proper','D01'),
+('TG2120','Ashen','Bandara','2000-02-14','Colombo','ashenbandara@gmail.com','0745083452','2021-09-05','Repeat','D01'),
+('TG2115','Kasun','Rajapaksha','2000-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2021-09-05','Repeat','D01'),
+('TG2125','Sahan','Dilhara','2000-07-02','Hambantota','sahandilhara@gmail.com','0712563821','2021-09-05','Repeat','D01'),
+('TG2208','Nimesh','Maduranga','2002-01-31','Badulla','nimeshmaduranga@gmail.com','0763527912','2022-09-02','Proper','D01'),
+('TG2130','Sajith','Roopasinghe','2003-11-23','Gampaha','sajithroopasinghe@gmail','0783446363','2021-09-05','Repeat','D01'),
+('TG2209','Roshan','Nirmal','2002-06-25','Kaluthara','roshannirmal@gmail.com','0754362927','2022-09-02','Proper','D01'),
+('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat','D01'),
+('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper','D01');
 
 CREATE TABLE Courses(
-    Course_Code VARCHAR(07) PRIMARY KEY NOT NULL,
+    Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
     Course_Name VARCHAR(100),
     Credits INT,
-    Course_Type ENUM('T','P','Both'), -- Theory/Practical/Both
-    Lecturer_ID CHAR(04),
-    Course_Dep_ID CHAR(03)
+    Course_Type VARCHAR(10), -- Theory/Practical/Both
+    Course_Dep_ID CHAR(3)
     );
 
-INSERT INTO Courses
-(Course_Code,Course_Name,Credits,Course_Type,Lecturer_ID,Course_Dep_ID)
-VALUES
-('ICT001','DataBase Management System',6,'Both','L001','D01'),
-('ICT002','Computer Network',2,'Both','L002','D01'),
-('ENT001','Electronic Technology',3,'Both','L003','D02'),
-('ENT002','AutoMobile',2,'P','L004','D02'),
-('ENG001','English',2,'T','L005','D04'),
-('MTH001','Mathematics',3,'T','L006','D04'),
-('MNG001','Management',2,'T','L007','D04');
 
-CREATE TABLE Student_Course(
-    Student_ID VARCHAR(6),
-    Course_Code VARCHAR(7)
-);
+INSERT INTO Courses
+(Course_Code,Course_Name,Credits,Course_Type,Course_Dep_ID)
+VALUES
+('ICT1242','Computer Architecture',2,'T','D01'),
+('ICT1253','Computer Networks',3,'T/P','D01'),
+('ICT1212','Database Management System',2,'T','D01'),
+('ICT1222','Database Management System Practicum',2,'P','D01'),
+('TMS1233','Discrete Mathematics',3,'T','D02'),
+('ICT1233','Serverside Web Development',3,'T/P','D01'),
+('TCS1212','Fundamental of Management',2,'T','D04'),
+('ENG1222','English',2,'T','D04');
+
+
 
 INSERT INTO Student_Course(Student_ID,Course_Code)
 VALUES
@@ -194,3 +199,20 @@ VALUES
 ('TG0002','ICT002'),
 ('TG0002','ENG001'),
 ('TG0002','MTH001');
+
+###################################
+
+CREATE TABLE Marks(
+    Mark_ID VARCHAR(10),
+    Mark_Stu_ID VARCHAR(6),
+    Mark_Course_Code VARCHAR(7),
+    Assignment DECIMAL(5,2),
+    Quiz_01 DECIMAL(5,2),
+    Quiz_02 DECIMAL(5,2),
+    Quiz_03 DECIMAL(5,2),
+    Mid_Exam DECIMAL(5,2),
+    End_Exam DECIMAL(5,2),
+    CA_Marks DECIMAL(5,2),
+    Final_Marks DECIMAL(5,2) GENERATED ALWAYS AS (CA_Marks + Mid_Exam* 0.4 + End_Exam * 0.6) STORED,
+    PRIMARY KEY (Mark_ID, Mark_Stu_ID, Mark_Course_Code)
+);
