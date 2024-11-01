@@ -220,14 +220,15 @@ Medical_status VARCHAR(5));
 
 INSERT INTO Attendence(Attendence_ID,Att_Student_ID,Att_Course_Code,Week_Num,Day_Num,Lec_hours,Status,Session_type,Medical_status)
 VALUES
-('AT001', 'TG2201', 'ICT1242', 'w1', 'd1', 2, 'pr', 'T', 'No'), 
-('AT002', 'TG2201', 'ICT1253', 'w1', 'd1', 2, 'pr', 'P', 'No'), 
-('AT003', 'TG2201', 'ICT1212', 'w1', 'd2', 2, 'pr', 'T', 'No'), 
-('AT004', 'TG2201', 'ICT1222', 'w1', 'd3', 0, 'ab', 'T', 'Yes'), 
-('AT005', 'TG2201', 'ICT1233', 'w1', 'd3', 0, 'ab', 'P', 'No'), 
-('AT006', 'TG2201', 'TMS1233', 'w1', 'd3', 0, 'ab', 'P', 'No'), 
-('AT007', 'TG2201', 'TCS1212', 'w1', 'd4', 2, 'pr', 'T', 'No'), 
-('AT008', 'TG2201', 'ENG1222', 'w1', 'd5', 2, 'pr', 'T', 'No'),
+('AT0001', 'TG2201', 'ICT1242', 'w01', 'd1', 2, 'pr', 'T', 'No'), 
+('AT0002', 'TG2201', 'ICT1253', 'w01', 'd1', 2, 'pr', 'P', 'No'), 
+('AT0003', 'TG2201', 'ICT1212', 'w01', 'd2', 2, 'pr', 'T', 'No'), 
+('AT0004', 'TG2201', 'ICT1222', 'w01', 'd3', 0, 'ab', 'T', 'Yes'), 
+('AT0005', 'TG2201', 'ICT1233', 'w01', 'd3', 0, 'ab', 'P', 'No'), 
+('AT0006', 'TG2201', 'TMS1233', 'w01', 'd3', 0, 'ab', 'P', 'No'), 
+('AT0007', 'TG2201', 'TCS1212', 'w01', 'd4', 2, 'pr', 'T', 'No'), 
+('AT0008', 'TG2201', 'ENG1222', 'w01', 'd5', 2, 'pr', 'T', 'No'),
+
 
 ('AT0009', 'TG2202', 'ICT1242', 'w01', 'd1', 0, 'ab', 'T', 'No'), 
 ('AT0010', 'TG2202', 'ICT1253', 'w01', 'd1', 2, 'pr', 'P', 'No'), 
