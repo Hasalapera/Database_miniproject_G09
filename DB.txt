@@ -206,8 +206,8 @@ VALUES
 Attendence Table
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE Attendence(
-Attendence_ID VARCHAR(6) PRIMARY KEY,
+CREATE TABLE Attendance(
+Attendance_ID VARCHAR(6) PRIMARY KEY,
 Att_Student_ID VARCHAR(7),
 Att_Course_Code VARCHAR(7),
 Week_Num CHAR(3),
@@ -217,7 +217,7 @@ Status CHAR(2),
 Medical_status VARCHAR(5));
 
 
-INSERT INTO Attendence(Attendence_ID,Att_Student_ID,Att_Course_Code,Week_Num,Day_Num,Lec_hours,Status,Medical_status)
+INSERT INTO Attendance(Attendance_ID,Att_Student_ID,Att_Course_Code,Week_Num,Day_Num,Lec_hours,Status,Medical_status)
 VALUES
 -- week01
 
