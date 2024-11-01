@@ -8,6 +8,9 @@ CREATE TABLE Medical (
     medical_status VARCHAR(10)
 );
 
+ALTER TABLE Medical
+MODIFY Assessment_Type ENUM('CA', 'Mid', 'Final', 'Lec') NOT NULL;
+
 INSERT INTO Medical (Medical_ID, Student_ID, Course_Code, Assessment_Type, week, date, medical_status)
 VALUES 
 ('M0001', 'TG2206', 'ICT1253', 'CA', 'w01', 'd1', 'Approved'),
@@ -52,3 +55,7 @@ VALUES
 ('M0040', 'TG2206', 'TCS1212', 'CA', 'w10', 'd4', 'Approved'),
 ('M0041', 'TG2209', 'ICT1242', 'Mid', 'w10', 'd1', 'Denied'),
 ('M0042', 'TG2115', 'ENG1222', 'Final', 'w15', 'd5', 'Approved');
+
+UPDATE Medical
+SET Assessment_Type = 'Lec'
+WHERE Assessment_Type = 'Final';
