@@ -57,6 +57,3 @@ VALUES
 ('M0042', 'TG2115', 'ENG1222', 'Final', 'w15', 'd5', 'Approved');
 ('M0043', 'TG2210', 'ICT1212', 'Final', 'w15', 'd5', 'Approved');
 ('M0044', 'TG2135', 'ICT1222', 'Final', 'w15', 'd5', 'Denied');
-UPDATE Medical
-SET Assessment_Type = 'Lec'
-WHERE Assessment_Type = 'Final';
