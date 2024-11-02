@@ -1,3 +1,5 @@
+################# Department Table ###############
+
 CREATE TABLE Department(
     Department_ID CHAR(3),
     Dep_Name VARCHAR(100),
@@ -12,6 +14,8 @@ VALUES
 ("D02","ET DEPARTMENT","L001","admin1"),
 ("D03","BST DEPARTMENT","L001","admin1"),
 ("D04","MULTIDISCIPLINARY DEPARTMENT","L001","admin1");
+
+################## Lecturer Table ########################
 
 CREATE TABLE Lecturer(
     Lecturer_ID CHAR(4),
@@ -37,6 +41,7 @@ VALUES
 ("L007", "Chathuranga", "Adikari", "1997-04-22", "chathuranga_adikari@fot.ruh.ac.lk", "Anuradhapura","0782362376", "2022-09-10", "D04"),
 ("L008", "Naveen", "Welimuni", "1996-11-03", "Naveen_welimuni@fot.ruh.ac.lk", "Galle","0717237218", "2021-03-19", "D04");
 
+########################### Week Table #######################
 
 CREATE TABLE Week(
     Week_ID CHAR(3),
@@ -62,6 +67,8 @@ VALUES
 ('W14','Week_No_14'),
 ('W15','Week_No_15');
 
+############################### Day Table #################################
+
 CREATE TABLE Day(
     Day_ID CHAR(3),
     Day_Name VARCHAR(10),
@@ -76,6 +83,7 @@ VALUES
 ('D04','Thursday'),
 ('D05','Friday');
 
+########################### Student Table ##################################
 
 CREATE TABLE Students (
     Student_ID VARCHAR(6) PRIMARY KEY,
@@ -109,6 +117,8 @@ VALUES
 ('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat','D01'),
 ('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper','D01');
 
+####################### Courses ##############################
+
 CREATE TABLE Courses(
     Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
     Course_Name VARCHAR(100),
@@ -130,8 +140,7 @@ VALUES
 ('TCS1212','Fundamental of Management',2,'T','D04'),
 ('ENG1222','English',2,'T','D04');
 
-
-
+######################## Lecturer_Course Table #########################
 
 CREATE TABLE Lecturer_Course(
     Lecturer_ID CHAR(4),
@@ -150,7 +159,7 @@ VALUES
 ("L007","TCS1212"),
 ("L008","ENG1222");
 
-######################################
+######################### TO_Department Table ###############################
 
 CREATE TABLE TO_Department(
     TO_ID CHAR(4),
@@ -181,7 +190,7 @@ VALUES
 ("TO04","D04"),
 ("TO05","D04");
 
-######################################
+############################## Admin Table ###########################
 
 CREATE TABLE admin(
     Admin_ID CHAR(7) PRIMARY KEY,
@@ -193,7 +202,7 @@ INSERT INTO admin(Admin_ID,Admin_Name,Admin_Phone_Number)
 VALUES
 ("admin1","Charith Jayathilaka","0763242331");
 
-######################################
+########################## Technical_Officer Table #######################
 
 CREATE TABLE Technical_Officer(
     TO_ID CHAR(5) PRIMARY KEY,
@@ -208,6 +217,8 @@ VALUES
 ("TO03","Vikum Wijesiri","0761234328"),
 ("TO04","Nilanthi Ranathunga","0763242331"),
 ("TO05","Anura Perera","0712267890");
+
+######################## Student_Course Table ###################
 
 CREATE TABLE Student_Course(
     Student_ID VARCHAR(6),
@@ -338,7 +349,7 @@ VALUES
 ('TG2210', 'TCS1212'), 
 ('TG2210', 'ENG1222');
 
-
+########################## Marks Table ##############################
 
 CREATE TABLE Marks(
     Mark_ID VARCHAR(10),
@@ -356,7 +367,6 @@ CREATE TABLE Marks(
     Final_Marks DECIMAL(5,2) GENERATED ALWAYS AS (CA_Marks + ((Mid_Exam_Theory* 0.4)/2 +(Mid_Exam_Practical* 0.4)/2) + ((End_Exam_Theory* 0.6)/2 +(End_Exam_Practical* 0.6)/2)) STORED,
     PRIMARY KEY (Mark_ID, Mark_Stu_ID, Mark_Course_Code)
 );
-
 
 
 UPDATE marks 
