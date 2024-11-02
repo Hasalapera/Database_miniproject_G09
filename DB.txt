@@ -1861,8 +1861,7 @@ BEGIN
         Att_Student_ID=Student_ID
         AND Att_Course_Code=CourseCode;
 
-        
-
+    
     END //
 
     DELIMITER ;
