@@ -2,14 +2,11 @@ CREATE TABLE Medical (
     Medical_ID VARCHAR(6) PRIMARY KEY,
     Student_ID VARCHAR(7),
     Course_Code VARCHAR(7),
-    Assessment_Type ENUM('CA', 'Mid', 'Final') NOT NULL, -- Type of assessment covered by medical
+    Assessment_Type ENUM('CA', 'Mid', 'Final','Lec') NOT NULL, -- Type of assessment covered by medical
     week VARCHAR(3),
     date VARCHAR(3),
     medical_status VARCHAR(10)
 );
-
-ALTER TABLE Medical
-MODIFY Assessment_Type ENUM('CA', 'Mid', 'Final', 'Lec') NOT NULL;
 
 INSERT INTO Medical (Medical_ID, Student_ID, Course_Code, Assessment_Type, week, date, medical_status)
 VALUES 
