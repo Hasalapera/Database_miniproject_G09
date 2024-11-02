@@ -12,9 +12,8 @@ CREATE TABLE Students (
     Stu_PhoneNumber VARCHAR(10),
     Stu_EnrollmentDate DATE,
     Status VARCHAR(10),
-    Stu_Department_ID CHAR(3) -- Proper, Repeat
+    Stu_Department_ID CHAR(3) -- Proper, Repeat, Suspend
 );
-
 
 
 INSERT INTO Students
@@ -34,7 +33,13 @@ VALUES
 ('TG2130','Sajith','Roopasinghe','2003-11-23','Gampaha','sajithroopasinghe@gmail','0783446363','2021-09-05','Repeat','D01'),
 ('TG2209','Roshan','Nirmal','2002-06-25','Kaluthara','roshannirmal@gmail.com','0754362927','2022-09-02','Proper','D01'),
 ('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat','D01'),
-('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper','D01');
+('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper','D01'),
+('TG2150','Chamod','Madushan','2000-06-16','Mahiyanganaya','chamodmadushan@gmail.com','0721323427','2021-09-05','Suspend','D01');
+
+
+
+
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,9 +50,8 @@ CREATE TABLE Courses(
     Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
     Course_Name VARCHAR(100),
     Credits INT,
-    Course_Type VARCHAR(10), -- Theory/Practical/Both
-    Course_Dep_ID CHAR(3)
-    );
+    Course_Type VARCHAR(10), 
+    Course_Dep_ID CHAR(3));
 
 
 INSERT INTO Courses
@@ -1810,34 +1814,59 @@ VALUES
 
 
 
-
-
-
-
-
-
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Quiz Assignment Mark Table
+CREATE VIEW TO GET Attendance Percentage
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE Quiz_Assignment(
-    QA_Student_ID VARCHAR(6),
-    QA_Course_Code VARCHAR(7),
-    Ass_01 INT,
-    Ass_02 INT,
-    Quiz_01 INT,
-    Quiz_02 INT,
-    Quiz_03 INT
-);
+CREATE VIEW percentage AS
+SELECT
+    att_student_id,
+    Att_Course_Code,
+    SUM(CASE WHEN lec_hours = '2' THEN 2 ELSE 0 END) AS Present_hours,
+    14 * 2 AS Total_Hours,  -- Assuming 2 hours per week for 14 weeks
+    (SUM(CASE WHEN lec_hours = '2' THEN 2 ELSE 0 END) * 100.0 / (14 * 2)) AS Attendance_Percentage,
+    CASE 
+        WHEN (SUM(CASE WHEN lec_hours = 2 THEN 2 ELSE 0 END) * 100.0 / (14 * 2)) > 80 THEN 'Eligible'
+        ELSE 'Not Eligible'
+    END AS Eligibility
 
-INSERT INTO Quiz_Assignment
-(QA_Student_ID, QA_Course_Code,Ass_01,Ass_02,Quiz_01,Quiz_02,Quiz_03)
-VALUES
-('TG0001','ICT001',5,4,5,4,5),
-('TG0001','ICT002',4,4,5,4,5),
+FROM
+    attendence
+WHERE
+    Att_Course_Code IN ('ICT1242', 'ICT1253', 'ICT1212', 'ICT1222', 'TMS1233', 'ICT1233', 'TCS1212', 'ENG1222')
+    AND att_student_id >= 'TG2201' AND week_num<"w15"
+GROUP BY
+    att_student_id, Att_Course_Code;
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROCEDURE FOR SHOW A STUDENT ATTENDECE PERCENTAGES
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER //
+
+CREATE PROCEDURE GetDetail(
+    IN Student_ID VARCHAR(6),
+    IN CourseCode VARCHAR(7)
+)
+BEGIN
+    SELECT 
+        att_student_id,
+        Att_Course_Code,
+        Attendance_Percentage,
+        Eligibility 
+        FROM percentage
+
+    WHERE
+        Att_Student_ID=Student_ID
+        AND Att_Course_Code=CourseCode;
+
+        
+
+    END //
+
+    DELIMITER ;
+        
 
 
 
