@@ -513,6 +513,16 @@ VALUES
 ("MARK000119", "TG2135", "TCS1212", 3.3, 3.9, 3.5, 3.2, 72.0, 74.6, 63.1, 67.0),
 ("MARK000120", "TG2135", "ENG1222", 4.4, 3.6, 4.1, 4.8, 67.0, 78.5, 69.0, 71.6);
 
+
+############################ Seperat Theory Practical and Update ##############################
+
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'ICT1212';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'ENG1222';
+UPDATE Marks SET Mid_Exam_Theory = 0, End_Exam_Theory = 0 WHERE Mark_Course_Code = 'ICT1222';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'ICT1242';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'TCS1212';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'TMS1233';
+
 ##############################################################################################################
   Update marks Table calculate max two quizes and add their marks with assignment marks and get full CA Marks
 ##############################################################################################################
