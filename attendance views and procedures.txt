@@ -1,0 +1,301 @@
+############### Get attendance count #################
+
+create view attendanceCount as
+select 
+	Att_Student_ID, Att_Course_Code,
+	
+	count(case when status = 'pr' then 1 end) as Present_Count,
+	count(case when status = 'ab' then 1 end) as Absent_Count
+
+	from attendance
+	where Week_Num IN ('w01', 'w02', 'w03', 'w04', 'w05', 'w06', 'w07', 'w08', 'w09', 'w10', 'w11', 'w12', 'w13', 'w14')
+	group by Att_Student_ID, Att_Course_Code;
+
+--------------------- View -----------------------------------
+
+select * from attendanceCount;
+
+
+
+
+
+
+
+
+
+
+
+################ Get attendance percentage ######################
+
+create view attendancePercentage AS
+select 
+	Att_Student_ID, Att_Course_Code,Present_Count,Absent_Count,
+	
+	(((Present_Count*2) * 100.0)/28) AS Attendance_Percentage
+	from attendanceCount;
+
+--------- view -------------
+ select * from attendancePercentage;
+
+
+
+-------------------------------- remove one of them ------------------------
+
+
+CREATE VIEW attendancePercentage2 AS
+SELECT 
+    Att_Student_ID, 
+    Att_Course_Code,
+    Present_Count,
+    Absent_Count,
+    CONCAT(ROUND(((Present_Count * 2) * 100.0) / 28, 2), '%') AS Attendance_Percentage
+FROM attendanceCount;
+
+---------- view ----------------
+select * from attendancePercentage2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################# Get absent students #########################
+
+create view absentStudents as
+select 
+	Att_Student_ID,Att_Course_Code, Week_Num, Day_Num
+	
+	from attendance
+	where
+	Status = 'ab' AND Week_Num IN ('w01', 'w02', 'w03', 'w04', 'w05', 'w06', 'w07', 'w08', 'w09', 'w10', 'w11', 'w12', 'w13', 'w14');
+
+
+---------- view ----------------
+select * from absentStudents;
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+############### Create medical approved students view ############################
+
+create view approvedMedi as 
+select 
+	Medical_ID, Student_ID, Course_Code, Assessment_Type, week, date
+	from medical
+
+	where medical_status = 'Approved';
+
+---------- view ----------------
+select * from approvedMedi;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################### Create view attendance >= 80% attendance ################
+
+
+create view attendance_80 as
+select 
+	Att_Student_ID, Att_Course_Code
+	from attendancePercentage
+	where Attendance_Percentage >= 80.00000;
+
+---------- view ----------------
+select * from attendance;
+
+
+
+
+
+
+
+
+
+
+
+
+################### Create view attendance below 80 ###################
+
+create view attendance_below_80 as
+select 
+	Att_Student_ID, Att_Course_Code
+	from attendancePercentage
+	where Attendance_Percentage < 80.00000;
+
+---------- view ----------------
+select * from attendance_below_80;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################### Attendance percentage below 80 and medical approved and attendance table status ab ####################
+
+CREATE VIEW LowAttendanceMedicalApproved AS
+SELECT
+	medi.Student_ID,
+    	medi.Course_Code,
+    	att_per.Attendance_Percentage,
+    	medi.week,
+    	medi.date
+FROM 
+    attendancePercentage att_per
+JOIN 
+    approvedMedi medi ON att_per.Att_Student_ID = medi.Student_ID AND att_per.Att_Course_Code = medi.Course_Code
+JOIN 
+    absentStudents absnt ON att_per.Att_Student_ID = absnt.Att_Student_ID AND att_per.Att_Course_Code = absnt.Att_Course_Code
+WHERE 
+    att_per.Attendance_Percentage < 80.00;
+
+
+---------- view ----------------
+select * from LowAttendanceMedicalApproved;
+
+
+
+
+
+
+
+
+
+
+
+
+
+################### Attendance eligible Students #########################
+
+create view attendance_eligible AS 
+SELECT Att_Student_ID, Att_Course_Code
+FROM attendance_80
+
+Union
+
+SELECT Low_Att_App_medi.Student_ID, Low_Att_App_medi.Course_Code
+FROM LowAttendanceMedicalApproved Low_Att_App_medi;
+
+---------- view ----------------
+select * from attendance_eligible;
+
+
+
+
+
+
+
+
+
+
+
+
+##################### attendance summery for whole batch ################################
+
+
+create view StudentEligibilityWithMedical as
+select 
+    att_per.Att_Student_ID,
+    att_per.Att_Course_Code,
+    att_per.Attendance_Percentage,
+    case 
+        when att_per.Attendance_Percentage >= 80.00 THEN 'Eligible'
+        when medic.Student_ID is not null and att_per.Attendance_Percentage < 80.00 then 'Eligible after Medical Approval'
+        else 'Not Eligible'
+    end AS Eligibility_Status
+from 
+    attendancePercentage att_per
+left join
+    approvedMedi medic on att_per.Att_Student_ID = medic.Student_ID and att_per.Att_Course_Code = medic.Course_Code;
+
+---------- view ----------------
+select * from StudentEligibilityWithMedical;
+
+
+
+
+
+
+
+
+
+.############### Get percentage and eligibility status using coursecode and student_id ####################
+
+DELIMITER //
+
+CREATE PROCEDURE GetStudentEligibility(IN p_Student_ID VARCHAR(6), IN p_Course_Code VARCHAR(7))
+BEGIN
+    SELECT 
+        Att_Student_ID,
+        Att_Course_Code,
+        Attendance_Percentage,
+        Eligibility_Status
+    FROM 
+        StudentEligibilityWithMedical
+    WHERE 
+        Att_Student_ID = p_Student_ID AND 
+        Att_Course_Code = p_Course_Code;
+END //
+
+DELIMITER ;
+
+
+------------- Calling PROCEDURE ---------------------
+CALL GetStudentEligibility('StudentID', 'Course');
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+

@@ -1,0 +1,156 @@
+CREATE TABLE Department(
+    Department_ID CHAR(3),
+    Dep_Name VARCHAR(100),
+    Dep_Lec_ID CHAR(4),
+    Dep_Admin_ID CHAR(7),
+    PRIMARY KEY(department_ID)
+);
+
+CREATE TABLE Lecturer(
+    Lecturer_ID CHAR(4),
+    Lec_FName VARCHAR(100),
+    Lec_LName VARCHAR(100),
+    Lec_Dob DATE,
+    Lec_Email VARCHAR(100),
+    Lec_Address VARCHAR(100),
+    Lec_Phone_Number VARCHAR(10),
+    Enrollment_Date DATE,
+    Lec_Dep_ID CHAR(3),
+    PRIMARY KEY(lecturer_ID)
+);
+
+
+CREATE TABLE Week(
+    Week_ID CHAR(3),
+    Week_Name VARCHAR(20),
+    PRIMARY KEY(Week_ID)
+);
+
+
+CREATE TABLE Day(
+    Day_ID CHAR(3),
+    Day_Name VARCHAR(10),
+    PRIMARY KEY(Day_ID)
+);
+
+
+CREATE TABLE Student (
+    Student_ID VARCHAR(6) PRIMARY KEY,
+    Stu_FName VARCHAR(50),
+    Stu_LName VARCHAR(50),
+    Stu_Dob DATE,
+    Stu_Address VARCHAR(100),
+    Stu_Email VARCHAR(100),
+    Stu_Phone_No VARCHAR(10),
+    Stu_Enrollment_Date DATE,
+    Status VARCHAR(10), -- Proper, Repeat
+    Stu_Dep_ID CHAR(3)
+);
+
+
+CREATE TABLE Course(
+    Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
+    Course_Name VARCHAR(100),
+    Credits INT,
+    Course_Type VARCHAR(10), -- Theory/Practical/Both
+    Course_Dep_ID CHAR(3)
+);
+
+
+CREATE TABLE Lecturer_Course(
+    Lecturer_ID CHAR(4),
+    Course_Code VARCHAR(07),
+    PRIMARY KEY (Lecturer_ID,Course_Code)
+);
+
+
+CREATE TABLE TO_Department(
+    TO_ID CHAR(4),
+    Department_ID CHAR(3),
+    PRIMARY KEY (TO_ID,Department_ID)
+);
+
+
+CREATE TABLE admin(
+    Admin_ID CHAR(7) PRIMARY KEY,
+    Admin_Name VARCHAR(100),
+    Admin_Phone_Number VARCHAR(10)
+);
+
+
+CREATE TABLE Technical_Officer(
+    TO_ID CHAR(5) PRIMARY KEY,
+    TO_Name VARCHAR(100),
+    TO_Phone_Number VARCHAR(10)
+);
+
+
+CREATE TABLE Student_Course(
+    Student_ID VARCHAR(6),
+    Course_Code VARCHAR(7),
+    PRIMARY KEY (Student_ID,Course_Code)
+);
+
+
+CREATE TABLE Mark(
+    Mark_ID VARCHAR(10),
+    Mark_Stu_ID VARCHAR(6),
+    Mark_Course_Code VARCHAR(7),
+    Assignment DECIMAL(5,2),
+    Quiz_01 DECIMAL(5,2),
+    Quiz_02 DECIMAL(5,2),
+    Quiz_03 DECIMAL(5,2),
+    Mid_Exam_Theory decimal(5,2),
+    Mid_Exam_Practical decimal(5,2),
+    End_Exam_Theory decimal(5,2),
+    End_Exam_Practical decimal(5,2),
+    PRIMARY KEY (Mark_ID, Mark_Stu_ID, Mark_Course_Code)
+);
+
+
+CREATE TABLE Attendance(
+	Attendance_ID VARCHAR(6) PRIMARY KEY,
+	Att_Student_ID VARCHAR(7),
+	Att_Course_Code VARCHAR(7),
+	Week_Num CHAR(3),
+	Day_Num CHAR(2),
+	Lec_hours INT(2),
+	Status CHAR(2),
+	Medical_status VARCHAR(5)
+);
+
+
+CREATE TABLE Medical (
+    Medical_ID VARCHAR(6) PRIMARY KEY,
+    Student_ID VARCHAR(7),
+    Course_Code VARCHAR(7),
+    Assessment_Type ENUM('CA', 'Mid', 'Final','Lec') NOT NULL,     
+    week VARCHAR(3),
+    date VARCHAR(3),
+    medical_status VARCHAR(10)
+);
+
+
+
+
+
+
+----------------------- Describe Tables --------------------------------------------------
+
+
+DESC Department;
+DESC Lecturer;
+DESC Week;
+DESC Day;
+DESC Student;
+DESC Course;
+DESC Lecturer_Course;
+DESC To_Department;
+DESC Admin;
+DESC Technical_Officer;
+DESC Student_Course;
+DESC Mark;
+DESC Attendance;
+DESC Medical;
+
+
