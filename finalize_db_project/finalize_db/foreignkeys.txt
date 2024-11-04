@@ -1,0 +1,59 @@
+
+ALTER TABLE TO_Department
+ADD FOREIGN KEY (Department_ID) REFERENCES Department(Department_ID);
+
+ALTER TABLE Department
+ADD FOREIGN KEY (Dep_Lec_ID) REFERENCES Lecturer(Lecturer_ID);
+
+ALTER TABLE Department
+ADD FOREIGN KEY (Dep_Admin_ID) REFERENCES Admin(Admin_ID);
+
+ALTER TABLE Student
+ADD FOREIGN KEY (Stu_Dep_ID) REFERENCES Department(Department_ID);
+
+ALTER TABLE Student_Course
+ADD FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID);
+
+ALTER TABLE Student_Course
+ADD FOREIGN KEY (Course_Code) REFERENCES Course(Course_Code);
+
+ALTER TABLE Course
+ADD FOREIGN KEY (Course_Dep_ID) REFERENCES Department(Department_ID);
+
+ALTER TABLE Lecturer_Course
+ADD FOREIGN KEY (Lecturer_ID) REFERENCES Lecturer(Lecturer_ID);
+
+ALTER TABLE Lecturer_Course
+ADD FOREIGN KEY (Course_Code) REFERENCES Course(Course_Code);
+
+ALTER TABLE Mark
+ADD FOREIGN KEY (Mark_Stu_ID) REFERENCES Student(Student_ID);
+
+ALTER TABLE Mark
+ADD FOREIGN KEY (Mark_Course_Code) REFERENCES Course(Course_Code);
+
+ALTER TABLE Attendance
+ADD FOREIGN KEY (Att_Student_ID) REFERENCES Student(Student_ID);
+
+ALTER TABLE Attendance
+ADD FOREIGN KEY (Att_Course_Code) REFERENCES Course(Course_Code);
+
+ALTER TABLE Attendance
+ADD FOREIGN KEY (Week_Num) REFERENCES Week(Week_ID);
+
+ALTER TABLE Medical
+ADD FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID);
+
+ALTER TABLE Medical
+ADD FOREIGN KEY (Course_Code) REFERENCES Course(Course_Code);
+
+ALTER TABLE Medical
+ADD FOREIGN KEY (week) REFERENCES Week(Week_ID);
+
+
+ALTER TABLE Lecturer
+ADD FOREIGN KEY (Lec_Dep_ID) REFERENCES Department(Department_ID); 
+
+ALTER TABLE TO_Department
+ADD FOREIGN KEY (TO_ID) REFERENCES Technical_Officer(TO_ID);
+
