@@ -1,0 +1,186 @@
+####################### Get max two quizes ###########################
+
+CREATE VIEW CA_Marks_View AS
+SELECT 
+    Mrks.Mark_ID,
+    Mrks.Mark_Stu_ID,
+    Mrks.Mark_Course_Code,
+    Mrks.Assignment,
+    GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) AS Max_Quiz,
+    (Mrks.Quiz_01 + Mrks.Quiz_02 + Mrks.Quiz_03 - 
+     GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) - 
+     LEAST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03)) AS Second_Max_Quiz, 
+    ((Mrks.Mid_Exam_Theory * 0.35 + Mrks.Mid_Exam_Practical * 0.35) / 2) AS Mid_Exam_Marks,
+    ((Mrks.Assignment + 
+      GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) + 
+      (Mrks.Quiz_01 + Mrks.Quiz_02 + Mrks.Quiz_03 - 
+       GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) - 
+       LEAST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03)) + 
+      ((Mrks.Mid_Exam_Theory * 0.35 + Mrks.Mid_Exam_Practical * 0.35) / 2)
+     )) AS CA_Marks
+FROM 
+    Mark Mrks
+JOIN 
+    Course C ON Mrks.Mark_Course_Code = C.Course_Code;
+
+-------------- view ---------------
+select * from CA_Marks_View;
+
+
+
+
+
+
+
+
+
+
+####################### Get end exam Marks ###########################
+
+
+CREATE VIEW Final_Marks_View AS
+SELECT 
+    	Mrks.Mark_ID,
+    	Mrks.Mark_Stu_ID,
+    	Mrks.Mark_Course_Code,
+    	Mrks.Assignment,
+	Mrks.End_Exam_Theory,
+	Mrks.End_Exam_Practical,
+		
+	((Mrks.End_Exam_Theory * 0.50 + Mrks.End_Exam_Practical * 0.50) / 2) AS End_Exam_Marks
+	   
+FROM 
+    Mark Mrks;
+
+-------------- view ---------------
+select * from Final_Marks_View;
+
+
+
+
+
+
+
+
+
+
+
+######################### check eligibility using student id #############################
+
+
+DELIMITER //
+
+CREATE PROCEDURE Check_Exam_Eligibility(IN student_id VARCHAR(6))
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        gw.Mark_Course_Code,
+        CASE
+            WHEN gw.CA_Marks < 25 THEN 'Not Eligible'
+            ELSE 'Eligible'
+        END AS Exam_Eligibility
+    FROM
+        get_whole_marks gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Mark_Stu_ID
+    WHERE
+        stu.Student_ID = student_id;
+END //
+
+DELIMITER ;
+
+
+call Check_Exam_Eligibility('TG2202');
+
+
+
+
+
+
+
+
+
+
+
+
+####################### check eligibility individually ########################
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE check_eligibility_individually(
+    IN student_id VARCHAR(6),
+    IN course_code VARCHAR(7)
+)
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        gw.Mark_Course_Code,
+        CASE
+            WHEN gw.CA_Marks < 25 THEN 'Not Eligible'
+            ELSE 'Eligible'
+        END AS Exam_Eligibility
+    FROM
+        get_whole_marks gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Mark_Stu_ID
+    WHERE
+        stu.Student_ID = student_id
+        AND gw.Mark_Course_Code = course_code;
+END //
+
+DELIMITER ;
+
+
+call check_eligibility_individually('TG2202','TCS1212');
+
+
+
+
+
+
+
+###################### Create view attendance >= 80% attendance ################
+
+
+create view attendance_80 as
+select 
+	Att_Student_ID, Att_Course_Code
+	from attendancePercentage
+	where Attendance_Percentage >= 80.00000;
+
+---------- view ----------------
+select * from attendance_80;
+
+
+
+
+
+
+
+
+################### Create view attendance below 80 ###################
+
+create view attendance_below_80 as
+select 
+	Att_Student_ID, Att_Course_Code
+	from attendancePercentage
+	where Attendance_Percentage < 80.00000;
+
+---------- view ----------------
+select * from attendance_below_80;
+
+
+
+
+
+
+
+
+
+
+
+
