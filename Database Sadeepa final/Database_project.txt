@@ -1,0 +1,369 @@
+1. CREATE TABLE Week(
+    Week_ID CHAR(3),
+    Week_Name VARCHAR(20),
+    PRIMARY KEY(Week_ID)
+);
+
+INSERT INTO Week(Week_ID,Week_Name)
+VALUES
+('W01','Week_No_01'),
+('W02','Week_No_02'),
+('W03','Week_No_03'),
+('W04','Week_No_04'),
+('W05','Week_No_05'),
+('W06','Week_No_06'),
+('W07','Week_No_07'),
+('W08','Week_No_08'),
+('W09','Week_No_09'),
+('W10','Week_No_10'),
+('W11','Week_No_11'),
+('W12','Week_No_12'),
+('W13','Week_No_13'),
+('W14','Week_No_14'),
+('W15','Week_No_15');
+
+
+2. CREATE TABLE Day(
+    Day_ID CHAR(3),
+    Day_Name VARCHAR(10),
+    PRIMARY KEY(Day_ID)
+);
+
+INSERT INTO Day(Day_ID,Day_Name)
+VALUES
+('D01','Monday'),
+('D02','Tuesday'),
+('D03','Wednesday'),
+('D04','Thursday'),
+('D05','Friday');
+
+
+3. CREATE TABLE Technical_Officer(
+    TO_ID CHAR(5) PRIMARY KEY,
+    TO_Name VARCHAR(100),
+    TO_Phone_Number VARCHAR(10)
+);
+
+INSERT INTO Technical_Officer(TO_ID,TO_Name,TO_Phone_Number)
+VALUES
+("TO01","Kasun Dissanayake","0752221117"),
+("TO02","Susantha Jayanath","0714237659"),
+("TO03","Vikum Wijesiri","0761234328"),
+("TO04","Nilanthi Ranathunga","0763242331"),
+("TO05","Anura Perera","0712267890");
+
+
+4. CREATE TABLE Medical (
+    Medical_ID VARCHAR(6) PRIMARY KEY,
+    Student_ID VARCHAR(7),
+    Course_Code VARCHAR(7),
+    Assessment_Type ENUM('CA', 'Mid', 'Final','Lec') NOT NULL,     
+    week VARCHAR(3),
+    date VARCHAR(3),
+    medical_status VARCHAR(10)
+);
+
+INSERT INTO Medical (Medical_ID, Student_ID, Course_Code, Assessment_Type, week, date, medical_status)
+VALUES 
+('M0001', 'TG2206', 'ICT1253', 'CA', 'w01', 'd1', 'Approved'),
+('M0002', 'TG2207', 'ICT1242', 'Lec', 'w01', 'd1', 'Denied'),
+('M0003', 'TG2208', 'ENG1222', 'Lec', 'w01', 'd5', 'Approved'),
+('M0004', 'TG2201', 'ICT1222', 'CA', 'w02', 'd3', 'Denied'),
+('M0005', 'TG2201', 'ICT1233', 'Lec', 'w02', 'd3', 'Approved'),
+('M0006', 'TG2201', 'TMS1233', 'Lec', 'w02', 'd3', 'Denied'),
+('M0007', 'TG2206', 'ICT1253', 'CA', 'w02', 'd1', 'Approved'),
+('M0008', 'TG2207', 'ICT1242', 'Mid', 'w02', 'd1', 'Denied'),
+('M0009', 'TG2208', 'ENG1222', 'Lec', 'w02', 'd5', 'Approved'),
+('M0010', 'TG2207', 'ICT1242', 'CA', 'w03', 'd1', 'Approved'),
+('M0011', 'TG2210', 'ICT1222', 'Lec', 'w03', 'd3', 'Denied'),
+('M0012', 'TG2210', 'ICT1233', 'Lec', 'w03', 'd3', 'Approved'),
+('M0013', 'TG2210', 'TMS1233', 'CA', 'w03', 'd3', 'Denied'),
+('M0014', 'TG2206', 'ICT1242', 'Lec', 'w04', 'd1', 'Approved'),
+('M0015', 'TG2206', 'ICT1253', 'Lec', 'w04', 'd1', 'Denied'),
+('M0016', 'TG2208', 'ICT1222', 'CA', 'w04', 'd3', 'Approved'),
+('M0017', 'TG2208', 'ICT1233', 'Lec', 'w04', 'd3', 'Denied'),
+('M0018', 'TG2208', 'TMS1233', 'Lec', 'w04', 'd3', 'Approved'),
+('M0019', 'TG2208', 'TCS1212', 'CA', 'w05', 'd4', 'Denied'),
+('M0020', 'TG2201', 'ICT1242', 'Mid', 'w06', 'd1', 'Approved'),
+('M0021', 'TG2205', 'TMS1233', 'Lec', 'w06', 'd3', 'Denied'),
+('M0022', 'TG2207', 'TCS1212', 'CA', 'w06', 'd4', 'Approved'),
+('M0023', 'TG2202', 'TCS1212', 'Lec', 'w07', 'd4', 'Denied'),
+('M0024', 'TG2203', 'ICT1242', 'Lec', 'w07', 'd1', 'Approved'),
+('M0025', 'TG2203', 'ICT1253', 'CA', 'w07', 'd1', 'Denied'),
+('M0026', 'TG2204', 'ENG1222', 'Lec', 'w07', 'd5', 'Approved'),
+('M0027', 'TG2207', 'TCS1212', 'Lec', 'w07', 'd4', 'Denied'),
+('M0028', 'TG2208', 'ICT1242', 'CA', 'w07', 'd1', 'Approved'),
+('M0029', 'TG2208', 'ICT1253', 'Lec', 'w07', 'd1', 'Denied'),
+('M0030', 'TG2208', 'ICT1212', 'Lec', 'w07', 'd2', 'Approved'),
+('M0031', 'TG2210', 'ICT1242', 'CA', 'w07', 'd1', 'Denied'),
+('M0032', 'TG2201', 'ICT1212', 'Mid', 'w08', 'd2', 'Approved'),
+('M0033', 'TG2201', 'ICT1222', 'Lec', 'w08', 'd3', 'Denied'),
+('M0034', 'TG2201', 'ICT1233', 'CA', 'w08', 'd3', 'Approved'),
+('M0035', 'TG2206', 'ICT1212', 'Lec', 'w08', 'd2', 'Denied'),
+('M0036', 'TG2206', 'ICT1222', 'Lec', 'w08', 'd3', 'Approved'),
+('M0037', 'TG2206', 'ICT1233', 'CA', 'w08', 'd3', 'Denied'),
+('M0038', 'TG2208', 'TCS1212', 'Lec', 'w09', 'd4', 'Approved'),
+('M0039', 'TG2210', 'ENG1222', 'Lec', 'w09', 'd5', 'Denied'),
+('M0040', 'TG2206', 'TCS1212', 'CA', 'w10', 'd4', 'Approved'),
+('M0041', 'TG2209', 'ICT1242', 'Mid', 'w10', 'd1', 'Denied'),
+('M0042', 'TG2115', 'ENG1222', 'Final', 'w15', 'd5', 'Approved'),
+('M0043', 'TG2210', 'ICT1212', 'Final', 'w15', 'd5', 'Approved'),
+('M0044', 'TG2135', 'ICT1222', 'Final', 'w15', 'd5', 'Denied');
+
+
+5. ######################### view grades whole batch ###########################
+
+
+CREATE VIEW Grade_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    gwm.Mark_Course_Code,
+    CASE
+        WHEN stu.Status = 'Suspended' THEN 'WH'  -- If suspended, show WH
+        WHEN stu.Status = 'Repeat' THEN 'C+'  -- If repeat, maximum grade is C+
+        WHEN (SELECT COUNT(*) 
+              FROM Medical medi 
+              WHERE medi.Student_ID = stu.Student_ID 
+              AND medi.Assessment_Type = 'Final' 
+              AND medi.medical_status = 'approved') > 0 THEN 'MC'  -- Medical
+        WHEN gwm.Final_Marks >= 90 THEN 'A+'
+        WHEN gwm.Final_Marks >= 84 THEN 'A'
+        WHEN gwm.Final_Marks >= 75 THEN 'A-'
+        WHEN gwm.Final_Marks >= 70 THEN 'B+'
+        WHEN gwm.Final_Marks >= 65 THEN 'B'
+        WHEN gwm.Final_Marks >= 60 THEN 'B-'
+        WHEN gwm.Final_Marks >= 55 THEN 'C+'
+        WHEN gwm.Final_Marks >= 50 THEN 'C'
+        WHEN gwm.Final_Marks >= 45 THEN 'C-'
+        WHEN gwm.Final_Marks >= 40 THEN 'D+'
+        WHEN gwm.Final_Marks >= 35 THEN 'D'
+        ELSE 'F'  -- Assign 'F' for marks below 35
+    END AS Grade
+FROM
+    get_whole_marks gwm
+JOIN
+    Student stu ON stu.Student_ID = gwm.Mark_Stu_ID;
+
+
+-------------- view ---------------
+select * from Grade_View ;
+
+
+6. ############################ Get CA eligibility #####################################
+
+
+
+CREATE VIEW Exam_Eligibility_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    gw.Mark_Course_Code,
+    CASE
+        WHEN gw.CA_Marks < 25 THEN 'Not Eligible'
+        ELSE 'Eligible'
+    END AS Exam_Eligibility
+FROM
+    get_whole_marks gw
+JOIN
+    Student stu ON stu.Student_ID = gw.Mark_Stu_ID;
+
+-------------- view ---------------
+select * from Exam_Eligibility_View;
+
+
+7. ############################  when enter tg number and course code student can be shown ca marks individually #############################
+
+DELIMITER //
+
+CREATE PROCEDURE GetCAMarksByStudentIDAndCourseCode(Student_ID VARCHAR(6), Course_Code VARCHAR(7))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        Assignment,
+        Max_Quiz,
+        Second_Max_Quiz,
+        Mid_Exam_Marks,
+        CA_Marks
+    FROM 
+        CA_Marks_View
+    WHERE 
+        Mark_Stu_ID = student_id AND
+        Mark_Course_Code = course_code;
+END //
+
+DELIMITER ;
+
+call GetCAMarksByStudentIDAndCourseCode('TG2202','ICT1222');
+
+
+8. ######################### get ca marks using course code individually ###############################
+
+
+DELIMITER //
+
+CREATE PROCEDURE GetCAMarksByCourseCode(Course_Code VARCHAR(7))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        Assignment,
+        Max_Quiz,
+        Second_Max_Quiz,
+        Mid_Exam_Marks,
+        CA_Marks
+    FROM 
+        CA_Marks_View
+    WHERE 
+        Mark_Course_Code = Course_Code;
+END //
+
+DELIMITER ;
+
+call GetCAMarksByCourseCode('ICT1222');
+
+ ######################### get ca marks using student id individually ###############################
+
+DELIMITER //
+
+CREATE PROCEDURE GetCAMarksByStudentID(Student_ID VARCHAR(6))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        Assignment,
+        Max_Quiz,
+        Second_Max_Quiz,
+        Mid_Exam_Marks,
+        CA_Marks
+    FROM 
+        CA_Marks_View
+    WHERE 
+        Mark_Stu_ID = student_id;
+END //
+
+DELIMITER ;
+
+call GetCAMarksByStudentID('TG2202');
+
+
+
+9. ##################### attendance summery for whole batch ################################
+
+
+create view StudentEligibilityWithMedical as
+select 
+    att_per.Att_Student_ID,
+    att_per.Att_Course_Code,
+    att_per.Attendance_Percentage,
+    case 
+        when att_per.Attendance_Percentage >= 80.00 THEN 'Eligible'
+        when medic.Student_ID is not null and att_per.Attendance_Percentage < 80.00 then 'Eligible after Medical Approval'
+        else 'Not Eligible'
+    end AS Eligibility_Status
+from 
+    attendancePercentage att_per
+left join
+    approvedMedi medic on att_per.Att_Student_ID = medic.Student_ID and att_per.Att_Course_Code = medic.Course_Code;
+
+---------- view ----------------
+select * from StudentEligibilityWithMedical;
+
+
+10. ############### Get attendance count #################
+
+create view attendanceCount as
+select 
+	Att_Student_ID, Att_Course_Code,
+	
+	count(case when status = 'pr' then 1 end) as Present_Count,
+	count(case when status = 'ab' then 1 end) as Absent_Count
+
+	from attendance
+	where Week_Num IN ('w01', 'w02', 'w03', 'w04', 'w05', 'w06', 'w07', 'w08', 'w09', 'w10', 'w11', 'w12', 'w13', 'w14')
+	group by Att_Student_ID, Att_Course_Code;
+
+--------------------- View -----------------------------------
+
+select * from attendanceCount;
+
+
+
+
+
+
+
+
+
+
+
+11. ################ Get attendance percentage ######################
+
+create view attendancePercentage AS
+select 
+	Att_Student_ID, Att_Course_Code,Present_Count,Absent_Count,
+	
+	(((Present_Count*2) * 100.0)/28) AS Attendance_Percentage
+	from attendanceCount;
+
+--------- view -------------
+ select * from attendancePercentage;
+
+
+
+-------------------------------- remove one of them ------------------------
+
+
+CREATE VIEW attendancePercentage2 AS
+SELECT 
+    Att_Student_ID, 
+    Att_Course_Code,
+    Present_Count,
+    Absent_Count,
+    CONCAT(ROUND(((Present_Count * 2) * 100.0) / 28, 2), '%') AS Attendance_Percentage
+FROM attendanceCount;
+
+---------- view ----------------
+select * from attendancePercentage2;
+
+
+12. ############################### overall eligibility individually #######################################
+
+
+DELIMITER //
+
+CREATE PROCEDURE Check_Individual_Eligibility_By_StudentID_CourseCode(IN p_Student_ID VARCHAR(6), IN p_Course_Code VARCHAR(7))
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        p_Course_Code AS Course_Code,
+        CASE
+            WHEN gw.CA_Marks < 25 THEN 'Not Overall Eligible'
+            WHEN (SELECT Attendance_Percentage
+                  FROM attendancePercentage att
+                  WHERE att.Att_Student_ID = stu.Student_ID
+                    AND att.Att_Course_Code = p_Course_Code) >= 80 THEN ' Overall Eligible'
+            WHEN (SELECT COUNT(*) 
+                  FROM approvedMedi medic
+                  WHERE medic.Student_ID = stu.Student_ID
+                    AND medic.Course_Code = p_Course_Code) > 0 THEN 'Overall Eligible after Medical Approval'
+            ELSE 'Not Overall Eligible'
+        END AS Eligibility_Status
+    FROM
+        get_whole_marks gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Mark_Stu_ID
+    WHERE
+        stu.Student_ID = p_Student_ID
+        AND gw.Mark_Course_Code = p_Course_Code;
+END //
+
+DELIMITER ;
+
+
+
