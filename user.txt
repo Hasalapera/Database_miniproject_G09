@@ -1,0 +1,218 @@
+############# create user admin ###############
+
+
+CREATE USER 'Admin'@'localhost' IDENTIFIED BY 'Admin2024';
+
+GRANT ALL PRIVILEGES ON techmis3.* TO 'Admin'@'localhost' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
+
+SHOW GRANTS FOR 'Admin'@'localhost';
+
+mysql> SHOW GRANTS FOR 'Admin'@'localhost';
++--------------------------------------------------------------------------------------------------------------+
+| Grants for Admin@localhost
+         |
++--------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `Admin`@`localhost` IDENTIFIED BY PASSWORD '*505887B9BACBB81171AFBBE7E9335AD4222802DE' |
+| GRANT ALL PRIVILEGES ON `techmis3`.* TO `Admin`@`localhost` WITH GRANT OPTION
+         |
++--------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+############# create user Dean ###############
+
+Creating user Dean and granting privileges
+
+CREATE USER 'Dean'@'localhost' IDENTIFIED BY 'Dean2024';
+
+GRANT ALL PRIVILEGES ON techmis3.* TO 'Dean'@'localhost';
+
+FLUSH PRIVILEGES;
+
+SHOW GRANTS FOR 'Dean'@'localhost';
+
+
+
+mysql> SHOW GRANTS FOR 'Dean'@'localhost';
++------------------------------------------------------------+
+| Grants for Dean@localhost                                  |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `Dean`@`localhost`                   |
+| GRANT ALL PRIVILEGES ON `techmis3`.* TO `Dean`@`localhost` |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############# create user Lecturer ###############
+
+
+CREATE USER 'Lecturer'@'localhost' IDENTIFIED BY 'Lecture2024';
+
+GRANT ALL PRIVILEGES ON techmis3.* TO 'Lecturer'@'localhost';
+
+REVOKE CREATE USER ON *.* FROM 'Lecturer'@'localhost';
+
+FLUSH PRIVILEGES;
+
+mysql> SHOW GRANTS FOR 'Lecturer'@'localhost';
++-----------------------------------------------------------------------------------------------------------------+
+| Grants for Lecturer@localhost                                                                                   |
++-----------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `Lecturer`@`localhost` IDENTIFIED BY PASSWORD '*E63340C1FF936737E9DA030CC62B50BB5BF20BC9' |
+| GRANT ALL PRIVILEGES ON `techmis3`.* TO `Lecturer`@`localhost`
+            |
++-----------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+############# create user Technical Officer ###############
+
+
+CREATE USER 'TechnicalOfficer'@'localhost' IDENTIFIED BY '2024';
+
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.Attendance TO 'TechnicalOfficer'@'localhost';
+
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.StudentEligibilityWithMedical TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.attendance_eligible TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.LowAttendanceMedicalApproved TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.attendance_below_80 TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.attendance_80 TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.approvedMedi TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.absentStudents TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.attendancePercentage2 TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.attendancePercentage TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON techmis3.attendanceCount TO 'TechnicalOfficer'@'localhost';
+
+GRANT EXECUTE ON PROCEDURE techmis3.GetStudentEligibility TO 'TechnicalOfficer'@'localhost';
+
+FLUSH PRIVILEGES;
+
+
+
+mysql>  SHOW GRANTS FOR 'TechnicalOfficer'@'localhost';
++-------------------------------------------------------------------------------------------------------------------------+
+| Grants for TechnicalOfficer@localhost
+                    |
++-------------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `TechnicalOfficer`@`localhost` IDENTIFIED BY PASSWORD '*B0532B6D31CF36CD8E4EB7C4E58633EAA38A3C3B' |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`attendance_eligible` TO `TechnicalOfficer`@`localhost`           |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`attendancepercentage2` TO `TechnicalOfficer`@`localhost`         |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`attendance_below_80` TO `TechnicalOfficer`@`localhost`           |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`studenteligibilitywithmedical` TO `TechnicalOfficer`@`localhost` |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`lowattendancemedicalapproved` TO `TechnicalOfficer`@`localhost`  |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`approvedmedi` TO `TechnicalOfficer`@`localhost`                  |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`attendance_80` TO `TechnicalOfficer`@`localhost`                 |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`absentstudents` TO `TechnicalOfficer`@`localhost`                |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`attendancecount` TO `TechnicalOfficer`@`localhost`               |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`attendance` TO `TechnicalOfficer`@`localhost`                    |
+| GRANT SELECT, INSERT, UPDATE, SHOW VIEW ON `techmis3`.`attendancepercentage` TO `TechnicalOfficer`@`localhost`          |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`getstudenteligibility` TO `TechnicalOfficer`@`localhost`                         |
++-------------------------------------------------------------------------------------------------------------------------+
+13 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+################## Creating user student ##########################
+
+CREATE USER 'Student'@'localhost' IDENTIFIED BY 'student2024';
+
+GRANT EXECUTE ON PROCEDURE techmis3.GetStudentEligibility TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.GetFinalMarksByStudentID TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.GetFinalMarksIndividually TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.getGradeIndividually TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.Get_Semester_GPA TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.Get_CGPA_By_StudentID TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.Check_Exam_Eligibility TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.check_eligibility_individually TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.GetStudentEligibility TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.Overall_Eligibility_View TO 'Student'@'localhost';
+
+
+
+GRANT SELECT,SHOW VIEW ON techmis3.Grade_View TO 'Student'@'localhost';
+GRANT SELECT,SHOW VIEW ON techmis3.Exam_Eligibility_View TO 'Student'@'localhost';
+GRANT SELECT,SHOW VIEW ON techmis3.Semester_GPA_View TO 'Student'@'localhost';
+GRANT SELECT,SHOW VIEW ON techmis3.CGPA_View TO 'Student'@'localhost';
+GRANT SELECT,SHOW VIEW ON techmis3.attendance_eligible TO 'Student'@'localhost';
+
+GRANT EXECUTE ON PROCEDURE techmis3.Check_Individual_Eligibility_By_StudentID_CourseCode TO 'Student'@'localhost';
+GRANT EXECUTE ON PROCEDURE techmis3.Check_Eligibility_By_StudentID TO 'Student'@'localhost';
+
+
+SHOW GRANTS FOR 'Student'@'localhost';
+
+mysql> SHOW GRANTS FOR 'Student'@'localhost';
++-----------------------------------------------------------------------------------------------------------------------+
+| Grants for Student@localhost
+                  |
++-----------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `Student`@`localhost` IDENTIFIED BY PASSWORD '*366978B7D5624FE04F71FBA1146250763598D6F8'        |
+| GRANT SELECT, SHOW VIEW ON `techmis3`.`grade_view` TO `Student`@`localhost`
+                  |
+| GRANT SELECT, SHOW VIEW ON `techmis3`.`semester_gpa_view` TO `Student`@`localhost`
+                  |
+| GRANT SELECT, SHOW VIEW ON `techmis3`.`exam_eligibility_view` TO `Student`@`localhost`
+                  |
+| GRANT SELECT, SHOW VIEW ON `techmis3`.`attendance_eligible` TO `Student`@`localhost`
+                  |
+| GRANT SELECT, SHOW VIEW ON `techmis3`.`cgpa_view` TO `Student`@`localhost`
+                  |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`check_individual_eligibility_by_studentid_coursecode` TO `Student`@`localhost` |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`getstudenteligibility` TO `Student`@`localhost`
+                  |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`get_semester_gpa` TO `Student`@`localhost`
+                  |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`getfinalmarksindividually` TO `Student`@`localhost`
+                  |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`get_cgpa_by_studentid` TO `Student`@`localhost`
+                  |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`getfinalmarksbystudentid` TO `Student`@`localhost`
+                  |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`check_eligibility_individually` TO `Student`@`localhost`                       |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`check_eligibility_by_studentid` TO `Student`@`localhost`                       |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`getgradeindividually` TO `Student`@`localhost`
+                  |
+| GRANT EXECUTE ON PROCEDURE `techmis3`.`check_exam_eligibility` TO `Student`@`localhost`
+                  |
++-----------------------------------------------------------------------------------------------------------------------+
+16 rows in set (0.00 sec)
+
+
+
