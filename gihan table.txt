@@ -1,0 +1,98 @@
+CREATE TABLE Department(
+    Department_ID CHAR(3),
+    Dep_Name VARCHAR(100),
+    Dep_Lec_ID CHAR(4),
+    Dep_Admin_ID CHAR(7),
+    PRIMARY KEY(department_ID)
+);
+
+INSERT INTO Department(Department_ID,Dep_Name,Dep_Lec_ID,Dep_Admin_ID)
+VALUES
+("D01","ICT DEPARTMENT","L001","admin1"),
+("D02","ET DEPARTMENT","L001","admin1"),
+("D03","BST DEPARTMENT","L001","admin1"),
+("D04","MULTIDISCIPLINARY DEPARTMENT","L001","admin1");
+
+
+--------------------------------------------------------------------
+
+
+
+CREATE TABLE Course(
+    Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
+    Course_Name VARCHAR(100),
+    Credits INT,
+    Course_Type VARCHAR(10), -- Theory/Practical/Both
+    Course_Dep_ID CHAR(3)
+);
+
+INSERT INTO Course
+(Course_Code,Course_Name,Credits,Course_Type,Course_Dep_ID)
+VALUES
+('ICT1242','Computer Architecture',2,'T','D01'),
+('ICT1253','Computer Networks',3,'T/P','D01'),
+('ICT1212','Database Management System',2,'T','D01'),
+('ICT1222','Database Management System Practicum',2,'P','D01'),
+('TMS1233','Discrete Mathematics',3,'T','D02'),
+('ICT1233','Serverside Web Development',3,'T/P','D01'),
+('TCS1212','Fundamental of Management',2,'T','D04'),
+('ENG1222','English',2,'T','D04');
+
+
+--------------------------------------------------------------------
+
+
+CREATE TABLE TO_Department(
+    TO_ID CHAR(4),
+    Department_ID CHAR(3),
+    PRIMARY KEY (TO_ID,Department_ID)
+);
+
+
+
+INSERT INTO TO_Department(TO_ID,Department_ID)
+VALUES
+("TO01","D01"),
+("TO02","D01"),
+("TO03","D01"),
+("TO04","D01"),
+("TO05","D01"),
+("TO01","D02"),
+("TO02","D02"),
+("TO03","D02"),
+("TO04","D02"),
+("TO05","D02"),
+("TO01","D03"),
+("TO02","D03"),
+("TO03","D03"),
+("TO04","D03"),
+("TO05","D03"),
+("TO01","D04"),
+("TO02","D04"),
+("TO03","D04"),
+("TO04","D04"),
+("TO05","D04");
+
+
+
+------------------------------------------------------------------------
+
+
+
+CREATE TABLE admin(
+    Admin_ID CHAR(7) PRIMARY KEY,
+    Admin_Name VARCHAR(100),
+    Admin_Phone_Number VARCHAR(10)
+);
+
+
+INSERT INTO admin(Admin_ID,Admin_Name,Admin_Phone_Number)
+VALUES
+("admin1","Charith Jayathilaka","0763242331");
+
+
+-------------------------------------------------------------------------
+
+
+
+
