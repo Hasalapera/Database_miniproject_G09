@@ -1,228 +1,137 @@
-// PROCEDURE FOR SELECT MAX TWO QUIZES
-DELIMITER //
-CREATE PROCEDURE CalculateMaxQuizMarks()
-BEGIN
-    -- Update each row with the two highest quiz marks
-    UPDATE Final_Marks
-    SET Max_Q1 = CASE
-                    WHEN Quiz_01 >= Quiz_02 AND Quiz_01 >= Quiz_03 THEN Quiz_01
-                    WHEN Quiz_02 >= Quiz_01 AND Quiz_02 >= Quiz_03 THEN Quiz_02
-                    ELSE Quiz_03
-                 END,
-        Max_Q2 = CASE
-                    WHEN Quiz_01 >= Quiz_02 AND Quiz_01 >= Quiz_03 THEN GREATEST(Quiz_02, Quiz_03)
-                    WHEN Quiz_02 >= Quiz_01 AND Quiz_02 >= Quiz_03 THEN GREATEST(Quiz_01, Quiz_03)
-                    ELSE GREATEST(Quiz_01, Quiz_02)
-                 END;
-END
-DELIMITER;
-
-//hasala *****
-
 DELIMITER //
 
-CREATE PROCEDURE CalculateCAMarks(
-    IN p_Student_ID VARCHAR(6),
-    IN p_Course_Code VARCHAR(7),
-    OUT p_CA_Marks DECIMAL(5,2)
-)
-BEGIN
-    DECLARE max_quiz1 DECIMAL(5,2);
-    DECLARE max_quiz2 DECIMAL(5,2);
-    DECLARE assignment DECIMAL(5,2);
-    DECLARE quiz1 DECIMAL(5,2);
-    DECLARE quiz2 DECIMAL(5,2);
-    DECLARE quiz3 DECIMAL(5,2);
-
-    -- Fetch the marks
-    SELECT Assignment, Quiz_01, Quiz_02, Quiz_03
-    INTO assignment, quiz1, quiz2, quiz3
-    FROM Marks
-    WHERE Mark_Stu_ID = p_Student_ID AND Mark_Course_Code = p_Course_Code;
-
-    -- Calculate the two highest quiz scores
-    SET max_quiz1 = GREATEST(quiz1, quiz2, quiz3);
-    SET max_quiz2 = (Quiz_01 + Quiz_02 + Quiz_03 - GREATEST(Quiz_01, Quiz_02, Quiz_03) - LEAST(Quiz_01, Quiz_02, Quiz_03));
-
-    -- Calculate the CA marks
-    SET p_CA_Marks = assignment + max_quiz1 + max_quiz2;
-END //
-
-DELIMITER ;
-
-
-
-
-
-DELIMITER //
-
-CREATE PROCEDURE CalculateCAMarks(
+CREATE PROCEDURE getGradeIndividually(
     IN p_Student_ID VARCHAR(6),
     IN p_Course_Code VARCHAR(7)
 )
 BEGIN
-    DECLARE max_quiz1 DECIMAL(5,2);
-    DECLARE max_quiz2 DECIMAL(5,2);
-    DECLARE assignment DECIMAL(5,2);
-    DECLARE quiz1 DECIMAL(5,2);
-    DECLARE quiz2 DECIMAL(5,2);
-    DECLARE quiz3 DECIMAL(5,2);
-    DECLARE ca_marks DECIMAL(5,2);
-
-    -- Fetch the marks
-    SELECT Assignment, Quiz_01, Quiz_02, Quiz_03
-    INTO assignment, quiz1, quiz2, quiz3
-    FROM Marks
-    WHERE Mark_Stu_ID = p_Student_ID AND Mark_Course_Code = p_Course_Code;
-
-    -- Calculate the two highest quiz scores
-    SET max_quiz1 = GREATEST(quiz1, quiz2, quiz3);
-    SET max_quiz2 = (quiz1 + quiz2 + quiz3 - GREATEST(quiz1, quiz2, quiz3) - LEAST(quiz1, quiz2, quiz3));
-
-    -- Calculate the CA marks
-    SET ca_marks = assignment + max_quiz1 + max_quiz2;
-
-    -- Update the CA_Marks column in the Marks table
-    UPDATE Marks
-    SET CA_Marks = ca_marks
-    WHERE Mark_Stu_ID = p_Student_ID AND Mark_Course_Code = p_Course_Code;
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        gwm.Mark_Course_Code,
+        CASE
+            WHEN stu.Status = 'Suspended' THEN 'WH'  -- If suspended, show WH
+            WHEN stu.Status = 'Repeat' THEN 'C+'  -- If repeat, maximum grade is C+
+            WHEN (SELECT COUNT(*) 
+                  FROM Medical medi 
+                  WHERE medi.Student_ID = stu.Student_ID 
+                  AND medi.Assessment_Type = 'Final' 
+                  AND medi.medical_status = 'approved') > 0 THEN 'MC'  -- Medical
+            WHEN gwm.Final_Marks >= 90 THEN 'A+'
+            WHEN gwm.Final_Marks >= 84 THEN 'A'
+            WHEN gwm.Final_Marks >= 75 THEN 'A-'
+            WHEN gwm.Final_Marks >= 70 THEN 'B+'
+            WHEN gwm.Final_Marks >= 65 THEN 'B'
+            WHEN gwm.Final_Marks >= 60 THEN 'B-'
+            WHEN gwm.Final_Marks >= 55 THEN 'C+'
+            WHEN gwm.Final_Marks >= 50 THEN 'C'
+            WHEN gwm.Final_Marks >= 45 THEN 'C-'
+            WHEN gwm.Final_Marks >= 40 THEN 'D+'
+            WHEN gwm.Final_Marks >= 35 THEN 'D'
+            ELSE 'F'  -- Assign 'F' for marks below 35
+        END AS Grade
+    FROM
+        get_whole_marks gwm
+    JOIN
+        Student stu ON stu.Student_ID = gwm.Mark_Stu_ID
+    WHERE
+        gwm.Mark_Course_Code = p_Course_Code
+        AND stu.Student_ID = p_Student_ID;
 END //
 
 DELIMITER ;
 
-DELIMITER //
 
-CREATE PROCEDURE CalculateCAMarks(
-    IN p_Student_ID VARCHAR(6),
-    IN p_Course_Code VARCHAR(7),
-    OUT p_CA_Marks DECIMAL(5,2)
-)
-BEGIN
-    DECLARE max_quiz1 DECIMAL(5,2);
-    DECLARE max_quiz2 DECIMAL(5,2);
-    DECLARE assignment DECIMAL(5,2);
-    DECLARE quiz1 DECIMAL(5,2);
-    DECLARE quiz2 DECIMAL(5,2);
-    DECLARE quiz3 DECIMAL(5,2);
-
-    SELECT Assignment, Quiz_01, Quiz_02, Quiz_03
-    INTO assignment, quiz1, quiz2, quiz3
-    FROM Marks
-    WHERE Mark_Stu_ID = p_Student_ID AND Mark_Course_Code = p_Course_Code;
-
-    SET max_quiz1 = GREATEST(quiz1, quiz2, quiz3);
-    SET max_quiz2 = (Quiz_01 + Quiz_02 + Quiz_03 - GREATEST(Quiz_01, Quiz_02, Quiz_03) - LEAST(Quiz_01, Quiz_02, Quiz_03));
-
-    SET p_CA_Marks = assignment + max_quiz1 + max_quiz2;
-END //
+call getGradeIndividually('TG2202','ICT1212');
 
 
 
-######################### Grading #################################
 
-ALTER TABLE marks ADD COLUMN Grade VARCHAR(3);
+
+
+########################### sgpa get individually #############################
 
 DELIMITER //
 
-CREATE PROCEDURE GradeStudents()
+CREATE PROCEDURE Get_Semester_GPA(IN student_id VARCHAR(6))
 BEGIN
-    UPDATE Marks mrks
-    JOIN Students s ON mrks.Mark_Stu_ID = s.Student_ID
-    SET mrks.Grade = CASE 
-        WHEN mrks.Final_Marks >= 90 THEN 'A+'
-        WHEN mrks.Final_Marks >= 84 THEN 'A'
-        WHEN mrks.Final_Marks >= 75 THEN 'A-'
-        WHEN mrks.Final_Marks >= 70 THEN 'B+'
-        WHEN mrks.Final_Marks >= 65 THEN 'B'
-        WHEN mrks.Final_Marks >= 60 THEN 'B-'
-        WHEN mrks.Final_Marks >= 55 THEN 'C+'
-        WHEN mrks.Final_Marks >= 50 THEN 'C'
-        WHEN mrks.Final_Marks >= 45 THEN 'C-'
-        WHEN mrks.Final_Marks >= 40 THEN 'D+'
-        WHEN mrks.Final_Marks >= 35 THEN 'D'
-        ELSE 'F'
-    END;
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        AVG(CASE gw.Grade
+            WHEN 'A+' THEN 4.0
+            WHEN 'A'  THEN 4.0
+            WHEN 'A-' THEN 3.7
+            WHEN 'B+' THEN 3.3
+            WHEN 'B'  THEN 3.0
+            WHEN 'B-' THEN 2.7
+            WHEN 'C+' THEN 2.3
+            WHEN 'C'  THEN 2.0
+            WHEN 'C-' THEN 1.7
+            WHEN 'D+' THEN 1.3
+            WHEN 'D'  THEN 1.0
+            ELSE 0.0
+        END) AS Semester_GPA
+    FROM
+        Grade_View gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Student_ID
+    WHERE
+        stu.Student_ID = student_id
+    GROUP BY
+        stu.Student_ID, stu.Stu_FName;
 END //
 
 DELIMITER ;
 
-################## Handling medicals ####################
+
+call Get_Semester_GPA('TG2202');
+
+################################ Get CGPA Individually ##########################################
 
 DELIMITER //
 
-CREATE PROCEDURE ViewMarksForCourseWithMedical(IN p_Course_Code VARCHAR(7))
+CREATE PROCEDURE Get_CGPA_By_StudentID(IN student_id VARCHAR(6))
 BEGIN
-    SELECT 
-        s.Student_ID,
-        CONCAT(s.Stu_FName, ' ', s.Stu_LName) AS Student_Name,
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
         CASE 
-            WHEN mrks.Medical_Status IS NOT NULL THEN 'MC'
-            ELSE mrks.Final_Marks
-        END AS Final_Marks,
-        CASE 
-            WHEN s.Status = 'Repeat' AND m.Final_Marks < 50 THEN 'C'
-            ELSE mrks.Final_Marks
-        END AS Final_Grade
-    FROM 
-        Marks mrks
-    JOIN 
-        Students s ON mrks.Mark_Stu_ID = s.Student_ID
-    LEFT JOIN 
-        Medical_Submissions ms ON medisub.Student_ID = s.Student_ID AND medisub.Course_Code = p_Course_Code
-    WHERE 
-        mrks.Mark_Course_Code = p_Course_Code;
+            WHEN SUM(cr.Credits) = 0 THEN 0
+            ELSE SUM(CASE gw.Grade
+                WHEN 'A+' THEN 4.0
+                WHEN 'A'  THEN 4.0
+                WHEN 'A-' THEN 3.7
+                WHEN 'B+' THEN 3.3
+                WHEN 'B'  THEN 3.0
+                WHEN 'B-' THEN 2.7
+                WHEN 'C+' THEN 2.3
+                WHEN 'C'  THEN 2.0
+                WHEN 'C-' THEN 1.7
+                WHEN 'D+' THEN 1.3
+                WHEN 'D'  THEN 1.0
+                ELSE 0.0
+            END * cr.Credits) / SUM(cr.Credits)
+        END AS CGPA
+    FROM
+        Grade_View gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Student_ID
+    JOIN
+        Course cr ON cr.Course_Code = gw.Mark_Course_Code
+    WHERE
+        cr.Course_Name <> 'English'
+        AND stu.Student_ID = student_id
+    GROUP BY
+        stu.Student_ID, stu.Stu_FName;
 END //
 
 DELIMITER ;
 
 
-################### Attendance with eligibility ###############################
+call Get_CGPA_By_StudentID('TG2202');
 
-DELIMITER //
 
-CREATE PROCEDURE GetStudentAttendanceSummary(
-    IN p_Student_ID VARCHAR(6),
-    IN p_Course_Code VARCHAR(7)
-)
-BEGIN
-    DECLARE attendance_percentage DECIMAL(5, 2);
-    DECLARE attendance_with_medical DECIMAL(5, 2);
-    DECLARE is_eligible CHAR(3);
-
-    -- Calculate attendance percentage without counting medical days
-    SET attendance_percentage = (
-        SELECT (SUM(CASE WHEN Status = 'pr' THEN Lec_hours ELSE 0 END) / SUM(Lec_hours)) * 100
-        FROM Attendance
-        WHERE Att_Student_ID = p_Student_ID
-          AND Att_Course_Code = p_Course_Code
-          AND Medical_status = 'No'
-    );
-
-    -- Calculate attendance percentage including medical days
-    SET attendance_with_medical = (
-        SELECT (SUM(CASE WHEN Status = 'pr' OR Medical_status = 'Yes' THEN Lec_hours ELSE 0 END) / SUM(Lec_hours)) * 100
-        FROM Attendance
-        WHERE Att_Student_ID = p_Student_ID
-          AND Att_Course_Code = p_Course_Code
-    );
-
-    -- Determine eligibility based on attendance with medical consideration
-    IF attendance_with_medical >= 80 THEN
-        SET is_eligible = 'Yes';
-    ELSE
-        SET is_eligible = 'No';
-    END IF;
-
-    -- Output the results
-    SELECT 
-        p_Student_ID AS Student_ID,
-        p_Course_Code AS Course_Code,
-        attendance_percentage AS Attendance_Percentage,
-        attendance_with_medical AS Attendance_With_Medical,
-        is_eligible AS Eligible_For_Final;
-END //
-
-DELIMITER ;
 
 
 

@@ -1,0 +1,232 @@
+######################### Get final Marks #############################
+
+
+create view total_marks as 
+select 
+	ca.Mark_ID,
+	ca.Mark_Stu_ID,
+	ca.Mark_Course_Code,
+	ca.CA_Marks,
+	fi.End_Exam_Marks,
+	
+	fi.End_Exam_Marks + ca.CA_Marks as Total_Marks
+from CA_Marks_View ca	
+join Final_Marks_View fi on ca.Mark_ID = fi.Mark_ID and ca.Mark_Stu_ID = fi.Mark_Stu_ID and ca.Mark_Course_Code = fi.Mark_Course_Code;
+
+-------------- view ---------------
+select * from total_marks;
+
+
+
+
+
+
+
+########################### Get all marks whole batch ##########################################
+
+create view get_whole_marks as 
+select 
+	ca.Mark_ID,
+	ca.Mark_Stu_ID,
+	ca.Mark_Course_Code,
+	ca.Assignment,
+	Mrks.Quiz_01,
+	Mrks.Quiz_02,
+	Mrks.Quiz_03,
+	ca.Max_Quiz,
+	ca.Second_Max_Quiz,
+	ca.CA_Marks,
+	fi.End_Exam_Marks,
+	(ca.CA_Marks + fi.End_Exam_Marks) as Final_Marks
+from CA_Marks_View ca	
+join Final_Marks_View fi on ca.Mark_ID = fi.Mark_ID and ca.Mark_Stu_ID = fi.Mark_Stu_ID and ca.Mark_Course_Code = fi.Mark_Course_Code
+join mark mrks on ca.Mark_ID = Mrks.Mark_ID and ca.Mark_Stu_ID = mrks.Mark_Stu_ID and ca.Mark_Course_Code = mrks.Mark_Course_Code;
+
+-------------- view ---------------
+select * from get_whole_marks;
+
+
+
+
+
+
+
+####################### Create view for assigning grade points ###############################
+
+CREATE VIEW Grade_Points_View AS
+SELECT
+    Student_ID,
+    Stu_FName,
+    Mark_Course_Code,
+    Grade,
+    CASE Grade
+        WHEN 'A+' THEN 4.0
+        WHEN 'A'  THEN 4.0
+        WHEN 'A-' THEN 3.7
+        WHEN 'B+' THEN 3.3
+        WHEN 'B'  THEN 3.0
+        WHEN 'B-' THEN 2.7
+        WHEN 'C+' THEN 2.3
+        WHEN 'C'  THEN 2.0
+        WHEN 'C-' THEN 1.7
+        WHEN 'D+' THEN 1.3
+        WHEN 'D'  THEN 1.0
+        ELSE 0.0  -- This includes 'F' and any other grades not specified
+    END AS Grade_Points
+FROM
+    Grade_View;
+
+------------- view ---------------
+select * from Grade_Points_View ;
+
+
+
+
+
+
+
+########################## get SGPA all #########################################
+
+CREATE VIEW Semester_GPA_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    AVG(CASE gw.Grade
+        WHEN 'A+' THEN 4.0
+        WHEN 'A'  THEN 4.0
+        WHEN 'A-' THEN 3.7
+        WHEN 'B+' THEN 3.3
+        WHEN 'B'  THEN 3.0
+        WHEN 'B-' THEN 2.7
+        WHEN 'C+' THEN 2.3
+        WHEN 'C'  THEN 2.0
+        WHEN 'C-' THEN 1.7
+        WHEN 'D+' THEN 1.3
+        WHEN 'D'  THEN 1.0
+        ELSE 0.0
+    END) AS Semester_GPA
+FROM
+    Grade_View gw
+JOIN
+    Student stu ON stu.Student_ID = gw.Student_ID
+GROUP BY
+    stu.Student_ID, stu.Stu_FName;
+
+
+------------- view ---------------
+select * from Semester_GPA_View;
+
+
+
+
+
+
+
+
+
+
+
+
+############################ get CGPA #####################################
+
+
+
+
+
+CREATE VIEW CGPA_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    CASE 
+        WHEN SUM(cr.Credits) = 0 THEN 0
+        ELSE SUM(CASE gw.Grade
+            WHEN 'A+' THEN 4.0
+            WHEN 'A'  THEN 4.0
+            WHEN 'A-' THEN 3.7
+            WHEN 'B+' THEN 3.3
+            WHEN 'B'  THEN 3.0
+            WHEN 'B-' THEN 2.7
+            WHEN 'C+' THEN 2.3
+            WHEN 'C'  THEN 2.0
+            WHEN 'C-' THEN 1.7
+            WHEN 'D+' THEN 1.3
+            WHEN 'D'  THEN 1.0
+            ELSE 0.0
+        END * cr.Credits) / SUM(cr.Credits)
+    END AS CGPA
+FROM
+    Grade_View gw
+JOIN
+    Student stu ON stu.Student_ID = gw.Student_ID
+JOIN
+    Course cr ON cr.Course_Code = gw.Mark_Course_Code
+WHERE
+    cr.Course_Name <> 'English'
+GROUP BY
+    stu.Student_ID, stu.Stu_FName;
+
+
+------------- view ---------------
+ select * from CGPA_View;
+
+
+
+
+
+
+
+
+################### Attendance percentage below 80 and medical approved and attendance table status ab ####################
+
+CREATE VIEW LowAttendanceMedicalApproved AS
+SELECT
+	medi.Student_ID,
+    	medi.Course_Code,
+    	att_per.Attendance_Percentage,
+    	medi.week,
+    	medi.date
+FROM 
+    attendancePercentage att_per
+JOIN 
+    approvedMedi medi ON att_per.Att_Student_ID = medi.Student_ID AND att_per.Att_Course_Code = medi.Course_Code
+JOIN 
+    absentStudents absnt ON att_per.Att_Student_ID = absnt.Att_Student_ID AND att_per.Att_Course_Code = absnt.Att_Course_Code
+WHERE 
+    att_per.Attendance_Percentage < 80.00;
+
+
+---------- view ----------------
+select * from LowAttendanceMedicalApproved;
+
+
+
+
+
+
+CREATE VIEW Overall_Eligibility_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    gw.Mark_Course_Code,
+    CASE
+        WHEN gw.CA_Marks < 25 THEN 'Overall Not Eligible'
+        WHEN (SELECT Attendance_Percentage
+              FROM attendancePercentage att
+              WHERE att.Att_Student_ID = stu.Student_ID
+                AND att.Att_Course_Code = gw.Mark_Course_Code) >= 80 THEN 'Overall Eligible'
+        WHEN (SELECT COUNT(*) 
+              FROM approvedMedi medic
+              WHERE medic.Student_ID = stu.Student_ID
+                AND medic.Course_Code = gw.Mark_Course_Code) > 0 THEN 'Overall Eligible with Medical Approval'
+        ELSE 'Overall Not Eligible'
+    END AS Overall_Eligibility
+FROM
+    get_whole_marks gw
+JOIN
+    Student stu ON stu.Student_ID = gw.Mark_Stu_ID;
+
+
+
+select *from Overall_Eligibility_View;
+
+
