@@ -1,0 +1,717 @@
+####################### Get max two quizes ###########################
+
+CREATE VIEW CA_Marks_View AS
+SELECT 
+    Mrks.Mark_ID,
+    Mrks.Mark_Stu_ID,
+    Mrks.Mark_Course_Code,
+    Mrks.Assignment,
+    GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) AS Max_Quiz,
+    (Mrks.Quiz_01 + Mrks.Quiz_02 + Mrks.Quiz_03 - 
+     GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) - 
+     LEAST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03)) AS Second_Max_Quiz, 
+    ((Mrks.Mid_Exam_Theory * 0.35 + Mrks.Mid_Exam_Practical * 0.35) / 2) AS Mid_Exam_Marks,
+    ((Mrks.Assignment + 
+      GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) + 
+      (Mrks.Quiz_01 + Mrks.Quiz_02 + Mrks.Quiz_03 - 
+       GREATEST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03) - 
+       LEAST(Mrks.Quiz_01, Mrks.Quiz_02, Mrks.Quiz_03)) + 
+      ((Mrks.Mid_Exam_Theory * 0.35 + Mrks.Mid_Exam_Practical * 0.35) / 2)
+     )) AS CA_Marks
+FROM 
+    Mark Mrks
+JOIN 
+    Course C ON Mrks.Mark_Course_Code = C.Course_Code;
+
+-------------- view ---------------
+select * from CA_Marks_View;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+####################### Get end exam Marks ###########################
+
+
+CREATE VIEW Final_Marks_View AS
+SELECT 
+    	Mrks.Mark_ID,
+    	Mrks.Mark_Stu_ID,
+    	Mrks.Mark_Course_Code,
+    	Mrks.Assignment,
+	Mrks.End_Exam_Theory,
+	Mrks.End_Exam_Practical,
+		
+	((Mrks.End_Exam_Theory * 0.50 + Mrks.End_Exam_Practical * 0.50) / 2) AS End_Exam_Marks
+	   
+FROM 
+    Mark Mrks;
+
+-------------- view ---------------
+select * from Final_Marks_View;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################### Get final Marks #############################
+
+
+create view total_marks as 
+select 
+	ca.Mark_ID,
+	ca.Mark_Stu_ID,
+	ca.Mark_Course_Code,
+	ca.CA_Marks,
+	fi.End_Exam_Marks,
+	
+	fi.End_Exam_Marks + ca.CA_Marks as Total_Marks
+from CA_Marks_View ca	
+join Final_Marks_View fi on ca.Mark_ID = fi.Mark_ID and ca.Mark_Stu_ID = fi.Mark_Stu_ID and ca.Mark_Course_Code = fi.Mark_Course_Code;
+
+-------------- view ---------------
+select * from total_marks;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################### Get all marks whole batch ##########################################
+
+create view get_whole_marks as 
+select 
+	ca.Mark_ID,
+	ca.Mark_Stu_ID,
+	ca.Mark_Course_Code,
+	ca.Assignment,
+	Mrks.Quiz_01,
+	Mrks.Quiz_02,
+	Mrks.Quiz_03,
+	ca.Max_Quiz,
+	ca.Second_Max_Quiz,
+	ca.CA_Marks,
+	fi.End_Exam_Marks,
+	(ca.CA_Marks + fi.End_Exam_Marks) as Final_Marks
+from CA_Marks_View ca	
+join Final_Marks_View fi on ca.Mark_ID = fi.Mark_ID and ca.Mark_Stu_ID = fi.Mark_Stu_ID and ca.Mark_Course_Code = fi.Mark_Course_Code
+join mark mrks on ca.Mark_ID = Mrks.Mark_ID and ca.Mark_Stu_ID = mrks.Mark_Stu_ID and ca.Mark_Course_Code = mrks.Mark_Course_Code;
+
+-------------- view ---------------
+select * from get_whole_marks;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################### view grades whole batch ###########################
+
+
+CREATE VIEW Grade_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    gwm.Mark_Course_Code,
+    CASE
+        WHEN stu.Status = 'Suspended' THEN 'WH'  -- If suspended, show WH
+        WHEN stu.Status = 'Repeat' THEN 'C+'  -- If repeat, maximum grade is C+
+        WHEN (SELECT COUNT(*) 
+              FROM Medical medi 
+              WHERE medi.Student_ID = stu.Student_ID 
+              AND medi.Assessment_Type = 'Final' 
+              AND medi.medical_status = 'approved') > 0 THEN 'MC'  -- Medical
+        WHEN gwm.Final_Marks >= 90 THEN 'A+'
+        WHEN gwm.Final_Marks >= 84 THEN 'A'
+        WHEN gwm.Final_Marks >= 75 THEN 'A-'
+        WHEN gwm.Final_Marks >= 70 THEN 'B+'
+        WHEN gwm.Final_Marks >= 65 THEN 'B'
+        WHEN gwm.Final_Marks >= 60 THEN 'B-'
+        WHEN gwm.Final_Marks >= 55 THEN 'C+'
+        WHEN gwm.Final_Marks >= 50 THEN 'C'
+        WHEN gwm.Final_Marks >= 45 THEN 'C-'
+        WHEN gwm.Final_Marks >= 40 THEN 'D+'
+        WHEN gwm.Final_Marks >= 35 THEN 'D'
+        ELSE 'F'  -- Assign 'F' for marks below 35
+    END AS Grade
+FROM
+    get_whole_marks gwm
+JOIN
+    Student stu ON stu.Student_ID = gwm.Mark_Stu_ID;
+
+
+-------------- view ---------------
+select * from Grade_View ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############################ Get CA eligibility #####################################
+
+
+
+CREATE VIEW Exam_Eligibility_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    gw.Mark_Course_Code,
+    CASE
+        WHEN gw.CA_Marks < 25 THEN 'Not Eligible'
+        ELSE 'Eligible'
+    END AS Exam_Eligibility
+FROM
+    get_whole_marks gw
+JOIN
+    Student stu ON stu.Student_ID = gw.Mark_Stu_ID;
+
+-------------- view ---------------
+select * from Exam_Eligibility_View;
+
+
+
+
+
+
+
+
+####################### Create view for assigning grade points ###############################
+
+CREATE VIEW Grade_Points_View AS
+SELECT
+    Student_ID,
+    Stu_FName,
+    Mark_Course_Code,
+    Grade,
+    CASE Grade
+        WHEN 'A+' THEN 4.0
+        WHEN 'A'  THEN 4.0
+        WHEN 'A-' THEN 3.7
+        WHEN 'B+' THEN 3.3
+        WHEN 'B'  THEN 3.0
+        WHEN 'B-' THEN 2.7
+        WHEN 'C+' THEN 2.3
+        WHEN 'C'  THEN 2.0
+        WHEN 'C-' THEN 1.7
+        WHEN 'D+' THEN 1.3
+        WHEN 'D'  THEN 1.0
+        ELSE 0.0  -- This includes 'F' and any other grades not specified
+    END AS Grade_Points
+FROM
+    Grade_View;
+
+------------- view ---------------
+select * from Grade_Points_View ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################## get SGPA all #########################################
+
+CREATE VIEW Semester_GPA_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    AVG(CASE gw.Grade
+        WHEN 'A+' THEN 4.0
+        WHEN 'A'  THEN 4.0
+        WHEN 'A-' THEN 3.7
+        WHEN 'B+' THEN 3.3
+        WHEN 'B'  THEN 3.0
+        WHEN 'B-' THEN 2.7
+        WHEN 'C+' THEN 2.3
+        WHEN 'C'  THEN 2.0
+        WHEN 'C-' THEN 1.7
+        WHEN 'D+' THEN 1.3
+        WHEN 'D'  THEN 1.0
+        ELSE 0.0
+    END) AS Semester_GPA
+FROM
+    Grade_View gw
+JOIN
+    Student stu ON stu.Student_ID = gw.Student_ID
+GROUP BY
+    stu.Student_ID, stu.Stu_FName;
+
+
+------------- view ---------------
+select * from Semester_GPA_View;
+
+
+
+
+
+
+
+
+
+
+
+
+############################ get CGPA #####################################
+
+
+
+
+
+CREATE VIEW CGPA_View AS
+SELECT
+    stu.Student_ID,
+    stu.Stu_FName,
+    CASE 
+        WHEN SUM(cr.Credits) = 0 THEN 0
+        ELSE SUM(CASE gw.Grade
+            WHEN 'A+' THEN 4.0
+            WHEN 'A'  THEN 4.0
+            WHEN 'A-' THEN 3.7
+            WHEN 'B+' THEN 3.3
+            WHEN 'B'  THEN 3.0
+            WHEN 'B-' THEN 2.7
+            WHEN 'C+' THEN 2.3
+            WHEN 'C'  THEN 2.0
+            WHEN 'C-' THEN 1.7
+            WHEN 'D+' THEN 1.3
+            WHEN 'D'  THEN 1.0
+            ELSE 0.0
+        END * cr.Credits) / SUM(cr.Credits)
+    END AS CGPA
+FROM
+    Grade_View gw
+JOIN
+    Student stu ON stu.Student_ID = gw.Student_ID
+JOIN
+    Course cr ON cr.Course_Code = gw.Mark_Course_Code
+WHERE
+    cr.Course_Name <> 'English'
+GROUP BY
+    stu.Student_ID, stu.Stu_FName;
+
+
+------------- view ---------------
+ select * from CGPA_View;
+
+
+
+
+
+
+
+
+
+
+
+######################### get ca marks using course code individually ###############################
+
+
+DELIMITER //
+
+CREATE PROCEDURE GetCAMarksByCourseCode(Course_Code VARCHAR(7))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        Assignment,
+        Max_Quiz,
+        Second_Max_Quiz,
+        Mid_Exam_Marks,
+        CA_Marks
+    FROM 
+        CA_Marks_View
+    WHERE 
+        Mark_Course_Code = Course_Code;
+END //
+
+DELIMITER ;
+
+call GetCAMarksByCourseCode('ICT1222');
+
+
+
+
+
+############################  when enter tg number and course code student can be shown ca marks individually #############################
+
+DELIMITER //
+
+CREATE PROCEDURE GetCAMarksByStudentIDAndCourseCode(Student_ID VARCHAR(6), Course_Code VARCHAR(7))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        Assignment,
+        Max_Quiz,
+        Second_Max_Quiz,
+        Mid_Exam_Marks,
+        CA_Marks
+    FROM 
+        CA_Marks_View
+    WHERE 
+        Mark_Stu_ID = student_id AND
+        Mark_Course_Code = course_code;
+END //
+
+DELIMITER ;
+
+call GetCAMarksByStudentIDAndCourseCode('TG2202','ICT1222');
+
+
+ ######################### get ca marks using student id individually ###############################
+
+DELIMITER //
+
+CREATE PROCEDURE GetCAMarksByStudentID(Student_ID VARCHAR(6))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        Assignment,
+        Max_Quiz,
+        Second_Max_Quiz,
+        Mid_Exam_Marks,
+        CA_Marks
+    FROM 
+        CA_Marks_View
+    WHERE 
+        Mark_Stu_ID = student_id;
+END //
+
+DELIMITER ;
+
+call GetCAMarksByStudentID('TG2202');
+
+##################### Get Final Marks using student_id ###########################################
+
+DELIMITER //
+
+CREATE PROCEDURE GetFinalMarksByStudentID(Student_ID VARCHAR(6))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        CA_Marks,
+        End_Exam_Marks,
+        Total_Marks
+    FROM 
+        total_marks
+    WHERE 
+        Mark_Stu_ID = student_id;
+END //
+
+DELIMITER ;
+
+call GetFinalMarksByStudentID('TG2202');
+
+################## get final marks individually ########################
+
+DELIMITER //
+
+create procedure GetFinalMarksIndividually(Student_ID VARCHAR(6),Course_Code VARCHAR(7))
+BEGIN
+    select 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        CA_Marks,
+        End_Exam_Marks,
+        Total_Marks
+    from  
+        total_marks
+    where 
+        Mark_Stu_ID = student_id and Mark_Course_Code = Course_Code;
+END //
+
+DELIMITER ;
+
+
+call GetFinalMarksIndividually('TG2202','ICT1212');
+
+
+####################### Get the grade individually ########################
+
+DELIMITER //
+
+CREATE PROCEDURE getGradeIndividually(
+    IN p_Student_ID VARCHAR(6),
+    IN p_Course_Code VARCHAR(7)
+)
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        gwm.Mark_Course_Code,
+        CASE
+            WHEN stu.Status = 'Suspended' THEN 'WH'  -- If suspended, show WH
+            WHEN stu.Status = 'Repeat' THEN 'C+'  -- If repeat, maximum grade is C+
+            WHEN (SELECT COUNT(*) 
+                  FROM Medical medi 
+                  WHERE medi.Student_ID = stu.Student_ID 
+                  AND medi.Assessment_Type = 'Final' 
+                  AND medi.medical_status = 'approved') > 0 THEN 'MC'  -- Medical
+            WHEN gwm.Final_Marks >= 90 THEN 'A+'
+            WHEN gwm.Final_Marks >= 84 THEN 'A'
+            WHEN gwm.Final_Marks >= 75 THEN 'A-'
+            WHEN gwm.Final_Marks >= 70 THEN 'B+'
+            WHEN gwm.Final_Marks >= 65 THEN 'B'
+            WHEN gwm.Final_Marks >= 60 THEN 'B-'
+            WHEN gwm.Final_Marks >= 55 THEN 'C+'
+            WHEN gwm.Final_Marks >= 50 THEN 'C'
+            WHEN gwm.Final_Marks >= 45 THEN 'C-'
+            WHEN gwm.Final_Marks >= 40 THEN 'D+'
+            WHEN gwm.Final_Marks >= 35 THEN 'D'
+            ELSE 'F'  -- Assign 'F' for marks below 35
+        END AS Grade
+    FROM
+        get_whole_marks gwm
+    JOIN
+        Student stu ON stu.Student_ID = gwm.Mark_Stu_ID
+    WHERE
+        gwm.Mark_Course_Code = p_Course_Code
+        AND stu.Student_ID = p_Student_ID;
+END //
+
+DELIMITER ;
+
+
+call getGradeIndividually('TG2202','ICT1212');
+
+
+########################### sgpa get individually #############################
+
+DELIMITER //
+
+CREATE PROCEDURE Get_Semester_GPA(IN student_id VARCHAR(6))
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        AVG(CASE gw.Grade
+            WHEN 'A+' THEN 4.0
+            WHEN 'A'  THEN 4.0
+            WHEN 'A-' THEN 3.7
+            WHEN 'B+' THEN 3.3
+            WHEN 'B'  THEN 3.0
+            WHEN 'B-' THEN 2.7
+            WHEN 'C+' THEN 2.3
+            WHEN 'C'  THEN 2.0
+            WHEN 'C-' THEN 1.7
+            WHEN 'D+' THEN 1.3
+            WHEN 'D'  THEN 1.0
+            ELSE 0.0
+        END) AS Semester_GPA
+    FROM
+        Grade_View gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Student_ID
+    WHERE
+        stu.Student_ID = student_id
+    GROUP BY
+        stu.Student_ID, stu.Stu_FName;
+END //
+
+DELIMITER ;
+
+
+call Get_Semester_GPA('TG2202');
+
+################################ Get CGPA Individually ##########################################
+
+DELIMITER //
+
+CREATE PROCEDURE Get_CGPA_By_StudentID(IN student_id VARCHAR(6))
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        CASE 
+            WHEN SUM(cr.Credits) = 0 THEN 0
+            ELSE SUM(CASE gw.Grade
+                WHEN 'A+' THEN 4.0
+                WHEN 'A'  THEN 4.0
+                WHEN 'A-' THEN 3.7
+                WHEN 'B+' THEN 3.3
+                WHEN 'B'  THEN 3.0
+                WHEN 'B-' THEN 2.7
+                WHEN 'C+' THEN 2.3
+                WHEN 'C'  THEN 2.0
+                WHEN 'C-' THEN 1.7
+                WHEN 'D+' THEN 1.3
+                WHEN 'D'  THEN 1.0
+                ELSE 0.0
+            END * cr.Credits) / SUM(cr.Credits)
+        END AS CGPA
+    FROM
+        Grade_View gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Student_ID
+    JOIN
+        Course cr ON cr.Course_Code = gw.Mark_Course_Code
+    WHERE
+        cr.Course_Name <> 'English'
+        AND stu.Student_ID = student_id
+    GROUP BY
+        stu.Student_ID, stu.Stu_FName;
+END //
+
+DELIMITER ;
+
+
+call Get_CGPA_By_StudentID('TG2202');
+
+
+######################### check eligibility using student id #############################
+
+
+DELIMITER //
+
+CREATE PROCEDURE Check_Exam_Eligibility(IN student_id VARCHAR(6))
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        gw.Mark_Course_Code,
+        CASE
+            WHEN gw.CA_Marks < 25 THEN 'Not Eligible'
+            ELSE 'Eligible'
+        END AS Exam_Eligibility
+    FROM
+        get_whole_marks gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Mark_Stu_ID
+    WHERE
+        stu.Student_ID = student_id;
+END //
+
+DELIMITER ;
+
+
+call Check_Exam_Eligibility('TG2202');
+
+
+
+####################### check eligibility individually ########################
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE check_eligibility_individually(
+    IN student_id VARCHAR(6),
+    IN course_code VARCHAR(7)
+)
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        gw.Mark_Course_Code,
+        CASE
+            WHEN gw.CA_Marks < 25 THEN 'Not Eligible'
+            ELSE 'Eligible'
+        END AS Exam_Eligibility
+    FROM
+        get_whole_marks gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Mark_Stu_ID
+    WHERE
+        stu.Student_ID = student_id
+        AND gw.Mark_Course_Code = course_code;
+END //
+
+DELIMITER ;
+
+
+call check_eligibility_individually('TG2202','TCS1212');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
