@@ -162,9 +162,7 @@ GRANT EXECUTE ON PROCEDURE techmis3.Get_CGPA_By_StudentID TO 'Student'@'localhos
 GRANT EXECUTE ON PROCEDURE techmis3.Check_Exam_Eligibility TO 'Student'@'localhost';
 GRANT EXECUTE ON PROCEDURE techmis3.check_eligibility_individually TO 'Student'@'localhost';
 GRANT EXECUTE ON PROCEDURE techmis3.GetStudentEligibility TO 'Student'@'localhost';
-GRANT EXECUTE ON PROCEDURE techmis3.Overall_Eligibility_View TO 'Student'@'localhost';
-
-
+GRANT SELECT ON techmis3.Overall_Eligibility_View TO 'Student'@'localhost';
 
 GRANT SELECT,SHOW VIEW ON techmis3.Grade_View TO 'Student'@'localhost';
 GRANT SELECT,SHOW VIEW ON techmis3.Exam_Eligibility_View TO 'Student'@'localhost';
@@ -176,6 +174,7 @@ GRANT EXECUTE ON PROCEDURE techmis3.Check_Individual_Eligibility_By_StudentID_Co
 GRANT EXECUTE ON PROCEDURE techmis3.Check_Eligibility_By_StudentID TO 'Student'@'localhost';
 
 
+
 SHOW GRANTS FOR 'Student'@'localhost';
 
 mysql> SHOW GRANTS FOR 'Student'@'localhost';
@@ -184,15 +183,17 @@ mysql> SHOW GRANTS FOR 'Student'@'localhost';
                   |
 +-----------------------------------------------------------------------------------------------------------------------+
 | GRANT USAGE ON *.* TO `Student`@`localhost` IDENTIFIED BY PASSWORD '*366978B7D5624FE04F71FBA1146250763598D6F8'        |
-| GRANT SELECT, SHOW VIEW ON `techmis3`.`grade_view` TO `Student`@`localhost`
+| GRANT SELECT, SHOW VIEW ON `techmis3`.`cgpa_view` TO `Student`@`localhost`
                   |
 | GRANT SELECT, SHOW VIEW ON `techmis3`.`semester_gpa_view` TO `Student`@`localhost`
+                  |
+| GRANT SELECT ON `techmis3`.`overall_eligibility_view` TO `Student`@`localhost`
                   |
 | GRANT SELECT, SHOW VIEW ON `techmis3`.`exam_eligibility_view` TO `Student`@`localhost`
                   |
 | GRANT SELECT, SHOW VIEW ON `techmis3`.`attendance_eligible` TO `Student`@`localhost`
                   |
-| GRANT SELECT, SHOW VIEW ON `techmis3`.`cgpa_view` TO `Student`@`localhost`
+| GRANT SELECT, SHOW VIEW ON `techmis3`.`grade_view` TO `Student`@`localhost`
                   |
 | GRANT EXECUTE ON PROCEDURE `techmis3`.`check_individual_eligibility_by_studentid_coursecode` TO `Student`@`localhost` |
 | GRANT EXECUTE ON PROCEDURE `techmis3`.`getstudenteligibility` TO `Student`@`localhost`
@@ -212,7 +213,9 @@ mysql> SHOW GRANTS FOR 'Student'@'localhost';
 | GRANT EXECUTE ON PROCEDURE `techmis3`.`check_exam_eligibility` TO `Student`@`localhost`
                   |
 +-----------------------------------------------------------------------------------------------------------------------+
-16 rows in set (0.00 sec)
+17 rows in set (0.00 sec)
+
+
 
 
 
