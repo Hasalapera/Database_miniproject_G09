@@ -268,7 +268,7 @@ END //
 DELIMITER ;
 
 
-call GetStudentEligibilityAllcourses('TG2208');
+call GetStudentEligibilityStudent_id('TG2208');
 
 
 
