@@ -1,0 +1,16 @@
+create database techmis3;
+
+use database techmis3;
+
+*****************************************************************************************************
+
+SHOW PROCEDURE STATUS WHERE DB= 'techmis3';
+
+
+********************** view all views *************************************************************
+
+SHOW FULL TABLES WHERE TABLE_TYPE = 'VIEW' ;
+
+******************************* view all procedures **********************************************
+
+SHOW PROCEDURE STATUS WHERE DB= 'techmis3';
