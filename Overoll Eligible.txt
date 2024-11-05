@@ -1,0 +1,57 @@
+############################ overall eligibility using student id (procedure) #################################
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE Check_Eligibility_By_StudentID(IN p_Student_ID VARCHAR(6))
+BEGIN
+    SELECT
+        stu.Student_ID,
+        stu.Stu_FName,
+        gw.Mark_Course_Code,
+        CASE
+            WHEN gw.CA_Marks < 25 THEN 'Overall Not Eligible'
+            WHEN (SELECT Attendance_Percentage
+                  FROM attendancePercentage att
+                  WHERE att.Att_Student_ID = stu.Student_ID
+                    AND att.Att_Course_Code = gw.Mark_Course_Code) >= 80 THEN 'Overall Eligible'
+            WHEN (SELECT COUNT(*) 
+                  FROM approvedMedi medic
+                  WHERE medic.Student_ID = stu.Student_ID
+                    AND medic.Course_Code = gw.Mark_Course_Code) > 0 THEN 'Overall Eligible with Medical Approval'
+            ELSE 'Overall Not Eligible'
+        END AS Overall_Eligibility
+    FROM
+        get_whole_marks gw
+    JOIN
+        Student stu ON stu.Student_ID = gw.Mark_Stu_ID
+    WHERE
+        stu.Student_ID = p_Student_ID;
+END //
+
+DELIMITER ;
+
+
+call Check_Eligibility_By_StudentID('TG2130');
+
+
+
+
+mysql> call Check_Eligibility_By_StudentID('TG2130');
++------------+-----------+------------------+----------------------+
+| Student_ID | Stu_FName | Mark_Course_Code | Overall_Eligibility  |
++------------+-----------+------------------+----------------------+
+| TG2130     | Sajith    | ICT1242          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1253          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1212          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1222          | Overall Not Eligible |
+| TG2130     | Sajith    | TMS1233          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1233          | Overall Not Eligible |
+| TG2130     | Sajith    | TCS1212          | Overall Not Eligible |
+| TG2130     | Sajith    | ENG1222          | Overall Not Eligible |
++------------+-----------+------------------+----------------------+
+8 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.02 sec)

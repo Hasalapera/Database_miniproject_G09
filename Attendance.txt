@@ -1,0 +1,324 @@
+########################## Get absent students #########################
+
+create view absentStudents as
+select 
+	Att_Student_ID,Att_Course_Code, Week_Num, Day_Num
+	
+	from attendance
+	where
+	Status = 'ab' AND Week_Num IN ('w01', 'w02', 'w03', 'w04', 'w05', 'w06', 'w07', 'w08', 'w09', 'w10', 'w11', 'w12', 'w13', 'w14');
+
+
+---------- view ----------------
+
+select * from absentStudents;
+
+
+
+mysql> select*from absentstudent;
++----------------+-----------------+----------+---------+
+| att_student_id | att_course_code | week_num | day_num |
++----------------+-----------------+----------+---------+
+| TG2201         | TCS1212         | w01      | d4      |
+| TG2206         | ICT1253         | w01      | d1      |
+| TG2207         | ICT1242         | w01      | d1      |
+| TG2208         | ENG1222         | w01      | d5      |
+| TG2201         | ICT1222         | w02      | d3      |
+| TG2201         | ICT1233         | w02      | d3      |
+| TG2201         | TMS1233         | w02      | d3      |
+| TG2202         | TMS1233         | w02      | d3      |
+| TG2206         | ICT1253         | w02      | d1      |
+| TG2207         | ICT1242         | w02      | d1      |
+| TG2208         | ENG1222         | w02      | d5      |
+| TG2201         | TCS1212         | w03      | d4      |
+| TG2201         | ENG1222         | w03      | d5      |
+| TG2202         | ICT1242         | w03      | d1      |
+| TG2202         | ICT1253         | w03      | d1      |
+| TG2207         | ICT1242         | w03      | d1      |
+| TG2210         | ICT1222         | w03      | d3      |
+| TG2210         | ICT1233         | w03      | d3      |
+| TG2210         | TMS1233         | w03      | d3      |
+| TG2202         | ICT1212         | w04      | d2      |
+| TG2206         | ICT1242         | w04      | d1      |
+| TG2206         | ICT1253         | w04      | d1      |
+| TG2208         | ICT1222         | w04      | d3      |
+| TG2208         | ICT1233         | w04      | d3      |
+| TG2208         | TMS1233         | w04      | d3      |
+| TG2210         | TCS1212         | w04      | d4      |
+| TG2202         | ICT1253         | w05      | d1      |
+| TG2202         | ICT1212         | w05      | d2      |
+| TG2202         | ICT1233         | w05      | d3      |
+| TG2203         | ICT1212         | w05      | d2      |
+| TG2203         | ICT1222         | w05      | d3      |
+| TG2203         | ICT1233         | w05      | d3      |
+| TG2205         | TCS1212         | w05      | d4      |
+| TG2206         | ENG1222         | w05      | d5      |
+| TG2208         | TCS1212         | w05      | d4      |
+| TG2201         | ICT1242         | w06      | d1      |
+| TG2201         | ICT1222         | w06      | d3      |
+| TG2202         | TMS1233         | w06      | d3      |
+| TG2203         | ICT1222         | w06      | d3      |
+| TG2204         | ICT1212         | w06      | d2      |
+| TG2204         | ICT1222         | w06      | d3      |
+| TG2204         | ICT1233         | w06      | d3      |
+| TG2204         | TCS1212         | w06      | d4      |
+| TG2205         | TMS1233         | w06      | d3      |
+| TG2206         | TCS1212         | w06      | d4      |
+| TG2207         | ICT1253         | w06      | d1      |
+| TG2207         | ICT1222         | w06      | d3      |
+| TG2207         | TCS1212         | w06      | d4      |
+| TG2210         | ICT1222         | w06      | d3      |
+| TG2210         | ICT1233         | w06      | d3      |
+| TG2210         | TMS1233         | w06      | d3      |
+| TG2202         | ICT1212         | w07      | d2      |
+| TG2202         | TCS1212         | w07      | d4      |
+| TG2203         | ICT1242         | w07      | d1      |
+| TG2203         | ICT1253         | w07      | d1      |
+| TG2204         | ENG1222         | w07      | d5      |
+| TG2206         | ICT1212         | w07      | d2      |
+| TG2207         | TCS1212         | w07      | d4      |
+| TG2208         | ICT1242         | w07      | d1      |
+| TG2208         | ICT1253         | w07      | d1      |
+| TG2208         | ICT1212         | w07      | d2      |
+| TG2209         | ICT1242         | w07      | d1      |
+| TG2209         | ICT1233         | w07      | d3      |
+| TG2209         | TCS1212         | w07      | d4      |
+| TG2209         | ENG1222         | w07      | d5      |
+| TG2210         | ICT1242         | w07      | d1      |
+| TG2201         | ICT1212         | w08      | d2      |
+| TG2201         | ICT1222         | w08      | d3      |
+| TG2201         | ICT1233         | w08      | d3      |
+| TG2203         | TCS1212         | w08      | d4      |
+| TG2206         | ICT1212         | w08      | d2      |
+| TG2206         | ICT1222         | w08      | d3      |
+| TG2206         | ICT1233         | w08      | d3      |
+| TG2209         | ICT1222         | w08      | d3      |
+| TG2209         | TMS1233         | w08      | d3      |
+| TG2209         | TCS1212         | w08      | d4      |
+| TG2209         | ENG1222         | w08      | d5      |
+| TG2208         | TCS1212         | w09      | d4      |
+| TG2210         | ENG1222         | w09      | d5      |
+| TG2205         | ICT1253         | w10      | d1      |
+| TG2206         | TCS1212         | w10      | d4      |
+| TG2209         | ICT1242         | w10      | d1      |
+| TG2204         | ENG1222         | w11      | d5      |
+| TG2205         | ICT1253         | w11      | d1      |
+| TG2208         | ICT1253         | w11      | d1      |
+| TG2208         | ICT1222         | w11      | d3      |
+| TG2208         | ENG1222         | w11      | d5      |
+| TG2209         | ICT1253         | w11      | d1      |
+| TG2209         | ICT1233         | w11      | d3      |
+| TG2208         | ICT1253         | w12      | d1      |
+| TG2208         | ICT1222         | w12      | d3      |
+| TG2208         | TCS1212         | w12      | d4      |
+| TG2208         | ENG1222         | w12      | d5      |
+| TG2209         | TMS1233         | w12      | d3      |
+| TG2208         | ICT1233         | w13      | d3      |
+| TG2208         | TCS1212         | w13      | d4      |
+| TG2209         | TCS1212         | w13      | d4      |
+| TG2208         | ICT1222         | w14      | d3      |
+| TG2208         | TCS1212         | w14      | d4      |
+| TG2208         | ENG1222         | w14      | d5      |
+| TG2209         | ICT1253         | w14      | d1      |
+| TG2209         | TCS1212         | w14      | d4      |
++----------------+-----------------+----------+---------+
+102 rows in set (0.00 sec)
+
+
+
+
+
+####################### Create medical approved students view ############################
+
+create view approvedMedi as 
+select 
+	Medical_ID, Student_ID, Course_Code, Assessment_Type, week, date
+	from medical
+
+	where medical_status = 'Approved';
+
+
+
+---------- view ----------------
+
+
+select * from approvedMedi;
+
+
+sql> select*from approvedMedi;
++------------+------------+-------------+-----------------+------+------+
+| Medical_ID | Student_ID | Course_Code | Assessment_Type | week | date |
++------------+------------+-------------+-----------------+------+------+
+| M0001      | TG2206     | ICT1253     | CA              | w01  | d1   |
+| M0003      | TG2208     | ENG1222     | Lec             | w01  | d5   |
+| M0005      | TG2201     | ICT1233     | Lec             | w02  | d3   |
+| M0007      | TG2206     | ICT1253     | CA              | w02  | d1   |
+| M0009      | TG2208     | ENG1222     | Lec             | w02  | d5   |
+| M0010      | TG2207     | ICT1242     | CA              | w03  | d1   |
+| M0012      | TG2210     | ICT1233     | Lec             | w03  | d3   |
+| M0014      | TG2206     | ICT1242     | Lec             | w04  | d1   |
+| M0016      | TG2208     | ICT1222     | CA              | w04  | d3   |
+| M0018      | TG2208     | TMS1233     | Lec             | w04  | d3   |
+| M0020      | TG2201     | ICT1242     | Mid             | w06  | d1   |
+| M0022      | TG2207     | TCS1212     | CA              | w06  | d4   |
+| M0024      | TG2203     | ICT1242     | Lec             | w07  | d1   |
+| M0026      | TG2204     | ENG1222     | Lec             | w07  | d5   |
+| M0028      | TG2208     | ICT1242     | CA              | w07  | d1   |
+| M0030      | TG2208     | ICT1212     | Lec             | w07  | d2   |
+| M0032      | TG2201     | ICT1212     | Mid             | w08  | d2   |
+| M0034      | TG2201     | ICT1233     | CA              | w08  | d3   |
+| M0036      | TG2206     | ICT1222     | Lec             | w08  | d3   |
+| M0038      | TG2208     | TCS1212     | Lec             | w09  | d4   |
+| M0040      | TG2206     | TCS1212     | CA              | w10  | d4   |
+| M0042      | TG2115     | ENG1222     | Final           | w15  | d5   |
+| M0043      | TG2210     | ICT1212     | Final           | w15  | d5   |
++------------+------------+-------------+-----------------+------+------+
+23 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+################### Attendance eligible Students #########################
+
+create view attendance_eligible AS 
+SELECT Att_Student_ID, Att_Course_Code
+FROM attendance_80
+
+Union
+
+SELECT Low_Att_App_medi.Student_ID, Low_Att_App_medi.Course_Code
+FROM LowAttendanceMedicalApproved Low_Att_App_medi;
+
+---------- view ----------------
+
+select * from attendance_eligible;
+
+
+mysql> select * from attendance_eligible;
++----------------+-----------------+
+| Att_Student_ID | Att_Course_Code |
++----------------+-----------------+
+| TG2201         | ICT1242         |
+| TG2201         | ICT1253         |
+| TG2201         | ICT1212         |
+| TG2201         | ICT1233         |
+| TG2201         | TMS1233         |
+| TG2201         | TCS1212         |
+| TG2201         | ENG1222         |
+| TG2202         | ICT1242         |
+| TG2202         | ICT1253         |
+| TG2202         | ICT1222         |
+| TG2202         | ICT1233         |
+| TG2202         | TMS1233         |
+| TG2202         | TCS1212         |
+| TG2202         | ENG1222         |
+| TG2203         | ICT1242         |
+| TG2203         | ICT1253         |
+| TG2203         | ICT1212         |
+| TG2203         | ICT1222         |
+| TG2203         | ICT1233         |
+| TG2203         | TMS1233         |
+| TG2203         | TCS1212         |
+| TG2203         | ENG1222         |
+| TG2204         | ICT1242         |
+| TG2204         | ICT1253         |
+| TG2204         | ICT1212         |
+| TG2204         | ICT1222         |
+| TG2204         | ICT1233         |
+| TG2204         | TMS1233         |
+| TG2204         | TCS1212         |
+| TG2204         | ENG1222         |
+| TG2205         | ICT1242         |
+| TG2205         | ICT1253         |
+| TG2205         | ICT1212         |
+| TG2205         | ICT1222         |
+| TG2205         | ICT1233         |
+| TG2205         | TMS1233         |
+| TG2205         | TCS1212         |
+| TG2205         | ENG1222         |
+| TG2206         | ICT1242         |
+| TG2206         | ICT1212         |
+| TG2206         | ICT1222         |
+| TG2206         | ICT1233         |
+| TG2206         | TMS1233         |
+| TG2206         | TCS1212         |
+| TG2206         | ENG1222         |
+| TG2207         | ICT1253         |
+| TG2207         | ICT1212         |
+| TG2207         | ICT1222         |
+| TG2207         | ICT1233         |
+| TG2207         | TMS1233         |
+| TG2207         | TCS1212         |
+| TG2207         | ENG1222         |
+| TG2208         | ICT1242         |
+| TG2208         | ICT1212         |
+| TG2208         | ICT1233         |
+| TG2208         | TMS1233         |
+| TG2209         | ICT1242         |
+| TG2209         | ICT1253         |
+| TG2209         | ICT1212         |
+| TG2209         | ICT1222         |
+| TG2209         | ICT1233         |
+| TG2209         | TMS1233         |
+| TG2209         | ENG1222         |
+| TG2210         | ICT1242         |
+| TG2210         | ICT1253         |
+| TG2210         | ICT1212         |
+| TG2210         | ICT1222         |
+| TG2210         | ICT1233         |
+| TG2210         | TMS1233         |
+| TG2210         | TCS1212         |
+| TG2210         | ENG1222         |
+| TG2206         | ICT1253         |
+| TG2207         | ICT1242         |
+| TG2208         | ENG1222         |
+| TG2208         | ICT1222         |
+| TG2208         | TCS1212         |
++----------------+-----------------+
+76 rows in set (0.01 sec)
+
+
+
+
+
+
+
+###################### Get percentage and eligibility status using coursecode and student_id ####################
+
+DELIMITER //
+
+CREATE PROCEDURE GetStudentEligibility(IN p_Student_ID VARCHAR(6), IN p_Course_Code VARCHAR(7))
+BEGIN
+    SELECT 
+        Att_Student_ID,
+        Att_Course_Code,
+        Attendance_Percentage,
+        Eligibility_Status
+    FROM 
+        StudentEligibilityWithMedical
+    WHERE 
+        Att_Student_ID = p_Student_ID AND 
+        Att_Course_Code = p_Course_Code;
+END //
+
+DELIMITER ;
+
+
+------------- Calling PROCEDURE ---------------------
+CALL GetStudentEligibility('StudentID', 'Course');
+
+
+
+mysql> CALL GetStudentEligibility('TG2203', 'ICT1222');
++----------------+-----------------+-----------------------+--------------------+
+| Att_Student_ID | Att_Course_Code | Attendance_Percentage | Eligibility_Status |
++----------------+-----------------+-----------------------+--------------------+
+| TG2203         | ICT1222         |              85.71429 | Eligible           |
++----------------+-----------------+-----------------------+--------------------+
+1 row in set (0.00 sec)

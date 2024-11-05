@@ -1,0 +1,87 @@
+####################################### Get Final Marks using student_id ###########################################
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE GetFinalMarksByStudentID(Student_ID VARCHAR(6))
+BEGIN
+    SELECT 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        CA_Marks,
+        End_Exam_Marks,
+        Total_Marks
+    FROM 
+        total_marks
+    WHERE 
+        Mark_Stu_ID = student_id;
+END //
+
+DELIMITER ;
+
+
+
+call GetFinalMarksByStudentID('TG2202');
+
+
+mysql> CALL GETFINALMARKSBYSTUDENTID('TG2203');
++------------+-------------+------------------+-------------+----------------+-------------+
+| Mark_ID    | Mark_Stu_ID | Mark_Course_Code | CA_Marks    | End_Exam_Marks | Total_Marks |
++------------+-------------+------------------+-------------+----------------+-------------+
+| MARK000017 | TG2203      | ICT1242          | 35.49500000 |    38.32500000 | 73.82000000 |
+| MARK000018 | TG2203      | ICT1253          | 36.61250000 |    37.02500000 | 73.63750000 |
+| MARK000019 | TG2203      | ICT1212          | 36.41750000 |    37.72500000 | 74.14250000 |
+| MARK000020 | TG2203      | ICT1222          | 36.71000000 |    37.00000000 | 73.71000000 |
+| MARK000021 | TG2203      | TMS1233          | 35.10250000 |    37.32500000 | 72.42750000 |
+| MARK000022 | TG2203      | ICT1233          | 35.58250000 |    37.50000000 | 73.08250000 |
+| MARK000023 | TG2203      | TCS1212          | 35.14500000 |    38.90000000 | 74.04500000 |
+| MARK000024 | TG2203      | ENG1222          | 34.58750000 |    37.27500000 | 71.86250000 |
++------------+-------------+------------------+-------------+----------------+-------------+
+8 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+################## get final marks individually with Student_ID and Course_Code ########################
+
+DELIMITER //
+
+create procedure GetFinalMarksIndividually(Student_ID VARCHAR(6),Course_Code VARCHAR(7))
+BEGIN
+    select 
+        Mark_ID,
+        Mark_Stu_ID,
+        Mark_Course_Code,
+        CA_Marks,
+        End_Exam_Marks,
+        Total_Marks
+    from  
+        total_marks
+    where 
+        Mark_Stu_ID = student_id and Mark_Course_Code = Course_Code;
+END //
+
+DELIMITER ;
+
+
+
+call GetFinalMarksIndividually('TG2202','ICT1212');
+
+
+
+
+mysql> call GetFinalMarksIndividually('TG2202','ICT1212');
++------------+-------------+------------------+-------------+----------------+-------------+
+| Mark_ID    | Mark_Stu_ID | Mark_Course_Code | CA_Marks    | End_Exam_Marks | Total_Marks |
++------------+-------------+------------------+-------------+----------------+-------------+
+| MARK000011 | TG2202      | ICT1212          | 37.13500000 |    39.12500000 | 76.26000000 |
++------------+-------------+------------------+-------------+----------------+-------------+
+1 row in set (0.00 sec)
