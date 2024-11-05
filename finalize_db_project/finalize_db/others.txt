@@ -14,3 +14,8 @@ SHOW FULL TABLES WHERE TABLE_TYPE = 'VIEW' ;
 ******************************* view all procedures **********************************************
 
 SHOW PROCEDURE STATUS WHERE DB= 'techmis3';
+
+
+**************************** show all users *************************************************
+
+SELECT User, Host FROM mysql.user;
