@@ -1,0 +1,178 @@
+mysql> select *from Overall_Eligibility_View;
++------------+-----------+------------------+----------------------------------------+
+| Student_ID | Stu_FName | Mark_Course_Code | Overall_Eligibility                    |
++------------+-----------+------------------+----------------------------------------+
+| TG2201     | Sadeepa   | ICT1242          | Overall Not Eligible                   |
+| TG2201     | Sadeepa   | ICT1253          | Overall Eligible                       |
+| TG2201     | Sadeepa   | ICT1212          | Overall Not Eligible                   |
+| TG2201     | Sadeepa   | ICT1222          | Overall Not Eligible                   |
+| TG2201     | Sadeepa   | TMS1233          | Overall Not Eligible                   |
+| TG2201     | Sadeepa   | ICT1233          | Overall Eligible                       |
+| TG2201     | Sadeepa   | TCS1212          | Overall Eligible                       |
+| TG2201     | Sadeepa   | ENG1222          | Overall Not Eligible                   |
+| TG2202     | Gihan     | ICT1242          | Overall Eligible                       |
+| TG2202     | Gihan     | ICT1253          | Overall Eligible                       |
+| TG2202     | Gihan     | ICT1212          | Overall Not Eligible                   |
+| TG2202     | Gihan     | ICT1222          | Overall Eligible                       |
+| TG2202     | Gihan     | TMS1233          | Overall Eligible                       |
+| TG2202     | Gihan     | ICT1233          | Overall Eligible                       |
+| TG2202     | Gihan     | TCS1212          | Overall Eligible                       |
+| TG2202     | Gihan     | ENG1222          | Overall Eligible                       |
+| TG2203     | Hasala    | ICT1242          | Overall Eligible                       |
+| TG2203     | Hasala    | ICT1253          | Overall Eligible                       |
+| TG2203     | Hasala    | ICT1212          | Overall Eligible                       |
+| TG2203     | Hasala    | ICT1222          | Overall Eligible                       |
+| TG2203     | Hasala    | TMS1233          | Overall Eligible                       |
+| TG2203     | Hasala    | ICT1233          | Overall Eligible                       |
+| TG2203     | Hasala    | TCS1212          | Overall Eligible                       |
+| TG2203     | Hasala    | ENG1222          | Overall Eligible                       |
+| TG2204     | Kavindu   | ICT1242          | Overall Eligible                       |
+| TG2204     | Kavindu   | ICT1253          | Overall Eligible                       |
+| TG2204     | Kavindu   | ICT1212          | Overall Eligible                       |
+| TG2204     | Kavindu   | ICT1222          | Overall Eligible                       |
+| TG2204     | Kavindu   | TMS1233          | Overall Eligible                       |
+| TG2204     | Kavindu   | ICT1233          | Overall Eligible                       |
+| TG2204     | Kavindu   | TCS1212          | Overall Eligible                       |
+| TG2204     | Kavindu   | ENG1222          | Overall Eligible                       |
+| TG2205     | Yasith    | ICT1242          | Overall Eligible                       |
+| TG2205     | Yasith    | ICT1253          | Overall Eligible                       |
+| TG2205     | Yasith    | ICT1212          | Overall Eligible                       |
+| TG2205     | Yasith    | ICT1222          | Overall Eligible                       |
+| TG2205     | Yasith    | TMS1233          | Overall Eligible                       |
+| TG2205     | Yasith    | ICT1233          | Overall Eligible                       |
+| TG2205     | Yasith    | TCS1212          | Overall Eligible                       |
+| TG2205     | Yasith    | ENG1222          | Overall Eligible                       |
+| TG2206     | Mithun    | ICT1242          | Overall Eligible                       |
+| TG2206     | Mithun    | ICT1253          | Overall Eligible with Medical Approval |
+| TG2206     | Mithun    | ICT1212          | Overall Eligible                       |
+| TG2206     | Mithun    | ICT1222          | Overall Eligible                       |
+| TG2206     | Mithun    | TMS1233          | Overall Eligible                       |
+| TG2206     | Mithun    | ICT1233          | Overall Eligible                       |
+| TG2206     | Mithun    | TCS1212          | Overall Eligible                       |
+| TG2206     | Mithun    | ENG1222          | Overall Eligible                       |
+| TG2207     | Harsha    | ICT1242          | Overall Eligible with Medical Approval |
+| TG2207     | Harsha    | ICT1253          | Overall Eligible                       |
+| TG2207     | Harsha    | ICT1212          | Overall Eligible                       |
+| TG2207     | Harsha    | ICT1222          | Overall Eligible                       |
+| TG2207     | Harsha    | TMS1233          | Overall Eligible                       |
+| TG2207     | Harsha    | ICT1233          | Overall Eligible                       |
+| TG2207     | Harsha    | TCS1212          | Overall Eligible                       |
+| TG2207     | Harsha    | ENG1222          | Overall Eligible                       |
+| TG2208     | Nimesh    | ICT1242          | Overall Eligible                       |
+| TG2208     | Nimesh    | ICT1253          | Overall Not Eligible                   |
+| TG2208     | Nimesh    | ICT1212          | Overall Eligible                       |
+| TG2208     | Nimesh    | ICT1222          | Overall Eligible with Medical Approval |
+| TG2208     | Nimesh    | TMS1233          | Overall Eligible                       |
+| TG2208     | Nimesh    | ICT1233          | Overall Eligible                       |
+| TG2208     | Nimesh    | TCS1212          | Overall Eligible with Medical Approval |
+| TG2208     | Nimesh    | ENG1222          | Overall Eligible with Medical Approval |
+| TG2209     | Roshan    | ICT1242          | Overall Eligible                       |
+| TG2209     | Roshan    | ICT1253          | Overall Eligible                       |
+| TG2209     | Roshan    | ICT1212          | Overall Eligible                       |
+| TG2209     | Roshan    | ICT1222          | Overall Eligible                       |
+| TG2209     | Roshan    | TMS1233          | Overall Eligible                       |
+| TG2209     | Roshan    | ICT1233          | Overall Eligible                       |
+| TG2209     | Roshan    | TCS1212          | Overall Not Eligible                   |
+| TG2209     | Roshan    | ENG1222          | Overall Eligible                       |
+| TG2210     | Ashan     | ICT1242          | Overall Eligible                       |
+| TG2210     | Ashan     | ICT1253          | Overall Eligible                       |
+| TG2210     | Ashan     | ICT1212          | Overall Eligible                       |
+| TG2210     | Ashan     | ICT1222          | Overall Eligible                       |
+| TG2210     | Ashan     | TMS1233          | Overall Eligible                       |
+| TG2210     | Ashan     | ICT1233          | Overall Eligible                       |
+| TG2210     | Ashan     | TCS1212          | Overall Eligible                       |
+| TG2210     | Ashan     | ENG1222          | Overall Eligible                       |
+| TG2115     | Kasun     | ICT1242          | Overall Not Eligible                   |
+| TG2115     | Kasun     | ICT1253          | Overall Not Eligible                   |
+| TG2115     | Kasun     | ICT1212          | Overall Not Eligible                   |
+| TG2115     | Kasun     | ICT1222          | Overall Not Eligible                   |
+| TG2115     | Kasun     | TMS1233          | Overall Not Eligible                   |
+| TG2115     | Kasun     | ICT1233          | Overall Not Eligible                   |
+| TG2115     | Kasun     | TCS1212          | Overall Not Eligible                   |
+| TG2115     | Kasun     | ENG1222          | Overall Eligible with Medical Approval |
+| TG2120     | Ashen     | ICT1242          | Overall Not Eligible                   |
+| TG2120     | Ashen     | ICT1253          | Overall Not Eligible                   |
+| TG2120     | Ashen     | ICT1212          | Overall Not Eligible                   |
+| TG2120     | Ashen     | ICT1222          | Overall Not Eligible                   |
+| TG2120     | Ashen     | TMS1233          | Overall Not Eligible                   |
+| TG2120     | Ashen     | ICT1233          | Overall Not Eligible                   |
+| TG2120     | Ashen     | TCS1212          | Overall Not Eligible                   |
+| TG2120     | Ashen     | ENG1222          | Overall Not Eligible                   |
+| TG2125     | Sahan     | ICT1242          | Overall Not Eligible                   |
+| TG2125     | Sahan     | ICT1253          | Overall Not Eligible                   |
+| TG2125     | Sahan     | ICT1212          | Overall Not Eligible                   |
+| TG2125     | Sahan     | ICT1222          | Overall Not Eligible                   |
+| TG2125     | Sahan     | TMS1233          | Overall Not Eligible                   |
+| TG2125     | Sahan     | ICT1233          | Overall Not Eligible                   |
+| TG2125     | Sahan     | TCS1212          | Overall Not Eligible                   |
+| TG2125     | Sahan     | ENG1222          | Overall Not Eligible                   |
+| TG2130     | Sajith    | ICT1242          | Overall Not Eligible                   |
+| TG2130     | Sajith    | ICT1253          | Overall Not Eligible                   |
+| TG2130     | Sajith    | ICT1212          | Overall Not Eligible                   |
+| TG2130     | Sajith    | ICT1222          | Overall Not Eligible                   |
+| TG2130     | Sajith    | TMS1233          | Overall Not Eligible                   |
+| TG2130     | Sajith    | ICT1233          | Overall Not Eligible                   |
+| TG2130     | Sajith    | TCS1212          | Overall Not Eligible                   |
+| TG2130     | Sajith    | ENG1222          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | ICT1242          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | ICT1253          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | ICT1212          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | ICT1222          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | TMS1233          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | ICT1233          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | TCS1212          | Overall Not Eligible                   |
+| TG2135     | Akalanka  | ENG1222          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | ICT1242          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | ICT1253          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | ICT1212          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | ICT1222          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | TMS1233          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | ICT1233          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | TCS1212          | Overall Not Eligible                   |
+| TG2010     | Ravindu   | ENG1222          | Overall Not Eligible                   |
++------------+-----------+------------------+----------------------------------------+
+128 rows in set (0.01 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+mysql> call Check_Eligibility_By_StudentID('TG2130');
++------------+-----------+------------------+----------------------+
+| Student_ID | Stu_FName | Mark_Course_Code | Overall_Eligibility  |
++------------+-----------+------------------+----------------------+
+| TG2130     | Sajith    | ICT1242          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1253          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1212          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1222          | Overall Not Eligible |
+| TG2130     | Sajith    | TMS1233          | Overall Not Eligible |
+| TG2130     | Sajith    | ICT1233          | Overall Not Eligible |
+| TG2130     | Sajith    | TCS1212          | Overall Not Eligible |
+| TG2130     | Sajith    | ENG1222          | Overall Not Eligible |
++------------+-----------+------------------+----------------------+
+8 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+
+
+
+
+
+
+mysql> call Check_Individual_Eligibility_By_StudentID_CourseCode('TG2130','ICT1233');
++------------+-----------+-------------+----------------------+
+| Student_ID | Stu_FName | Course_Code | Eligibility_Status   |
++------------+-----------+-------------+----------------------+
+| TG2130     | Sajith    | ICT1233     | Not Overall Eligible |
++------------+-----------+-------------+----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
