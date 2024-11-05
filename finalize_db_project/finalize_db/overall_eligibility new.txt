@@ -98,7 +98,7 @@ END //
 
 DELIMITER ;
 
-
+call Check_Individual_Eligibility_By_StudentID_CourseCode ('TG2130','TCS1212');
  
 
 
