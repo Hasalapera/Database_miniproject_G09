@@ -1,0 +1,163 @@
+--maximum 2 QUIZES
+
+CREATE VIEW max_two_quizzes AS
+    SELECT Quiz_01, Quiz_02, Quiz_03,
+           GREATEST(Quiz_01, Quiz_02, Quiz_03) AS Max_Quiz_Score,
+           (Quiz_01 + Quiz_02 + Quiz_03 - GREATEST(Quiz_01, Quiz_02, Quiz_03) - LEAST(Quiz_01, Quiz_02, Quiz_03)) AS Second_Max_Quiz_Score
+    FROM marks;
+
+-- Get final marks
+
+CREATE VIEW total_marks AS 
+    SELECT marks.Mark_ID,marks.Mark_Stu_ID,marks.Mark_Course_Code,max_two_quizzes.Max_Quiz_Score,max_two_quizzes.Second_Max_Quiz_Score,marks.Assignment,marks.Mid_Exam,marks.End_Exam,
+    (max_two_quizzes.Max_Quiz_Score + max_two_quizzes.Second_Max_Quiz_Score + marks.Assignment + (0.4 * marks.Mid_Exam) + (0.6 * marks.End_Exam)) AS total_marks
+    FROM marks 
+    JOIN max_two_quizzes ON marks.Mark_ID = max_two_quizzes.Mark_ID
+                            AND marks.Mark_Stu_ID = max_two_quizzes.Mark_Stu_ID
+                            AND marks.Mark_Course_Code = max_two_quizzes.Mark_Course_Code;
+
+-- Get grades
+
+CREATE VIEW Grades AS
+    SELECT DISTINCT 
+        students.Student_ID,
+        students.Stu_FName,
+        students.Stu_LName,
+        tot_marks.Mark_Course_Code,  
+        tot_marks.Total_Marks,
+        CASE
+            WHEN students.Status = 'Repeat' THEN 'C+'  -- Assign C+ if the student is a repeater
+            WHEN tot_marks.Total_Marks >= 90 THEN 'A+'
+            WHEN tot_marks.Total_Marks >= 84 THEN 'A'
+            WHEN tot_marks.Total_Marks >= 75 THEN 'A-'
+            WHEN tot_marks.Total_Marks >= 70 THEN 'B+'
+            WHEN tot_marks.Total_Marks >= 65 THEN 'B'
+            WHEN tot_marks.Total_Marks >= 60 THEN 'B-'
+            WHEN tot_marks.Total_Marks >= 55 THEN 'C+'
+            WHEN tot_marks.Total_Marks >= 50 THEN 'C'
+            WHEN tot_marks.Total_Marks >= 45 THEN 'C-'
+            WHEN tot_marks.Total_Marks >= 40 THEN 'D+'
+            WHEN tot_marks.Total_Marks >= 35 THEN 'D'
+            ELSE 'F'  -- Assign 'F' for marks below 35
+        END AS Grade
+    FROM 
+        total_marks tot_marks
+    JOIN 
+        students ON tot_marks.Mark_Stu_ID = students.Student_ID;
+  
+
+-- Get SGPA
+
+CREATE VIEW SGPA AS
+    SELECT
+    students.Student_ID,
+    students.Stu_FName,
+    students.Stu_LName,
+    ROUND(
+        SUM(
+            CASE 
+                WHEN grades.Grade = 'A+' THEN 4.00 * courses.Credits
+                WHEN grades.Grade = 'A'  THEN 4.00 * courses.Credits
+                WHEN grades.Grade = 'A-' THEN 3.67 * courses.Credits
+                WHEN grades.Grade = 'B+' THEN 3.33 * courses.Credits
+                WHEN grades.Grade = 'B'  THEN 3.00 * courses.Credits
+                WHEN grades.Grade = 'B-' THEN 2.67 * courses.Credits
+                WHEN grades.Grade = 'C+' THEN 2.33 * courses.Credits
+                WHEN grades.Grade = 'C'  THEN 2.00 * courses.Credits
+                WHEN grades.Grade = 'C-' THEN 1.67 * courses.Credits
+                WHEN grades.Grade = 'D+' THEN 1.33 * courses.Credits
+                WHEN grades.Grade = 'D'  THEN 1.00 * courses.Credits
+                ELSE 0
+            END
+        ) / SUM(courses.Credits),3) AS SGPA
+FROM 
+    Grades grades
+JOIN 
+    Courses courses ON grades.Mark_Course_Code = courses.Course_Code
+JOIN 
+    Students students ON grades.Student_ID = students.Student_ID
+GROUP BY 
+    students.Student_ID, 
+    students.Stu_FName, 
+    students.Stu_LName;
+
+SELECT *FROM SGPA;
+
+-- Get CGPA 
+
+CREATE VIEW CGPA AS
+SELECT 
+    students.Student_ID,
+    students.Stu_FName,
+    students.Stu_LName,
+    ROUND(
+        SUM(
+            CASE 
+                WHEN grades.Grade = 'A+' THEN 4.00 * courses.Credits
+                WHEN grades.Grade = 'A'  THEN 4.00 * courses.Credits
+                WHEN grades.Grade = 'A-' THEN 3.67 * courses.Credits
+                WHEN grades.Grade = 'B+' THEN 3.33 * courses.Credits
+                WHEN grades.Grade = 'B'  THEN 3.00 * courses.Credits
+                WHEN grades.Grade = 'B-' THEN 2.67 * courses.Credits
+                WHEN grades.Grade = 'C+' THEN 2.33 * courses.Credits
+                WHEN grades.Grade = 'C'  THEN 2.00 * courses.Credits
+                WHEN grades.Grade = 'C-' THEN 1.67 * courses.Credits
+                WHEN grades.Grade = 'D+' THEN 1.33 * courses.Credits
+                WHEN grades.Grade = 'D'  THEN 1.00 * courses.Credits
+                ELSE 0
+            END
+        ) / SUM(courses.Credits), 3) AS CGPA
+FROM 
+    Grades grades
+JOIN 
+    Courses courses ON grades.Mark_Course_Code = courses.Course_Code
+JOIN 
+    Students students ON grades.Student_ID = students.Student_ID
+WHERE courses.Course_Code != 'English'  -- Exclude English subject
+GROUP BY 
+    students.Student_ID, 
+    students.Stu_FName, 
+    students.Stu_LName;
+
+
+
+####################### attendance summary ###################
+
+CREATE VIEW AttendanceSummary AS
+SELECT 
+    Att_Student_ID AS Student_ID,
+    Att_Course_Code AS Course_Code,
+    SUM
+        (CASE 
+            WHEN Status = 'pr' THEN Lec_hours 
+            ELSE 0 
+        END) / SUM(Lec_hours) * 100 AS Attendance_Percentage,
+
+    SUM
+        (CASE 
+            WHEN Status = 'pr' OR Medical_status = 'Yes' THEN Lec_hours 
+            ELSE 0 
+        END) / SUM(Lec_hours) * 100 AS Attendance_With_Medical
+FROM Attendence
+GROUP BY Att_Student_ID, Att_Course_Code;
+
+
+################################ create view for ca marks ################################
+
+CREATE VIEW vw_CA_Marks AS
+SELECT 
+    Mark_ID,
+    Mark_Stu_ID,
+    Mark_Course_Code,
+    Assignment,
+    Quiz_01,
+    Quiz_02,
+    Quiz_03,
+    -- Calculate the two highest quiz scores and the CA Marks
+    (Assignment + 
+        GREATEST(Quiz_01, Quiz_02, Quiz_03) + 
+        (Quiz_01 + Quiz_02 + Quiz_03 - GREATEST(Quiz_01, Quiz_02, Quiz_03) - LEAST(Quiz_01, Quiz_02, Quiz_03))
+    ) AS CA_Marks
+FROM 
+    Marks;
+

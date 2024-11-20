@@ -1,0 +1,37 @@
+CREATE TABLE Lecturer(
+    Lecturer_ID CHAR(4),
+    Lec_FName VARCHAR(100),
+    Lec_LName VARCHAR(100),
+    Lec_Dob DATE,
+    Lec_Email VARCHAR(100),
+    Lec_Address VARCHAR(100),
+    Lec_Phone_Number VARCHAR(10),
+    Enrollment_Date DATE,
+    Lec_Dep_ID CHAR(3),
+    PRIMARY KEY(lecturer_ID)
+);
+
+
+
+CREATE TABLE Mark(
+    Mark_ID VARCHAR(10),
+    Mark_Stu_ID VARCHAR(6),
+    Mark_Course_Code VARCHAR(7),
+    Assignment DECIMAL(5,2),
+    Quiz_01 DECIMAL(5,2),
+    Quiz_02 DECIMAL(5,2),
+    Quiz_03 DECIMAL(5,2),
+    Mid_Exam_Theory decimal(5,2),
+    Mid_Exam_Practical decimal(5,2),
+    End_Exam_Theory decimal(5,2),
+    End_Exam_Practical decimal(5,2),
+    PRIMARY KEY (Mark_ID, Mark_Stu_ID, Mark_Course_Code)
+);
+
+
+
+CREATE TABLE Lecturer_Course(
+    Lecturer_ID CHAR(4),
+    Course_Code VARCHAR(07),
+    PRIMARY KEY (Lecturer_ID,Course_Code)
+);

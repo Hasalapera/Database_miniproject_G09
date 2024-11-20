@@ -1,0 +1,562 @@
+################# Department Table ###############
+
+CREATE TABLE Department(
+    Department_ID CHAR(3),
+    Dep_Name VARCHAR(100),
+    Dep_Lec_ID CHAR(4),
+    Dep_Admin_ID CHAR(7),
+    PRIMARY KEY(department_ID)
+);
+
+INSERT INTO Department(Department_ID,Dep_Name,Dep_Lec_ID,Dep_Admin_ID)
+VALUES
+("D01","ICT DEPARTMENT","L001","admin1"),
+("D02","ET DEPARTMENT","L001","admin1"),
+("D03","BST DEPARTMENT","L001","admin1"),
+("D04","MULTIDISCIPLINARY DEPARTMENT","L001","admin1");
+
+################## Lecturer Table ########################
+
+CREATE TABLE Lecturer(
+    Lecturer_ID CHAR(4),
+    Lec_FName VARCHAR(100),
+    Lec_LName VARCHAR(100),
+    Lec_Dob DATE,
+    Lec_Email VARCHAR(100),
+    Lec_Address VARCHAR(100),
+    Lec_Phone_Number VARCHAR(10),
+    Enrollment_Date DATE,
+    Lec_Dep_ID CHAR(3),
+    PRIMARY KEY(lecturer_ID)
+);
+
+INSERT INTO Lecturer (Lecturer_ID, Lec_FName, Lec_LName, Lec_Dob, Lec_Email, Lec_Address, Lec_Phone_Number, Enrollment_Date, Lec_Dep_ID)
+VALUES
+("L001", "Subash", "Jayasinghe", "1980-12-21", "subash_jayasinghe@fot.ruh.ac.lk", "Matara","0761023456", "2018-03-21", "D01"),
+("L002", "Nuwan", "Laksiri", "1985-03-21", "nuwan_laksiri@fot.ruh.ac.lk", "Matara","0728398437", "2020-04-21", "D01"),
+("L003", "Shashitha", "Lakal", "1995-01-11", "shashitha_lakal_02@fot.ruh.ac.lk", "Galle","0753323782", "2021-01-18", "D01"),
+("L004", "Chanduni", "Gamage", "1995-05-10", "chanduni_gamage@fot.ruh.ac.lk", "Colombo","0773343134", "2022-08-23", "D01"),
+("L005", "Achini", "Wijesinghe", "1996-02-28", "achini_wijeshinghe@fot.ruh.ac.lk", "Kandy","0749913293", "2023-06-14", "D02"),
+("L006", "Rumeshika", "Wickramaarachchi", "1992-07-15", "rumeshika_wickramaarachchi@fot.ruh.ac.lk", "Matara","0778293928", "2022-11-05", "D01"),
+("L007", "Chathuranga", "Adikari", "1997-04-22", "chathuranga_adikari@fot.ruh.ac.lk", "Anuradhapura","0782362376", "2022-09-10", "D04"),
+("L008", "Naveen", "Welimuni", "1996-11-03", "Naveen_welimuni@fot.ruh.ac.lk", "Galle","0717237218", "2021-03-19", "D04");
+
+########################### Week Table #######################
+
+CREATE TABLE Week(
+    Week_ID CHAR(3),
+    Week_Name VARCHAR(20),
+    PRIMARY KEY(Week_ID)
+);
+
+INSERT INTO Week(Week_ID,Week_Name)
+VALUES
+('W01','Week_No_01'),
+('W02','Week_No_02'),
+('W03','Week_No_03'),
+('W04','Week_No_04'),
+('W05','Week_No_05'),
+('W06','Week_No_06'),
+('W07','Week_No_07'),
+('W08','Week_No_08'),
+('W09','Week_No_09'),
+('W10','Week_No_10'),
+('W11','Week_No_11'),
+('W12','Week_No_12'),
+('W13','Week_No_13'),
+('W14','Week_No_14'),
+('W15','Week_No_15');
+
+############################### Day Table #################################
+
+CREATE TABLE Day(
+    Day_ID CHAR(3),
+    Day_Name VARCHAR(10),
+    PRIMARY KEY(Day_ID)
+);
+
+INSERT INTO Day(Day_ID,Day_Name)
+VALUES
+('D01','Monday'),
+('D02','Tuesday'),
+('D03','Wednesday'),
+('D04','Thursday'),
+('D05','Friday');
+
+########################### Student Table ##################################
+
+CREATE TABLE Students (
+    Student_ID VARCHAR(6) PRIMARY KEY,
+    Stu_FName VARCHAR(50),
+    Stu_LName VARCHAR(50),
+    Stu_Dob DATE,
+    Stu_Address VARCHAR(100),
+    Stu_Email VARCHAR(100),
+    Stu_Phone_No VARCHAR(10),
+    Stu_Enrollment_Date DATE,
+    Status VARCHAR(10), -- Proper, Repeat
+    Stu_Dep_ID CHAR(3)
+);
+
+INSERT INTO Students
+(Student_ID,Stu_FName,Stu_LName,Stu_Dob,Stu_Address,Stu_Email,Stu_Phone_No,Stu_Enrollment_Date,Status,Stu_Dep_ID)
+VALUES
+('TG2201','Sadeepa','Dinakara','2002-11-14','Galle','sadeepadinakara@gmail.com','0764674356','2022-09-02','Proper','D01'), 
+('TG2202','Gihan','Kaveesha','2002-07-23','Galle','gihankaveesha@gmail.com','0756435263','2022-09-02','Proper','D01'),
+('TG2203','Hasala','Shehan','2001-04-21','Colombo','hasalashehan@gmail.com','0778654396','2022-09-02','Proper','D01'),
+('TG2204','Kavindu','Dilshan','2001-09-04','Galle','kavindudilshan@gmail.com','0783254961','2022-09-02','Proper','D01'),
+('TG2205','Yasith','Dananjaya','2001-04-02','Rathnapura','yasithdananjaya@gmail.com','0712357902','2022-09-02','Proper','D01'),
+('TG2206','Mithun','Madupriya','2001-08-12','Nuwara','mithunmadupriya@gmail.com','0749457243','2022-09-02','Proper','D01'),
+('TG2207','Harsha','Kumara','2003-01-12','Colombo','harshakumara@gmail.com','0782348765','2022-09-02','Proper','D01'),
+('TG2120','Ashen','Bandara','2000-02-14','Colombo','ashenbandara@gmail.com','0745083452','2021-09-05','Repeat','D01'),
+('TG2115','Kasun','Rajapaksha','2000-04-24','Matara','kasunrajapaksha@gmail.com','0716358292','2021-09-05','Repeat','D01'),
+('TG2125','Sahan','Dilhara','2000-07-02','Hambantota','sahandilhara@gmail.com','0712563821','2021-09-05','Repeat','D01'),
+('TG2208','Nimesh','Maduranga','2002-01-31','Badulla','nimeshmaduranga@gmail.com','0763527912','2022-09-02','Proper','D01'),
+('TG2130','Sajith','Roopasinghe','2003-11-23','Gampaha','sajithroopasinghe@gmail','0783446363','2021-09-05','Repeat','D01'),
+('TG2209','Roshan','Nirmal','2002-06-25','Kaluthara','roshannirmal@gmail.com','0754362927','2022-09-02','Proper','D01'),
+('TG2135','Akalanka','Theekshana','2000-08-12','Anuradhapura','akalankatheekshana@gmail.com','0728789235','2021-09-05','Repeat','D01'),
+('TG2210','Ashan','Fernando','2001-05-30','Polonnaruwa','ashanfernando@gmail.com','0719936425','2022-09-02','Proper','D01');
+
+####################### Courses ##############################
+
+CREATE TABLE Courses(
+    Course_Code VARCHAR(7) PRIMARY KEY NOT NULL,
+    Course_Name VARCHAR(100),
+    Credits INT,
+    Course_Type VARCHAR(10), -- Theory/Practical/Both
+    Course_Dep_ID CHAR(3)
+    );
+
+
+INSERT INTO Courses
+(Course_Code,Course_Name,Credits,Course_Type,Course_Dep_ID)
+VALUES
+('ICT1242','Computer Architecture',2,'T','D01'),
+('ICT1253','Computer Networks',3,'T/P','D01'),
+('ICT1212','Database Management System',2,'T','D01'),
+('ICT1222','Database Management System Practicum',2,'P','D01'),
+('TMS1233','Discrete Mathematics',3,'T','D02'),
+('ICT1233','Serverside Web Development',3,'T/P','D01'),
+('TCS1212','Fundamental of Management',2,'T','D04'),
+('ENG1222','English',2,'T','D04');
+
+######################## Lecturer_Course Table #########################
+
+CREATE TABLE Lecturer_Course(
+    Lecturer_ID CHAR(4),
+    Course_Code VARCHAR(07),
+    PRIMARY KEY (Lecturer_ID,Course_Code)
+);
+
+INSERT INTO Lecturer_Course(Lecturer_ID,Course_Code)
+VALUES
+("L002","ICT1212"),
+("L002","ICT1222"),
+("L003","ICT1242"),
+("L004","ICT1253"),
+("L005","TMS1233"),
+("L006","ICT1233"),
+("L007","TCS1212"),
+("L008","ENG1222");
+
+######################### TO_Department Table ###############################
+
+CREATE TABLE TO_Department(
+    TO_ID CHAR(4),
+    Department_ID CHAR(3),
+    PRIMARY KEY (TO_ID,Department_ID)
+);
+
+INSERT INTO TO_Department(TO_ID,Department_ID)
+VALUES
+("TO01","D01"),
+("TO02","D01"),
+("TO03","D01"),
+("TO04","D01"),
+("TO05","D01"),
+("TO01","D02"),
+("TO02","D02"),
+("TO03","D02"),
+("TO04","D02"),
+("TO05","D02"),
+("TO01","D03"),
+("TO02","D03"),
+("TO03","D03"),
+("TO04","D03"),
+("TO05","D03"),
+("TO01","D04"),
+("TO02","D04"),
+("TO03","D04"),
+("TO04","D04"),
+("TO05","D04");
+
+############################## Admin Table ###########################
+
+CREATE TABLE admin(
+    Admin_ID CHAR(7) PRIMARY KEY,
+    Admin_Name VARCHAR(100),
+    Admin_Phone_Number VARCHAR(10)
+);
+
+INSERT INTO admin(Admin_ID,Admin_Name,Admin_Phone_Number)
+VALUES
+("admin1","Charith Jayathilaka","0763242331");
+
+########################## Technical_Officer Table #######################
+
+CREATE TABLE Technical_Officer(
+    TO_ID CHAR(5) PRIMARY KEY,
+    TO_Name VARCHAR(100),
+    TO_Phone_Number VARCHAR(10)
+);
+
+INSERT INTO Technical_Officer(TO_ID,TO_Name,TO_Phone_Number)
+VALUES
+("TO01","Kasun Dissanayake","0752221117"),
+("TO02","Susantha Jayanath","0714237659"),
+("TO03","Vikum Wijesiri","0761234328"),
+("TO04","Nilanthi Ranathunga","0763242331"),
+("TO05","Anura Perera","0712267890");
+
+######################## Student_Course Table ###################
+
+CREATE TABLE Student_Course(
+    Student_ID VARCHAR(6),
+    Course_Code VARCHAR(7),
+    PRIMARY KEY (Student_ID,Course_Code)
+);
+
+INSERT INTO Student_Course (Student_ID, Course_Code) 
+VALUES
+('TG2201', 'ICT1242'), 
+('TG2201', 'ICT1253'), 
+('TG2201', 'ICT1212'), 
+('TG2201', 'ICT1222'), 
+('TG2201', 'TMS1233'), 
+('TG2201', 'ICT1233'), 
+('TG2201', 'TCS1212'), 
+('TG2201', 'ENG1222'),
+('TG2202', 'ICT1242'), 
+('TG2202', 'ICT1253'), 
+('TG2202', 'ICT1212'), 
+('TG2202', 'ICT1222'), 
+('TG2202', 'TMS1233'), 
+('TG2202', 'ICT1233'), 
+('TG2202', 'TCS1212'), 
+('TG2202', 'ENG1222'),
+('TG2203', 'ICT1242'), 
+('TG2203', 'ICT1253'), 
+('TG2203', 'ICT1212'), 
+('TG2203', 'ICT1222'), 
+('TG2203', 'TMS1233'), 
+('TG2203', 'ICT1233'), 
+('TG2203', 'TCS1212'), 
+('TG2203', 'ENG1222'),
+('TG2204', 'ICT1242'), 
+('TG2204', 'ICT1253'), 
+('TG2204', 'ICT1212'), 
+('TG2204', 'ICT1222'), 
+('TG2204', 'TMS1233'), 
+('TG2204', 'ICT1233'), 
+('TG2204', 'TCS1212'), 
+('TG2204', 'ENG1222'),
+('TG2205', 'ICT1242'), 
+('TG2205', 'ICT1253'), 
+('TG2205', 'ICT1212'), 
+('TG2205', 'ICT1222'), 
+('TG2205', 'TMS1233'), 
+('TG2205', 'ICT1233'), 
+('TG2205', 'TCS1212'), 
+('TG2205', 'ENG1222'),
+('TG2206', 'ICT1242'), 
+('TG2206', 'ICT1253'), 
+('TG2206', 'ICT1212'), 
+('TG2206', 'ICT1222'), 
+('TG2206', 'TMS1233'), 
+('TG2206', 'ICT1233'), 
+('TG2206', 'TCS1212'), 
+('TG2206', 'ENG1222'),
+('TG2207', 'ICT1242'), 
+('TG2207', 'ICT1253'), 
+('TG2207', 'ICT1212'), 
+('TG2207', 'ICT1222'), 
+('TG2207', 'TMS1233'), 
+('TG2207', 'ICT1233'), 
+('TG2207', 'TCS1212'), 
+('TG2207', 'ENG1222'),
+('TG2120', 'ICT1242'), 
+('TG2120', 'ICT1253'), 
+('TG2120', 'ICT1212'), 
+('TG2120', 'ICT1222'), 
+('TG2120', 'TMS1233'), 
+('TG2120', 'ICT1233'), 
+('TG2120', 'TCS1212'), 
+('TG2120', 'ENG1222'),
+('TG2115', 'ICT1242'), 
+('TG2115', 'ICT1253'), 
+('TG2115', 'ICT1212'), 
+('TG2115', 'ICT1222'), 
+('TG2115', 'TMS1233'), 
+('TG2115', 'ICT1233'), 
+('TG2115', 'TCS1212'), 
+('TG2115', 'ENG1222'),
+('TG2125', 'ICT1242'), 
+('TG2125', 'ICT1253'), 
+('TG2125', 'ICT1212'), 
+('TG2125', 'ICT1222'), 
+('TG2125', 'TMS1233'), 
+('TG2125', 'ICT1233'), 
+('TG2125', 'TCS1212'), 
+('TG2125', 'ENG1222'),
+('TG2208', 'ICT1242'), 
+('TG2208', 'ICT1253'), 
+('TG2208', 'ICT1212'), 
+('TG2208', 'ICT1222'), 
+('TG2208', 'TMS1233'), 
+('TG2208', 'ICT1233'), 
+('TG2208', 'TCS1212'), 
+('TG2208', 'ENG1222'),
+('TG2130', 'ICT1242'), 
+('TG2130', 'ICT1253'), 
+('TG2130', 'ICT1212'), 
+('TG2130', 'ICT1222'), 
+('TG2130', 'TMS1233'), 
+('TG2130', 'ICT1233'), 
+('TG2130', 'TCS1212'), 
+('TG2130', 'ENG1222'),
+('TG2209', 'ICT1242'), 
+('TG2209', 'ICT1253'), 
+('TG2209', 'ICT1212'), 
+('TG2209', 'ICT1222'), 
+('TG2209', 'TMS1233'), 
+('TG2209', 'ICT1233'), 
+('TG2209', 'TCS1212'), 
+('TG2209', 'ENG1222'),
+('TG2135', 'ICT1242'), 
+('TG2135', 'ICT1253'), 
+('TG2135', 'ICT1212'), 
+('TG2135', 'ICT1222'), 
+('TG2135', 'TMS1233'), 
+('TG2135', 'ICT1233'), 
+('TG2135', 'TCS1212'), 
+('TG2135', 'ENG1222'),
+('TG2210', 'ICT1242'), 
+('TG2210', 'ICT1253'), 
+('TG2210', 'ICT1212'), 
+('TG2210', 'ICT1222'), 
+('TG2210', 'TMS1233'), 
+('TG2210', 'ICT1233'), 
+('TG2210', 'TCS1212'), 
+('TG2210', 'ENG1222');
+
+########################## Marks Table ##############################
+
+CREATE TABLE Marks(
+    Mark_ID VARCHAR(10),
+    Mark_Stu_ID VARCHAR(6),
+    Mark_Course_Code VARCHAR(7),
+    Assignment DECIMAL(5,2),
+    Quiz_01 DECIMAL(5,2),
+    Quiz_02 DECIMAL(5,2),
+    Quiz_03 DECIMAL(5,2),
+    Mid_Exam_Theory decimal(5,2),
+    Mid_Exam_Practical decimal(5,2),
+    End_Exam_Theory decimal(5,2),
+    End_Exam_Practical decimal(5,2),
+    CA_Marks DECIMAL(5,2),
+    Final_Marks DECIMAL(5,2) GENERATED ALWAYS AS (CA_Marks + ((Mid_Exam_Theory* 0.4)/2 +(Mid_Exam_Practical* 0.4)/2) + ((End_Exam_Theory* 0.6)/2 +(End_Exam_Practical* 0.6)/2)) STORED,
+    PRIMARY KEY (Mark_ID, Mark_Stu_ID, Mark_Course_Code)
+);
+
+INSERT INTO Marks(Mark_ID,Mark_Stu_ID,Mark_Course_Code,Assignment,Quiz_01,Quiz_02,Quiz_03,Mid_Exam_Theory,Mid_Exam_Practical,End_Exam_Theory,End_Exam_Practical)
+VALUES
+("MARK000001", "TG2201", "ICT1242", 3.0, 4.5, 2.0, 3.8, 72.0, 00.00, 67.3,00.00),
+("MARK000002", "TG2201", "ICT1253", 4.8, 3.5, 4.0, 3.6, 68.0, 75.2, 80.5, 70.1),
+("MARK000003", "TG2201", "ICT1212", 2.5, 4.0, 1.5, 3.2, 63.0, 00.00, 78.8,00.00),
+("MARK000004", "TG2201", "ICT1222", 3.2, 2.0, 4.5, 2.5, 00.00, 65.4, 00.00, 75.8),
+("MARK000005", "TG2201", "TMS1233", 4.1, 2.7, 3.5, 4.0, 55.0, 00.00, 66.3, 00.00),
+("MARK000006", "TG2201", "ICT1233", 3.8, 4.8, 1.0, 4.2, 72.0, 78.4, 83.1, 69.5),
+("MARK000007", "TG2201", "TCS1212", 4.6, 3.2, 2.7, 4.9, 76.0, 00.00, 82.4, 00.00),
+("MARK000008", "TG2201", "ENG1222", 4.2, 1.8, 3.5, 3.1, 67.0, 00.00, 78.5, 00.00),
+
+("MARK000009", "TG2202", "ICT1242", 4.5, 3.9, 4.6, 3.2, 73.0, 68.1, 81.4, 78.6),
+("MARK000010", "TG2202", "ICT1253", 2.9, 3.5, 2.1, 4.3, 68.0, 70.9, 83.5, 69.4),
+("MARK000011", "TG2202", "ICT1212", 4.1, 2.6, 3.8, 4.0, 70.0, 74.2, 85.8, 70.7),
+("MARK000012", "TG2202", "ICT1222", 3.7, 3.0, 2.7, 4.4, 67.0, 65.5, 77.3, 72.8),
+("MARK000013", "TG2202", "TMS1233", 3.3, 4.5, 4.1, 3.0, 63.0, 71.1, 69.7, 73.2),
+("MARK000014", "TG2202", "ICT1233", 4.8, 1.0, 3.9, 2.3, 76.0, 68.4, 82.2, 74.5),
+("MARK000015", "TG2202", "TCS1212", 3.9, 4.2, 4.4, 1.6, 65.0, 70.8, 84.0, 75.6),
+("MARK000016", "TG2202", "ENG1222", 2.4, 4.3, 1.9, 3.7, 72.0, 78.2, 73.1, 67.4),
+
+
+("MARK000017", "TG2203", "ICT1242", 3.6, 3.5, 2.4, 4.0, 64.0, 75.4, 80.2, 73.1),
+("MARK000018", "TG2203", "ICT1253", 4.4, 3.2, 4.0, 3.8, 70.0, 69.5, 82.8, 65.3),
+("MARK000019", "TG2203", "ICT1212", 2.7, 3.9, 3.5, 4.6, 66.0, 78.1, 77.5, 73.4),
+("MARK000020", "TG2203", "ICT1222", 4.8, 2.5, 3.3, 2.2, 72.0, 77.2, 79.3, 68.7),
+("MARK000021", "TG2203", "TMS1233", 3.5, 4.1, 3.7, 4.0, 64.0, 70.3, 76.4, 72.9),
+("MARK000022", "TG2203", "ICT1233", 2.8, 3.4, 4.9, 1.8, 65.0, 74.9, 83.2, 66.8),
+("MARK000023", "TG2203", "TCS1212", 4.0, 2.3, 4.8, 3.0, 68.0, 65.4, 85.1, 70.5),
+("MARK000024", "TG2203", "ENG1222", 3.4, 4.2, 1.9, 2.4, 63.0, 77.5, 80.2, 68.9),
+
+("MARK000025", "TG2204", "ICT1242", 4.2, 1.5, 3.6, 2.9, 66.0, 70.4, 84.8, 75.6),
+("MARK000026", "TG2204", "ICT1253", 4.7, 2.4, 2.6, 4.3, 72.0, 77.3, 73.5, 78.1),
+("MARK000027", "TG2204", "ICT1212", 3.3, 4.6, 3.0, 2.5, 74.0, 79.2, 82.6, 70.7),
+("MARK000028", "TG2204", "ICT1222", 2.6, 3.9, 2.8, 4.5, 70.0, 74.6, 81.3, 63.2),
+("MARK000029", "TG2204", "TMS1233", 4.5, 3.4, 4.1, 2.7, 78.0, 65.9, 80.4, 71.8),
+("MARK000030", "TG2204", "ICT1233", 2.5, 4.8, 3.2, 3.4, 64.0, 79.1, 76.8, 68.5),
+("MARK000031", "TG2204", "TCS1212", 4.6, 3.1, 2.3, 3.9, 67.0, 75.5, 83.2, 66.4),
+("MARK000032", "TG2204", "ENG1222", 3.1, 2.0, 4.7, 4.4, 65.0, 77.9, 84.5, 73.8),
+
+("MARK000033", "TG2205", "ICT1242", 3.5, 2.6, 3.7, 4.0, 63.0, 72.2, 83.5, 70.6),
+("MARK000034", "TG2205", "ICT1253", 4.2, 4.1, 2.2, 3.8, 69.0, 68.3, 82.4, 65.1),
+("MARK000035", "TG2205", "ICT1212", 2.8, 3.6, 3.3, 4.1, 74.0, 76.2, 81.9, 79.4),
+("MARK000036", "TG2205", "ICT1222", 3.7, 4.4, 2.5, 4.6, 72.0, 63.8, 77.1, 72.3),
+("MARK000037", "TG2205", "TMS1233", 4.6, 1.9, 3.8, 3.4, 66.0, 70.7, 80.3, 68.6),
+("MARK000038", "TG2205", "ICT1233", 2.9, 4.2, 1.7, 4.7, 68.0, 79.5, 74.8, 65.9),
+("MARK000039", "TG2205", "TCS1212", 3.0, 2.8, 4.3, 1.6, 65.0, 73.1, 78.5, 69.4),
+("MARK000040", "TG2205", "ENG1222", 3.4, 3.3, 2.5, 4.5, 67.0, 75.9, 81.6, 70.2),
+
+
+
+("MARK000041", "TG2206", "ICT1242", 3.1, 4.5, 3.8, 4.1, 56.5, 45.2, 29.3, 45.7),
+("MARK000042", "TG2206", "ICT1253", 4.0, 2.9, 3.5, 3.6, 64.8, 76.1, 45.5, 50.0),
+("MARK000043", "TG2206", "ICT1212", 3.2, 3.3, 4.1, 2.7, 72.4, 80.3, 53.1, 45.9),
+("MARK000044", "TG2206", "ICT1222", 4.3, 4.4, 3.9, 2.5, 58.7, 83.5, 67.0, 60.0),
+("MARK000045", "TG2206", "TMS1233", 3.4, 4.1, 4.5, 2.8, 73.2, 71.6, 78.0, 54.0),
+("MARK000046", "TG2206", "ICT1233", 4.1, 3.8, 2.7, 3.2, 82.1, 63.3, 49.5, 58.8),
+("MARK000047", "TG2206", "TCS1212", 3.8, 4.6, 3.4, 4.0, 64.0, 70.0, 50.5, 55.0),
+("MARK000048", "TG2206", "ENG1222", 2.9, 4.7, 3.6, 3.3, 75.9, 69.2, 60.0, 62.3),
+
+("MARK000049", "TG2207", "ICT1242", 4.2, 3.1, 4.2, 2.9, 80.0, 70.5, 58.2, 65.3),
+("MARK000050", "TG2207", "ICT1253", 3.3, 2.8, 3.7, 4.3, 55.5, 82.6, 45.1, 54.9),
+("MARK000051", "TG2207", "ICT1212", 3.6, 3.7, 2.9, 4.6, 66.2, 81.8, 60.5, 70.1),
+("MARK000052", "TG2207", "ICT1222", 4.7, 4.0, 2.3, 4.2, 69.0, 77.3, 80.0, 62.6),
+("MARK000053", "TG2207", "TMS1233", 2.8, 3.4, 4.6, 3.1, 74.2, 61.0, 70.0, 50.5),
+("MARK000054", "TG2207", "ICT1233", 3.5, 4.3, 4.0, 2.7, 79.0, 59.9, 55.0, 65.0),
+("MARK000055", "TG2207", "TCS1212", 3.4, 4.1, 3.2, 3.8, 72.5, 88.4, 62.1, 58.2),
+("MARK000056", "TG2207", "ENG1222", 4.0, 3.9, 2.5, 4.4, 64.1, 75.0, 68.3, 72.2),
+
+("MARK000057", "TG2208", "ICT1242", 3.0, 3.7, 4.4, 3.9, 81.5, 67.5, 55.0, 60.0),
+("MARK000058", "TG2208", "ICT1253", 4.6, 3.2, 2.1, 4.5, 58.1, 79.0, 60.1, 66.5),
+("MARK000059", "TG2208", "ICT1212", 4.3, 4.5, 3.0, 4.7, 65.8, 73.4, 55.0, 70.0),
+("MARK000060", "TG2208", "ICT1222", 2.7, 4.2, 4.8, 2.4, 78.9, 82.1, 50.5, 75.1),
+("MARK000061", "TG2208", "TMS1233", 3.8, 3.3, 3.1, 3.5, 69.0, 60.2, 70.0, 68.0),
+("MARK000062", "TG2208", "ICT1233", 0.0, 2.9, 4.7, 4.1, 76.5, 85.0, 63.2, 75.5),
+("MARK000063", "TG2208", "TCS1212", 3.7, 4.8, 2.8, 3.0, 80.0, 80.0, 59.0, 66.0),
+("MARK000064", "TG2208", "ENG1222", 2.6, 3.1, 4.3, 3.2, 70.0, 77.0, 50.5, 60.0),
+
+("MARK000065", "TG2209", "ICT1242", 4.3, 4.0, 3.5, 4.2, 68.0, 81.0, 72.0, 75.0),
+("MARK000066", "TG2209", "ICT1253", 3.1, 2.5, 4.6, 2.8, 59.5, 66.0, 60.5, 64.0),
+("MARK000067", "TG2209", "ICT1212", 3.4, 4.4, 3.2, 4.9, 72.3, 64.8, 65.0, 68.0),
+("MARK000068", "TG2209", "ICT1222", 3.8, 3.6, 4.9, 3.3, 71.5, 60.0, 55.0, 62.0),
+("MARK000069", "TG2209", "TMS1233", 4.6, 3.4, 3.1, 2.4, 78.5, 74.2, 68.0, 70.0),
+("MARK000070", "TG2209", "ICT1233", 2.9, 4.1, 3.9, 4.5, 60.3, 67.0, 59.0, 63.5),
+("MARK000071", "TG2209", "TCS1212", 4.2, 2.7, 2.8, 4.0, 75.0, 79.0, 60.5, 62.5),
+("MARK000072", "TG2209", "ENG1222", 3.3, 4.2, 3.7, 3.4, 64.5, 82.0, 62.0, 68.0),
+
+("MARK000073", "TG2210", "ICT1242", 3.9, 3.0, 4.8, 4.7, 67.3, 75.1, 54.2, 66.8),
+("MARK000074", "TG2210", "ICT1253", 4.5, 4.3, 2.9, 4.1, 62.5, 70.0, 58.4, 61.3),
+("MARK000075", "TG2210", "ICT1212", 4.7, 4.6, 3.3, 2.6, 71.9, 78.2, 61.0, 66.5),
+("MARK000076", "TG2210", "ICT1222", 3.6, 2.3, 4.5, 3.8, 74.1, 69.4, 62.1, 65.0),
+("MARK000077", "TG2210", "TMS1233", 2.7, 4.8, 3.1, 3.4, 69.8, 88.5, 67.0, 71.2),
+("MARK000078", "TG2210", "ICT1233", 4.1, 3.5, 3.7, 4.9, 58.2, 77.5, 64.0, 70.1),
+("MARK000079", "TG2210", "TCS1212", 3.2, 3.9, 4.4, 2.1, 76.0, 72.3, 59.4, 66.9),
+("MARK000080", "TG2210", "ENG1222", 4.9, 0, 0, 0, 63.5, 79.4, 00.0, 02.8),
+
+
+("MARK000081", "TG2115", "ICT1242", 3.8, 4.1, 3.5, 4.6, 78.0, 82.0, 62.8, 88.5),
+("MARK000082", "TG2115", "ICT1253", 4.3, 3.4, 4.8, 3.7, 62.0, 79.0, 0.0, 78.1),
+("MARK000083", "TG2115", "ICT1212", 3.9, 2.8, 4.4, 4.5, 73.0, 68.0, 56.0, 23.4),
+("MARK000084", "TG2115", "ICT1222", 4.1, 3.2, 3.6, 2.7, 69.0, 85.0, 65.0, 89.0),
+("MARK000085", "TG2115", "TMS1233", 2.9, 3.7, 4.1, 3.8, 76.0, 71.0, 12.0, 45.0),
+("MARK000086", "TG2115", "ICT1233", 3.6, 4.4, 3.9, 4.0, 64.0, 73.0, 5.0, 22.0),
+("MARK000087", "TG2115", "TCS1212", 3.3, 2.9, 4.5, 3.1, 77.0, 80.0, 87.0, 22.0),
+("MARK000088", "TG2115", "ENG1222", 0.0, 3.0, 3.8, 4.3, 75.0, 68.0, 18.5, 45.2),
+
+
+("MARK000089", "TG2120", "ICT1242", 3.2, 3.6, 4.9, 3.4, 66.0, 84.0, 23.5, 89.4),
+("MARK000090", "TG2120", "ICT1253", 4.2, 2.7, 4.0, 2.8, 70.3, 75.2, 56.1, 64.4),
+("MARK000091", "TG2120", "ICT1212", 4.6, 4.1, 3.1, 3.6, 68.5, 72.9, 51.3, 59.8),
+("MARK000092", "TG2120", "ICT1222", 3.5, 4.9, 3.8, 4.2, 77.4, 66.0, 62.2, 70.5),
+("MARK000093", "TG2120", "TMS1233", 4.3, 3.1, 4.7, 2.6, 62.8, 79.6, 55.0, 65.3),
+("MARK000094", "TG2120", "ICT1233", 4.4, 3.8, 3.0, 4.9, 69.9, 83.1, 60.7, 68.6),
+("MARK000095", "TG2120", "TCS1212", 3.8, 4.0, 4.2, 3.7, 71.0, 65.4, 54.3, 62.8),
+("MARK000096", "TG2120", "ENG1222", 4.5, 3.6, 3.4, 4.1, 74.2, 78.5, 66.0, 72.1),
+
+
+("MARK000097", "TG2125", "ICT1242", 3.9, 4.2, 3.7, 4.3, 79.0, 64.0, 55.3, 72.6),
+("MARK000098", "TG2125", "ICT1253", 4.1, 3.3, 4.6, 2.5, 60.0, 77.4, 62.1, 68.8),
+("MARK000099", "TG2125", "ICT1212", 4.8, 4.5, 2.7, 4.0, 74.5, 69.0, 59.4, 66.2),
+("MARK000100", "TG2125", "ICT1222", 2.9, 4.8, 3.5, 3.0, 65.2, 81.3, 70.5, 74.1),
+("MARK000101", "TG2125", "TMS1233", 4.0, 4.7, 3.3, 3.8, 82.0, 63.5, 55.6, 60.7),
+("MARK000102", "TG2125", "ICT1233", 3.2, 3.5, 4.1, 4.4, 67.0, 76.8, 54.2, 61.0),
+("MARK000103", "TG2125", "TCS1212", 3.4, 4.3, 3.6, 2.9, 71.0, 85.0, 58.3, 64.9),
+("MARK000104", "TG2125", "ENG1222", 4.2, 3.1, 4.5, 3.9, 73.0, 67.4, 61.9, 66.7),
+
+
+("MARK000105", "TG2130", "ICT1242", 4.9, 4.2, 2.8, 4.6, 68.0, 83.5, 75.4, 69.2),
+("MARK000106", "TG2130", "ICT1253", 3.7, 4.4, 3.9, 3.4, 70.0, 72.0, 64.8, 71.1),
+("MARK000107", "TG2130", "ICT1212", 3.0, 3.2, 4.6, 4.1, 75.0, 65.2, 62.3, 68.4),
+("MARK000108", "TG2130", "ICT1222", 4.7, 3.6, 4.3, 2.8, 72.0, 78.1, 66.5, 74.7),
+("MARK000109", "TG2130", "TMS1233", 3.1, 4.9, 3.8, 4.7, 64.0, 79.6, 68.2, 70.3),
+("MARK000110", "TG2130", "ICT1233", 4.4, 2.7, 3.5, 4.8, 63.0, 80.4, 70.6, 73.8),
+("MARK000111", "TG2130", "TCS1212", 2.9, 4.3, 3.1, 4.5, 78.0, 71.4, 65.1, 67.9),
+("MARK000112", "TG2130", "ENG1222", 4.6, 3.5, 4.2, 3.3, 66.0, 75.8, 71.7, 72.5),
+
+
+("MARK000113", "TG2135", "ICT1242", 4.3, 3.2, 4.7, 3.0, 73.0, 69.5, 77.1, 71.4),
+("MARK000114", "TG2135", "ICT1253", 3.5, 4.0, 2.9, 4.3, 76.0, 82.0, 64.8, 68.3),
+("MARK000115", "TG2135", "ICT1212", 4.1, 4.9, 3.3, 4.4, 61.0, 70.2, 66.4, 73.0),
+("MARK000116", "TG2135", "ICT1222", 3.6, 3.8, 4.5, 2.6, 65.0, 84.1, 60.5, 62.7),
+("MARK000117", "TG2135", "TMS1233", 4.8, 4.2, 3.7, 3.9, 74.0, 60.9, 68.2, 65.4),
+("MARK000118", "TG2135", "ICT1233", 4.0, 2.5, 4.4, 4.1, 69.0, 86.3, 72.5, 70.8),
+("MARK000119", "TG2135", "TCS1212", 3.3, 3.9, 3.5, 3.2, 72.0, 74.6, 63.1, 67.0),
+("MARK000120", "TG2135", "ENG1222", 4.4, 3.6, 4.1, 4.8, 67.0, 78.5, 69.0, 71.6);
+
+
+############################ Seperat Theory Practical and Update ##############################
+
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'ICT1212';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'ENG1222';
+UPDATE Marks SET Mid_Exam_Theory = 0, End_Exam_Theory = 0 WHERE Mark_Course_Code = 'ICT1222';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'ICT1242';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'TCS1212';
+UPDATE Marks SET Mid_Exam_Practical = 0, End_Exam_Practical = 0 WHERE Mark_Course_Code = 'TMS1233';
+
+##############################################################################################################
+  Update marks Table calculate max two quizes and add their marks with assignment marks and get full CA Marks
+##############################################################################################################
+
+UPDATE marks 
+SET CA_Marks = Assignment + 
+               GREATEST(Quiz_01, Quiz_02, Quiz_03) +
+               LEAST(GREATEST(Quiz_01, Quiz_02), GREATEST(Quiz_01, Quiz_03), GREATEST(Quiz_02, Quiz_03));
+
+############### Add Grade column to the marks Table #################
+
+ALTER TABLE marks ADD COLUMN Grade VARCHAR(3);
+
+
+
+*****************************************************************************
+******************  ****************** ****************** ******************* 
+****************** Then You need to call Grading Procedure ******************
+****************** ****************** ****************** ********************
+*****************************************************************************
+
+
+
+###################### Create Table Medical ############################
+
+CREATE TABLE Medical (
+    Medical_ID VARCHAR(6) PRIMARY KEY,
+    Student_ID VARCHAR(7),
+    Course_Code VARCHAR(7),
+    Assessment_Type ENUM('CA', 'Mid', 'Final') NOT NULL, -- Type of assessment covered by medical
+    Start_Date DATE,
+    End_Date DATE,
+    Description TEXT
+);
+
+
+
